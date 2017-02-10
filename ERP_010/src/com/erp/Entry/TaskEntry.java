@@ -20,18 +20,28 @@ public class TaskEntry {
 	private String taskName;
 	private String startTime;
 	private String endTime;
+	private String updateTime;
 	private String chairMan;
 	private String type;
 	private String place;
 	private String financing;
 	private String goal;
 	private String reportType;
-	private DepartEntry depart;
 	
 	private int reportNum;
 	private int advise1Num;
 	private int advise2Num;
 	
+	
+	
+	public String getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
+
 	public boolean isChecked1(){
 		return reportNum == advise1Num;
 	}
@@ -113,13 +123,6 @@ public class TaskEntry {
 	public void setReportType(String reportType) {
 		this.reportType = reportType;
 	}
-	public DepartEntry getDepart() {
-		return depart;
-	}
-	public void setDepart(DepartEntry depart) {
-		this.depart = depart;
-	}
-	
 	
 	public String getTaskName() {
 		return taskName;
@@ -135,9 +138,13 @@ public class TaskEntry {
 	@Override
 	public String toString() {
 		return "TaskEntry [taskId=" + taskId + ", taskName=" + taskName + ", startTime=" + startTime + ", endTime="
-				+ endTime + ", chairMan=" + chairMan + ", type=" + type + ", place=" + place + ", financing="
-				+ financing + ", goal=" + goal + ", reportType=" + reportType  + ", reportNum="
-				+ reportNum + ", advise1Num=" + advise1Num + ", advise2Num=" + advise2Num + "]\n";
+				+ endTime + ", updateTime=" + updateTime + ", chairMan=" + chairMan + ", type=" + type + ", place="
+				+ place + ", financing=" + financing + ", goal=" + goal + ", reportType=" + reportType + ", reportNum="
+				+ reportNum + ", advise1Num=" + advise1Num + ", advise2Num=" + advise2Num + "]";
 	}
+	
+	
+
+	
 	
 }

@@ -43,43 +43,32 @@ public class DepartDao {
 	}
 	
 	public static List<DepartEntry> getAllDepartByClassId(String departClassId){
-		List<DepartEntry> departEntries = new ArrayList<>();
 		Connection conn = null;
 		try {
 			conn = DBUtils.getConnection();
-//			departEntries.addAll(getAllDepartByClassId(departClassId, conn,false));
+			return getAllDepartByClassId(conn, departClassId);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			DBUtils.close(conn);
 		}
 		
-
-		
-		return departEntries;
+		return null;
 		
 	}
 	
-	public static void getAllDepartByClassId(Connection conn,DepartClassEntry departClassEntry,boolean deep){
-
+	public static List<DepartEntry> getAllDepartByClassId(Connection conn,String departClassId){
+		List<DepartEntry> departEntries = new ArrayList<>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
 			stmt =  conn.prepareStatement("select * from Depart,DepartClass,Depart_DepartClass where Depart.department_id = Depart_DepartClass.department_id and Depart_DepartClass.departClass_id = DepartClass.departClass_id and DepartClass.departClass_id = ?");
-			stmt.setString(1, departClassEntry.getDepartClassId());
+			stmt.setString(1, departClassId);
 			rs = stmt.executeQuery();
 			while(rs.next()){
 				DepartEntry entry = fill(rs);
-				entry.setDepartClass(departClassEntry);
-				departClassEntry.getDeparts().add(entry);
+				departEntries.add(entry);
 			}
-			if(deep){
-				for(DepartEntry entry:departClassEntry.getDeparts()){
-					TaskDao.getAllTaskByDepartId(conn, entry, deep);
-				}
-			}
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -87,7 +76,7 @@ public class DepartDao {
 			DBUtils.close(rs, stmt);
 		}
 		
-		return;
+		return departEntries;
 	}
 	
 	public static DepartEntry fill(ResultSet rs) throws SQLException{

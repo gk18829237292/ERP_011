@@ -98,6 +98,9 @@
                    
                 </ul>
             </div>
+            <div class="row J_mainContent" id="content-main">
+                <iframe id="J_iframe" width="100%" height="100%" src="taskServlet" frameborder="0" data-id="index1" seamless></iframe>
+            </div>
         </nav>   
         <!--左侧导航结束-->
         <!--右侧部分开始-->

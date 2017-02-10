@@ -34,7 +34,7 @@ public class DepartClassDao {
 			}
 			if(deep){
 				for(DepartClassEntry entry: departClassEntries){
-					DepartDao.getAllDepartByClassId(conn, entry, deep);
+					entry.getDeparts().addAll(DepartDao.getAllDepartByClassId(conn, entry.getDepartClassId()));
 				}
 			}
 			

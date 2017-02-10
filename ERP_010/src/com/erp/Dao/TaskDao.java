@@ -22,27 +22,36 @@ public class TaskDao {
 		return entries;
 	}
 	
-	public static void getAllTaskByDepartId(String departId,List<TaskEntry> taskEntries) {
-		
+	public static List<TaskEntry> getAllTaskByDepartId(String departId,List<TaskEntry> taskEntries) {
+		Connection conn = null;
+		try {
+			conn = DBUtils.getConnection();
+			return getAllTaskByDepartId(conn,departId);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(conn);
+		}
+		return null;
 	}
 	
-	public static void getAllTaskByDepartId(Connection conn,DepartEntry departEntry,boolean deep) {
+	public static List<TaskEntry> getAllTaskByDepartId(Connection conn,String departId) {
+		List<TaskEntry> taskEntries = new ArrayList<>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
 			stmt = conn.prepareStatement("select * from " + TABLE_NAME + " where department_id = ?" );
-			stmt.setString(1, departEntry.getDepartId());
+			stmt.setString(1, departId);
 			rs = stmt.executeQuery();
 			while(rs.next()){
 				TaskEntry entry = fill(rs);
-				entry.setDepart(departEntry);
-				departEntry.getTasks().add(entry);
+				taskEntries.add(entry);
 			}
-			if(deep){
-				for(TaskEntry entry:departEntry.getTasks()){
-					entry.setAdvise1Num(AdviceDao.getAdviceNum(conn, entry.getTaskId(), 0)); //监督者
-					entry.setAdvise2Num(AdviceDao.getAdviceNum(conn, entry.getTaskId(), 1)); //管理者
-				}
+
+			for(TaskEntry entry:taskEntries){
+				entry.setAdvise1Num(AdviceDao.getAdviceNum(conn, entry.getTaskId(), 0)); //监督者
+				entry.setAdvise2Num(AdviceDao.getAdviceNum(conn, entry.getTaskId(), 1)); //管理者
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -50,6 +59,34 @@ public class TaskDao {
 		}finally {
 			DBUtils.close(rs, stmt);
 		}
+		return taskEntries;
+	}
+	
+	public static List<TaskEntry> getAllTask(int num){
+		List<TaskEntry> taskEntries = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBUtils.getConnection();
+			stmt = conn.prepareStatement("select * from "+ TABLE_NAME +" order by updateTime desc limit ?");
+			stmt.setInt(1, num);
+			rs = stmt.executeQuery();
+			while(rs.next()){
+				taskEntries.add(fill(rs));
+			}
+			
+			for(TaskEntry entry:taskEntries){
+				entry.setAdvise1Num(AdviceDao.getAdviceNum(conn, entry.getTaskId(), 0)); //监督者
+				entry.setAdvise2Num(AdviceDao.getAdviceNum(conn, entry.getTaskId(), 1)); //管理者
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, stmt, conn);
+		}
+		return taskEntries;
 	}
 	
 	public static TaskEntry fill(ResultSet rs) throws SQLException {
@@ -58,6 +95,7 @@ public class TaskDao {
 		entry.setTaskName(rs.getString("task_name"));
 		entry.setStartTime(rs.getString("startTime"));
 		entry.setEndTime(rs.getString("endTime"));
+		entry.setUpdateTime(rs.getString("updateTime"));
 		entry.setChairMan(rs.getString("chairMan"));
 		entry.setType(rs.getString("type"));
 		entry.setPlace(rs.getString("place"));

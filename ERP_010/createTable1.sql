@@ -24,6 +24,7 @@ create table Task(
     task_name nvarchar(100) not null,
     startTime long not null,
 	endTime long not null,
+    updateTime long not null,
     chairMan nvarchar(40) not null, -- 负责人
     type int not null, -- 0 不重要 1 重要
     place nvarchar(40),
@@ -85,10 +86,10 @@ insert into Depart_DepartClass values(2,2);
 insert into Depart_DepartClass values(3,3);
 insert into Depart_DepartClass values(4,1);
 
-insert into Task values(1,"项目A",1,1,"小赵",0,"地点A",1000,"完成项目A",0,3);
-insert into Task values(2,"项目B",1,1,"小钱",1,"地点B",1000,"完成项目B",1,3);
-insert into Task values(3,"项目C",1,1,"小孙",0,"地点C",1000,"完成项目C",2,4);
-insert into Task values(4,"项目D",1,1,"小李",0,"地点D",1000,"完成项目D",3,4);
+insert into Task values(1,"项目A",1,1,1,"小赵",0,"地点A",1000,"完成项目A",0,3);
+insert into Task values(2,"项目B",1,1,2,"小钱",1,"地点B",1000,"完成项目B",1,3);
+insert into Task values(3,"项目C",1,1,3,"小孙",0,"地点C",1000,"完成项目C",2,4);
+insert into Task values(4,"项目D",1,1,4,"小李",0,"地点D",1000,"完成项目D",3,4);
 
 insert into Report values(1,1,1,"评论A","gk1.jpg;gk2.jpg",1);
 insert into Report values(2,1,2,"评论B","gk1.jpg;gk2.jpg",1);
