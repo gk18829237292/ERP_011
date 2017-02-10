@@ -1,0 +1,17 @@
+package com.erp.Dao;
+
+import java.sql.Connection;
+
+public class AdviseDao {
+	
+	private static final String TAG="AdviseDao";
+	private static final String TABLE_NAME="Advise";
+	
+	public static boolean checkByTaskId(String taskId){
+		
+	}
+	
+	public static boolean checkByTaskId(String taskId,Connection conn) {
+		
+	}
+}

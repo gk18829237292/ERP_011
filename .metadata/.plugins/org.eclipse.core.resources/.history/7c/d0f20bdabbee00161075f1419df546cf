@@ -1,0 +1,13 @@
+package com.erp.test;
+
+import org.junit.Test;
+
+import com.erp.Dao.StuffDao;
+
+public class MyTest {
+	
+	@Test
+	public void testQuery(){
+		System.out.println(StuffDao.getStuff("gk5", "123"));
+	}
+}

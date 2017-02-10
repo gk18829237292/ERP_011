@@ -1,0 +1,61 @@
+package com.erp.Servlet;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.erp.Entry.StuffEntry;
+import com.erp.Log.Log;
+
+
+@WebServlet("/MainServlet")
+public class MainServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+    private static final String TAG = MainServlet.class.getName();
+
+    
+    public MainServlet() {
+        super();
+
+    }
+
+    /**
+     * 判断是否已经登录
+     */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Log.logInfo(TAG, "doGet");
+		
+		StuffEntry stuff = (StuffEntry) request.getSession().getAttribute("stuff");
+		if(stuff == null){
+			response.sendRedirect("Login");
+		}else{
+			switch (stuff.getType()) {
+			case "0":  //监督者
+				
+				break;
+			case "1": //管理者
+				break;
+			case "2":
+				break;
+			default:
+				response.sendRedirect("Login");
+				break;
+			}
+		}
+		
+		
+		
+		
+		
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

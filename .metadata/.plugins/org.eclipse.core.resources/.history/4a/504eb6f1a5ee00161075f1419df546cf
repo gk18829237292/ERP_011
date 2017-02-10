@@ -1,0 +1,9 @@
+package com.erp.Dao;
+
+public class AdviseDao {
+	
+	private static final String TAG="AdviseDao";
+	private static final String TABLE_NAME="Advise";
+	
+	
+}

@@ -1,0 +1,58 @@
+package com.erp.Dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.erp.Entry.DepartClassEntry;
+import com.erp.utils.DBUtils;
+import com.sun.corba.se.impl.encoding.OSFCodeSetRegistry.Entry;
+
+
+public class DepartClassDao {
+	
+	private static final String TAG="DepartClassDao";
+	private static final String TABLE_NAME="DepartClass";
+	public List<DepartClassEntry> getAllDepartClass(){
+		return getAllDepartClass(false);
+	}
+	public List<DepartClassEntry> getAllDepartClass(boolean deep){
+		List<DepartClassEntry> departClassEntries = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBUtils.getConnection();
+			stmt = conn.prepareStatement("select * from " + TABLE_NAME );
+			rs = stmt.executeQuery();
+			while(rs.next()){
+				departClassEntries.add(fill(rs));
+			}
+			if(deep){
+				for(DepartClassEntry entry: departClassEntries){
+					
+				}
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, stmt, conn);
+		}
+		
+		return departClassEntries;
+	}
+	
+	
+	public static DepartClassEntry fill(ResultSet rs) throws SQLException{
+		DepartClassEntry entry = new DepartClassEntry();
+		entry.setDepartClassName(rs.getString("departClass_name"));
+		entry.setDepartClassId(rs.getString("departClass_id"));
+		return entry;
+	}
+	
+}

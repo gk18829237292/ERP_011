@@ -1,0 +1,12 @@
+package com.erp.Dao;
+
+public class ReportDao {
+	
+	private static final String TAG="ReportDao";
+	private static final String TABLE_NAME="Report";
+	
+	public static boolean checkByTaskId(){
+		boolean result = false;
+	}
+	
+}

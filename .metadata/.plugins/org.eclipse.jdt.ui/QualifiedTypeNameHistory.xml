@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.sql.Statement"/>
+<fullyQualifiedTypeName name="java.lang.Enum"/>
+<fullyQualifiedTypeName name="com.sun.corba.se.impl.encoding.OSFCodeSetRegistry.Entry"/>
+<fullyQualifiedTypeName name="com.mysql.jdbc.Connection"/>
+<fullyQualifiedTypeName name="com.erp.Entry.TaskEntry"/>
+<fullyQualifiedTypeName name="java.sql.Connection"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+<fullyQualifiedTypeName name="java.sql.ResultSet"/>
+<fullyQualifiedTypeName name="com.erp.utils.DBUtils"/>
+<fullyQualifiedTypeName name="com.erp.Dao.AdviceDao"/>
+<fullyQualifiedTypeName name="com.erp.Dao.TaskDao"/>
+<fullyQualifiedTypeName name="com.erp.Dao.DepartDao"/>
+<fullyQualifiedTypeName name="com.erp.Entry.DepartEntry"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.erp.Entry.DepartClassEntry"/>
+<fullyQualifiedTypeName name="com.erp.Dao.DepartClassDao"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+</qualifiedTypeNameHistroy>
