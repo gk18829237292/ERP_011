@@ -24,15 +24,16 @@ public class TaskServlet extends HttpServlet {
      * 最多显示20条信息
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String departId = (String) request.getSession().getAttribute("departId");
+		String departId = (String) request.getParameter("departId");
 		List<TaskEntry> taskEntries = null;
 		if(departId == null){
 			taskEntries = TaskDao.getAllTask(20);
-			request.setAttribute("taskEntries", taskEntries);
-			request.getRequestDispatcher("/WEB-INF/jsp/tasks.jsp").forward(request, response);
 		}else{
-			
+			taskEntries = TaskDao.getAllTaskByDepartId(departId);
 		}
+		request.setAttribute("taskEntries", taskEntries);
+		System.out.println(taskEntries);
+		request.getRequestDispatcher("/WEB-INF/jsp/tasks.jsp").forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

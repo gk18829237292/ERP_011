@@ -28,34 +28,40 @@
                      <div class="ibox-title">
                                 <h5>所有项目</h5>
                                 <div class="ibox-tools">
-                                    <a href="CreateProject" class="btn btn-primary btn-xs">创建新项目</a>
+                                    <a href="CreateProject" class="btn btn-primary btn-xs"></a>
                                 </div>
                             </div>
                      <div class="ibox-content">
                           <div class="project-list">
                               <table class="table table-hover">
                                    <tbody>
-                                   		<c:forEach items="${projects}" var="entry">
+                                   		<c:forEach items="${taskEntries}" var="entry">
                                    			<tr>
-                                   				<td class="project-status"><span class="label ${entry.haveComplete()?"label-default":"label-primary"}">${entry.haveComplete()?"已完成":"进行中"}</span></td>
+                                   				<td class="project-status"><span class="label ${entry.isComplete()?"label-default":"label-primary"}">${entry.isComplete()?"已完成":"进行中"}</span></td>
                                    				<td class="project-title">
-                                   				<a href="ProjectDetail?assignmentId=${entry.assignment_id}">${entry.assignmentName }</a>
+                                   				<a href="taskDetailServlet?taskId=${entry.taskId}">${entry.taskName }</a>
                                    				<span class="label label-danger">${entry.type==1?"重点":"" }</span>
                                    				<br><small>创建于  ${entry.startTime }</small>
                                    				</td>
                                    				<td class="project-completion">
-                                   					<small>当前进度  ${entry.processNum}%</small>
+                                   					<small>当前进度  ${entry.progress}%</small>
                                    					<div class="progress progress-mini">
-                                              <div style="width:  ${entry.processNum}%;" class="progress-bar"></div>
+                                              <div style="width:  ${entry.progress}%;" class="progress-bar"></div>
                                             </div>
                                    				</td>
                                           <td class="project-people">
-                                            <span class="label label-info">${entry.departmentName}</span>
+                                            <span class="label label-info">${entry.departName}</span>
                                           </td>
-                                   		<td class="project-actions">
-                                            <a href="ProjectDetail?assignmentId=${entry.assignment_id}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> 查看 </a>
-                                            <a href="CreateProject?assignmentId=${entry.assignment_id}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> 编辑 </a>
-                                            <a href="deleteTask?taskId=${entry.assignment_id}" 
+                                          <td class="project-status">
+                                              <span class="label ${entry.isChecked1()?"label-default":"label-primary"}">${entry.isChecked1()?"已按期限":"未按期限"}</span>
+                                          </td>
+                                          <td class="project-status">
+                                              <span class="label ${entry.isChecked2()?"label-warning":"label-default"}">${entry.isChecked2()?"有点评":""}</span>
+                                          </td>
+                                   		    <td class="project-actions">
+                                            <a href="ProjectDetail?assignmentId=${entry.taskId}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> 查看 </a>
+                                            <a href="CreateProject?assignmentId=${entry.taskId}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> 编辑 </a>
+                                            <a href="deleteTask?taskId=${entry.taskId}" 
                                             onclick="return confirm('确认删除吗？');" class="btn btn-white btn-sm"><i class="fa fa-close"></i> 删除 </a>
                                           </td>
                                    			</tr>

@@ -40,6 +40,8 @@ public class MainServlet extends HttpServlet {
 			case "0":  //监督者
 				List<DepartClassEntry> departClassEntries = DepartClassDao.getAllDepartClass(true);
 				request.setAttribute("departClassEntries", departClassEntries);
+				System.out.println(departClassEntries);
+				request.setAttribute("stuff", stuff);
 				request.getRequestDispatcher("/WEB-INF/jsp/jianduzhe.jsp").forward(request, response);
 				break;
 			case "1": //管理者

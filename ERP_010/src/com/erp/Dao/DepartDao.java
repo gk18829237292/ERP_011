@@ -20,6 +20,40 @@ public class DepartDao {
 	private static final String TAG="DepartDao";
 	private static final String TABLE_NAME="Depart";
 	
+	public static String getDepartNameById(Connection conn,String departId) {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBUtils.getConnection();
+			stmt =  conn.prepareStatement("select * from " + TABLE_NAME + " where department_id = ?");
+			stmt.setString(1, departId);
+			rs = stmt.executeQuery();
+			if (rs.first()) {
+				return fill(rs).getDepartName();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, stmt);
+		}
+		return "";
+	}
+	
+	public static String getDepartNameById(String departId){
+		Connection conn = null;
+		try {
+			conn = DBUtils.getConnection();
+			return getDepartNameById(conn,departId);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(conn);
+		}
+		return "";
+	}
+	
 	public static List<DepartEntry> getAllDepart(){
 		List<DepartEntry> departEntries = new ArrayList<>();
 		Connection conn = null;

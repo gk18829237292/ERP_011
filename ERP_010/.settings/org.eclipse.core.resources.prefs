@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//WebContent/WEB-INF/jsp/jianduzhe.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/taskDetail.jsp=UTF-8
 encoding//WebContent/WEB-INF/jsp/tasks.jsp=UTF-8
 encoding//src/com/erp/Servlet/LoginServlet.java=UTF-8
 encoding//src/com/erp/utils/DBUtils.java=UTF-8

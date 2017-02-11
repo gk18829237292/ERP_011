@@ -48,6 +48,12 @@
                     <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                         <span class="ng-scope">分类</span>
                     </li>
+                    <li>
+                        <a class="J_menuItem" href="taskServlet">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">主页</span>
+                        </a>
+                    </li>
                     <c:forEach items="${departClassEntries}" var ="departClass">
                     <li>
                         <a href="#">
@@ -58,7 +64,7 @@
                         <ul class="nav nav-second-level">
                             <c:forEach items="${departClass.departs}" var="depart">
                                 <li>
-                                    <a class="J_menuItem" href="index1?departId=${depart.departId}">
+                                    <a class="J_menuItem" href="taskServlet?departId=${depart.departId}">
                                         ${depart.departName}
                                     </a>
                                 </li>
@@ -68,29 +74,51 @@
                     </c:forEach>
                     <li class="line dk"></li>
                     <li>
-                        <a class="J_menuItem" href="departList">
-                            <i class="glyphicon glyphicon-user"></i> 
-                            <span class="nav-label">部门管理</span>
+                        <a href="#">
+                            <i class="fa fa fa-bar-chart-o"></i>
+                            <span class="nav-label">部门分类管理</span>
+                            <span class="fa arrow"></span>
                         </a>
+                        <ul class="nav nav-second-level">
+                            <c:forEach items="${departClassEntries}" var ="departClass">
+                                <li>
+                                <a class="J_menuItem" href="DepartListServlet?departClassId=${departClass.departClassId}">
+                                    ${departClass.departClassName}
+                                </a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa fa-bar-chart-o"></i>
+                            <span class="nav-label">部门管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <c:forEach items="${departClassEntries}" var ="departClass">
+                                <c:forEach items="${departClass.departs}" var="depart">
+                                    <li>
+                                    <a class="J_menuItem" href="taskServlet?departId=${depart.departId}">
+                                        ${depart.departName}
+                                    </a>
+                                    </li>
+                                </c:forEach>
+                            </c:forEach>
+                        </ul>
                     </li>
                     <li class="line dk"></li>
                     <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                         <span class="ng-scope">账户管理</span>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="userList?type=0">
+                        <a class="J_menuItem" href="userListServlet?type=1">
                             <i class="glyphicon glyphicon-user"></i> 
                             <span class="nav-label">管理员</span>
                         </a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="userList?type=1">
-                            <i class="glyphicon glyphicon-user"></i> 
-                            <span class="nav-label">监督者</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="J_menuItem" href="userList?type=2">
+                        <a class="J_menuItem" href="userListServlet?type=2">
                             <i class="glyphicon glyphicon-user"></i> 
                             <span class="nav-label">执行者</span>
                         </a>
@@ -98,9 +126,7 @@
                    
                 </ul>
             </div>
-            <div class="row J_mainContent" id="content-main">
-                <iframe id="J_iframe" width="100%" height="100%" src="taskServlet" frameborder="0" data-id="index1" seamless></iframe>
-            </div>
+            
         </nav>   
         <!--左侧导航结束-->
         <!--右侧部分开始-->
@@ -108,15 +134,11 @@
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                     <ul class="nav navbar-top-links navbar-right">
-                        <li><span class="label label-primary">管理员</span></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                                ${stuff.name }<span class="label label-primary"></span>
+                                监督者<span class="label label-primary"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-alerts">
-                                <li>
-                                    <a href="#">个人信息</a>
-                                </li>
                                 <li class="divider"></li>
                                 <li>
                                     <a href="logoutServlet" type="link">注销</a>
@@ -126,7 +148,9 @@
                     </ul>
                 </nav>
             </div>
-
+            <div class="row J_mainContent" id="content-main">
+                <iframe id="J_iframe" width="100%" height="100%" src="taskServlet" frameborder="0" data-id="tasks" seamless></iframe>
+            </div>
         </div>
         <!--右侧部分结束-->
     </div>

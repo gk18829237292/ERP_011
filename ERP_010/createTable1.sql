@@ -54,9 +54,9 @@ create table Stuff(
 );
 
 create table Advice(
-	addvise_id bigint primary key auto_increment,
+	advice_id bigint primary key auto_increment,
     time long not null,
-    adviseIndex int not null,
+    adviceIndex int not null,
     comment nvarchar(1000) not null,
     picture nvarchar(1000) not null,
     task_id bigint not null,
@@ -98,7 +98,7 @@ insert into Report values(4,1,1,"评论D","gk1.jpg;gk2.jpg",2);
 insert into Report values(5,1,2,"评论E","gk1.jpg;gk2.jpg",2);
 insert into Report values(6,1,1,"评论F","gk1.jpg;gk2.jpg",3);
 
-insert into Stuff values("gk5","123",0,"",""); -- 监督者
+insert into Stuff values("gk5","123",0,"李辉",""); -- 监督者
 insert into Stuff values("gk6","123",1,"",""); -- 管理者
 insert into Stuff values("gk7","123",2,"",""); -- 执行者
 insert into Stuff values("gk8","123",3,"",""); -- 执行者
@@ -107,7 +107,7 @@ insert into Stuff values("gk1","123",2,"",""); -- 执行者
 
 insert into Advice values(1,1,1,"评论A_1","gk1,jpg;gk2.jpg",1,0);
 insert into Advice values(2,1,2,"评论A_2","gk1.jpg;gk2.jpg",1,0);
-insert into Advice values(3,1,1,"评论B_1","gk1,jpg;gk2.jpg",1,1);
+insert into Advice values(3,1,1,"评论B_1","gk1.jpg;gk2.jpg",1,1);
 
 insert into Stuff_Depart values("gk7",1);
 insert into Stuff_Depart values("gk8",1);

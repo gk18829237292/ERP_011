@@ -1,5 +1,10 @@
 package com.erp.Entry;
 
+import java.util.Date;
+import java.util.Map;
+
+import com.erp.utils.TimeUtils;
+
 /**
  * 	task_id bigint primary key auto_increment,
     startTime long not null,
@@ -26,16 +31,130 @@ public class TaskEntry {
 	private String place;
 	private String financing;
 	private String goal;
-	private String reportType;
+	private String reportType; // -- 0日报 1 周报，2半月报，3月报，4季报，5 半年报，6年报--
 	
-	private int reportNum;
+	private int reportTimes;  // 需要的报告次数
+	
+	private int reportNum;	// 已经提交的报告次数
 	private int advise1Num;
 	private int advise2Num;
 	
+	private String departId;
+	private String departName;
 	
+	private Map<Integer, ReportEntry> reports;
+	private Map<Integer, AdviceEntry> advices1;
+	private Map<Integer, AdviceEntry> advices2; 
+
+	private boolean isComplete;
+	private int progress;
+	private boolean isAtTime;
 	
+	private boolean isInit = false;
+	
+	public Map<Integer, ReportEntry> getReports() {
+		return reports;
+	}
+
+	public void setReports(Map<Integer, ReportEntry> reports) {
+		this.reports = reports;
+	}
+
+
+
+	public Map<Integer, AdviceEntry> getAdvices1() {
+		return advices1;
+	}
+
+	public void setAdvices1(Map<Integer, AdviceEntry> advices1) {
+		this.advices1 = advices1;
+	}
+
+	public Map<Integer, AdviceEntry> getAdvices2() {
+		return advices2;
+	}
+
+	public void setAdvices2(Map<Integer, AdviceEntry> advices2) {
+		this.advices2 = advices2;
+	}
+
+	public String getDepartId() {
+		return departId;
+	}
+
+	public void setDepartId(String departId) {
+		this.departId = departId;
+	}
+
+
+	
+	public String getDepartName() {
+		return departName;
+	}
+
+	public void setDepartName(String departName) {
+		this.departName = departName;
+	}
+
+
+	
+	public boolean isAtTime() {
+		int times = TimeUtils.getDays(new Date().getTime() - Long.parseLong(startTime)) / reportTypeToDays(Integer.parseInt(reportType));
+		return times <= reportTimes;
+	}
+
+	public void setAtTime(boolean isAtTime) {
+		this.isAtTime = isAtTime;
+	}
+
+	public static int reportTypeToDays(int reportType) {
+		int ans = 1;
+		switch (reportType) {
+		case 0: ans = 1;break;
+		case 1: ans = 7;break;
+		case 2: ans = 15;break;
+		case 3: ans = 30;break;
+		case 4: ans = 90;break;
+		case 5: ans = 180;break;
+		case 6: ans = 365;break;
+		}
+		return ans;
+	}
+	
+	public void init() {
+		if(isInit) return;
+		reportTimes = TimeUtils.getDays(Long.parseLong(endTime) - Long.parseLong(startTime)) / reportTypeToDays(Integer.parseInt(reportType));
+		if(reports != null){
+			for(ReportEntry entry:reports.values()){
+				boolean result = (TimeUtils.getDays(Long.parseLong(entry.getReportTime()) - Long.parseLong(startTime)))  > (entry.getReportIndex() * reportTypeToDays(Integer.parseInt(reportType)));
+				entry.setOutOfTime(result);
+			}
+		}
+		isInit = true;
+	}
+	
+	public boolean isComplete() {
+		if(!isInit) init();
+		return reportNum == reportTimes;
+	}
+
+	public void setComplete(boolean isComplete) {
+		this.isComplete = isComplete;
+	}
+
+	public int getProgress() {
+		if(reportTimes == 0) return 100;
+		return reportNum / reportTimes;
+	}
+
+
+	public void setProgress(int progress) {
+		this.progress = progress;
+	}
+
+
 	public String getUpdateTime() {
-		return updateTime;
+		return TimeUtils.convert2String(updateTime);
 	}
 
 	public void setUpdateTime(String updateTime) {
@@ -76,13 +195,13 @@ public class TaskEntry {
 		this.taskId = taskId;
 	}
 	public String getStartTime() {
-		return startTime;
+		return TimeUtils.convert2String(startTime);
 	}
 	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
 	public String getEndTime() {
-		return endTime;
+		return TimeUtils.convert2String(endTime);
 	}
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
@@ -118,7 +237,17 @@ public class TaskEntry {
 		this.goal = goal;
 	}
 	public String getReportType() {
-		return reportType;
+		String ans = "日报";
+		switch (reportType) {
+		case "0": ans = "日报";break;
+		case "1": ans = "周报";break;
+		case "2": ans = "半月报";break;
+		case "3": ans = "月报";break;
+		case "4": ans = "季报";break;
+		case "5": ans = "半年报";break;
+		case "6": ans = "年报";break;
+		}
+		return ans;
 	}
 	public void setReportType(String reportType) {
 		this.reportType = reportType;
@@ -130,18 +259,34 @@ public class TaskEntry {
 	public void setTaskName(String taskName) {
 		this.taskName = taskName;
 	}
+	
+	public int getReportTimes() {
+		return reportTimes;
+	}
+
+	public void setReportTimes(int reportTimes) {
+		this.reportTimes = reportTimes;
+	}
+
 	public TaskEntry() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 
 	@Override
 	public String toString() {
 		return "TaskEntry [taskId=" + taskId + ", taskName=" + taskName + ", startTime=" + startTime + ", endTime="
 				+ endTime + ", updateTime=" + updateTime + ", chairMan=" + chairMan + ", type=" + type + ", place="
-				+ place + ", financing=" + financing + ", goal=" + goal + ", reportType=" + reportType + ", reportNum="
-				+ reportNum + ", advise1Num=" + advise1Num + ", advise2Num=" + advise2Num + "]";
+				+ place + ", financing=" + financing + ", goal=" + goal + ", reportType=" + reportType
+				+ ", reportTimes=" + reportTimes + ", reportNum=" + reportNum + ", advise1Num=" + advise1Num
+				+ ", advise2Num=" + advise2Num + ", departId=" + departId + ", departName=" + departName
+				+ ", isComplete=" + isComplete + ", progress=" + progress + ", isAtTime=" + isAtTime + ", isInit="
+				+ isInit + "]";
 	}
+
+
 	
 	
 
