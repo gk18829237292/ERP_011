@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.erp.Entry.StuffEntry;
+
 @WebServlet("/MainServlet")
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -18,7 +20,11 @@ public class MainServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		StuffEntry stuff = (StuffEntry) request.getSession().getAttribute("stuff");
 		
+		if(stuff == null){
+			response.sendRedirect("Login");
+		}
 		
 	}
 

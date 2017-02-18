@@ -8,8 +8,17 @@ public class StuffEntry {
 	private String type;
 	private String name;
 	private String telNum;
+	private int isLeader;
 	public StuffEntry(){
 		
+	}
+
+	public int getIsLeader() {
+		return isLeader;
+	}
+
+	public void setIsLeader(int isLeader) {
+		this.isLeader = isLeader;
 	}
 
 	public String getName() {
