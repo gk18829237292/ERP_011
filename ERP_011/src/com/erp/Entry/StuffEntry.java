@@ -1,6 +1,6 @@
 package com.erp.Entry;
 
-public class StuffEntry_2 {
+public class StuffEntry {
 	
 	private String account;
 	private String pwd;
@@ -8,7 +8,7 @@ public class StuffEntry_2 {
 	private String type;
 	private String name;
 	private String telNum;
-	public StuffEntry_2(){
+	public StuffEntry(){
 		
 	}
 

@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.erp.Entry.DepartEntry;
-import com.erp.Entry.StuffEntry_2;
+import com.erp.Entry.StuffEntry;
 import com.erp.Log.Log;
 import com.erp.utils.DBUtils;
 import com.sun.org.apache.bcel.internal.generic.ReturnaddressType;
@@ -16,7 +16,7 @@ public class StuffDao_2 {
 	private static final String TAG="StuffDao_2";
 	private static final String TABLE_NAME="Stuff_2";
 
-	public static StuffEntry_2 getStuff(String account,String pwd){
+	public static StuffEntry getStuff(String account,String pwd){
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -38,8 +38,8 @@ public class StuffDao_2 {
 		return null;
 	}
 	
-	public static StuffEntry_2 fill(ResultSet rs) throws SQLException{
-		StuffEntry_2 entry = new StuffEntry_2();
+	public static StuffEntry fill(ResultSet rs) throws SQLException{
+		StuffEntry entry = new StuffEntry();
 		DepartEntry depart = new DepartEntry();
 		entry.setAccount(rs.getString("account"));
 		entry.setPwd(rs.getString("pwd"));

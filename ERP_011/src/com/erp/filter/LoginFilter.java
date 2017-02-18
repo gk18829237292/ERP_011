@@ -14,7 +14,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.erp.Entry.StuffEntry_2;
+import com.erp.Entry.StuffEntry;
 
 
 /**
@@ -63,7 +63,7 @@ public class LoginFilter implements Filter {
 			}
 		}
 		
-		StuffEntry_2 stuff =  (StuffEntry_2) req.getSession().getAttribute("stuff");
+		StuffEntry stuff =  (StuffEntry) req.getSession().getAttribute("stuff");
 		if(stuff == null){
 			((HttpServletResponse)response).sendRedirect("Login");
 		}else{
