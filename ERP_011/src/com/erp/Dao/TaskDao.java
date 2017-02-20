@@ -168,5 +168,29 @@ public class TaskDao {
 		entry.init();
 		return entry;
 	}
+ 	
+ 	public static String getDepartIdByTaskId(String taskId){
+ 		String result = "";
+ 		Connection conn = null;
+ 		PreparedStatement stmt = null;
+ 		ResultSet rs = null;
+ 		
+ 		try {
+			conn = DBUtils.getConnection();
+			stmt = conn.prepareStatement("select department_id from " + TABLE_NAME + " where task_id = ?");
+			stmt.setString(1, taskId);
+			rs = stmt.executeQuery();
+			if(rs.first())
+				return rs.getString("department_id");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, stmt, conn);
+		}
+ 		
+ 		
+ 		return result;
+ 	}
 	
 }

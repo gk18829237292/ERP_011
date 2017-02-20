@@ -44,7 +44,7 @@
                                               <tr>
                                                 <td class="project-status"><span class="label ${entry.isComplete()?"label-default":"label-primary"}">${entry.isComplete()?"已完成":"进行中"}</span></td>
                                                 <td class="project-title">
-                                                <a href="taskDetailServlet?taskId=${entry.taskId}">${entry.taskName }</a>
+                                                <a href="TaskDetailServlet?taskId=${entry.taskId}& departName=${departName} &departClassName=${deprtClassName}">${entry.taskName }</a>
                                                 <span class="label label-danger">${entry.type==1?"重点":"" }</span>
                                                 <br><small>创建于  ${entry.startTime }</small>
                                                 </td>
@@ -83,7 +83,7 @@
                                               <tr>
                                                 <td class="project-status"><span class="label ${entry.isComplete()?"label-default":"label-primary"}">${entry.isComplete()?"已完成":"进行中"}</span></td>
                                                 <td class="project-title">
-                                                <a href="taskDetailServlet?taskId=${entry.taskId}">${entry.taskName }</a>
+                                                <a href="TaskDetailServlet?taskId=${entry.taskId}&departName=${departName }&departClassName=${deprtClassName}">${entry.taskName }</a>
                                                 <span class="label label-danger">${entry.type==1?"重点":"" }</span>
                                                 <br><small>创建于  ${entry.startTime }</small>
                                                 </td>

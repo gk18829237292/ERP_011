@@ -59,6 +59,28 @@ public class DepartClassDao {
 	public static void insert() {
 		
 	}
+	
+	public static String getDepartClassNameByDepartId(String departId){
+		String departClassName = "";
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBUtils.getConnection();
+			stmt = conn.prepareStatement("select departClass_name from DepartClass,Depart_DepartClass where DepartClass.departClass_id = Depart_DepartClass.departClass_id and Depart_DepartClass.department_id = ?''");
+			stmt.setString(1, departId);
+			rs = stmt.executeQuery();
+			if(rs.first()){
+				departClassName = rs.getString("departClass_name");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, stmt, conn);
+		}
+		return departClassName;
+	}
 
 	
 	

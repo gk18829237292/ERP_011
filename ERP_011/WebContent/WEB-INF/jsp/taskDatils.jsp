@@ -33,7 +33,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="m-b-md">
-                                <B>A部门</B> 
+                                 <h5>${departName } ${departClassName}</h5> 
                                 <a href="CreateProject?taskId=${task.taskId}" class="btn btn-white btn-xs pull-right">编辑项目</a>
                                 <div class="col-sm-offset-5">
                                   <h2>项目A<span class="label label-danger">重点</span></h2>
