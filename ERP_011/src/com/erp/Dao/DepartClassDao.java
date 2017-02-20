@@ -59,4 +59,8 @@ public class DepartClassDao {
 	public static void insert() {
 		
 	}
+
+	
+	
+	
 }

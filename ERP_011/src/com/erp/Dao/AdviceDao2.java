@@ -8,13 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.erp.Entry.AdviceEntry;
-import com.erp.Entry.ReportEntry;
 import com.erp.utils.DBUtils;
 
-public class AdviceDao {
-	
+public class AdviceDao2 {
+
 	private static final String TAG="AdviceDao";
-	private static final String TABLE_NAME="Advice";
+	private static final String TABLE_NAME="Advice_2";
 	
 	public static int getAdviceNum(Connection conn,String taskId){
 		int ans = -1;
@@ -37,37 +36,6 @@ public class AdviceDao {
 		return ans;
 	}
 	
-	public static boolean checkByTaskId(String taskId){
-		Connection conn = null;
-		try {
-			conn = DBUtils.getConnection();
-			return checkByTaskId(taskId,conn);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			DBUtils.close(conn);
-		}
-		return false;
-	}
-	
-	public static boolean checkByTaskId(String taskId,Connection conn) {
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		try {
-			stmt = conn.prepareStatement("");
-			stmt.setString(1, taskId);
-			rs = stmt.executeQuery();
-			return rs.first();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			DBUtils.close(rs, stmt);
-		}
-		return false;
-	}
-	
 	public static Map<Integer, AdviceEntry> getAllAdviceByTaskId_Map(Connection conn,String taskId){
 		Map<Integer, AdviceEntry> adviceEntries = new HashMap<Integer,AdviceEntry>();
 		PreparedStatement stmt = null;
@@ -82,7 +50,6 @@ public class AdviceDao {
 				adviceEntries.put(entry.getAdviceIndex(), entry);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			DBUtils.close(rs,stmt);
@@ -90,42 +57,13 @@ public class AdviceDao {
 		return adviceEntries;
 	}
 	
-	public static Map<Integer, AdviceEntry> getAllAdviceByTaskId_Map(String taskId){
-		Connection conn = null;
-		try {
-			conn = DBUtils.getConnection();
-			return getAllAdviceByTaskId_Map(conn,taskId);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			DBUtils.close(conn);
-		}
-		return null;
-	}
-	
-	/**
-	 * create table Advice(
-	advice_id bigint primary key auto_increment,
-    time long not null,
-    adviceIndex int not null,
-    comment nvarchar(1000) not null,
-    picture nvarchar(1000) not null,
-    task_id bigint not null,
-    type int not null,
-    foreign key(task_id) references Task(task_id) on delete cascade
-);
-	 * @param rs
-	 * @return
-	 * @throws SQLException 
-	 */
 	public static AdviceEntry fill(ResultSet rs) throws SQLException{
 		AdviceEntry entry = new AdviceEntry();
 		entry.setAdviceId(rs.getString("advice_id"));
 		entry.setAdviceIndex(rs.getInt("adviceIndex"));
 		entry.setCommment(rs.getString("comment"));
-		entry.setPicture(rs.getString("picture"));
 		entry.setTaskId(rs.getString("task_id"));
-		entry.setTime(rs.getString("time"));
+		entry.setName(rs.getString("name"));
 		return entry;
 	}
 	

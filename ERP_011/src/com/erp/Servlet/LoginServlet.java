@@ -16,14 +16,15 @@ public class LoginServlet extends HttpServlet {
        
     public LoginServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("LoginServlet");
 		login(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("LoginServlet");
 		//判断 如有没有传递form则重定向到login.jsp
 		if(request.getParameter("username") == null || request.getParameter("password") == null ){
 			login(request,response);

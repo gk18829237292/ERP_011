@@ -65,7 +65,7 @@ public class LoginFilter implements Filter {
 		
 		StuffEntry stuff =  (StuffEntry) req.getSession().getAttribute("stuff");
 		if(stuff == null){
-			((HttpServletResponse)response).sendRedirect("Login");
+			((HttpServletResponse)response).sendRedirect("LoginServlet");
 		}else{
 			chain.doFilter(request, response);
 		}

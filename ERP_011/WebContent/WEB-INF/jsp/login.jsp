@@ -33,7 +33,7 @@
             </div>
             <h3>欢迎使用 ERP</h3>
 
-            <form class="m-t" role="form" action="Login" method="post">
+            <form class="m-t" role="form" action="LoginServlet" method="post">
                 <div class="form-group">
                     <input name="username" type="text" class="form-control" placeholder="用户名" required="">
                 </div>
@@ -41,7 +41,6 @@
                     <input name ="password" type="password" class="form-control" placeholder="密码" required="">
                 </div>
                 <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
-                <p class="text-muted text-center"> <a href="#"><small>忘记密码了？</small></a></p>
             </form>
         </div>
     </div>

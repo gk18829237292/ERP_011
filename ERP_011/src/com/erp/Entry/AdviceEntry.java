@@ -27,6 +27,15 @@ public class AdviceEntry {
 	private List<String> picture;
 	private String taskId;
 	private int type;
+	private String name;
+	
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getAdviceId() {
 		return adviceId;
 	}

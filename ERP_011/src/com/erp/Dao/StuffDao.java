@@ -22,13 +22,16 @@ public class StuffDao {
 		ResultSet rs = null;
 		try {
 			conn = DBUtils.getConnection();
-			stmt = conn.prepareStatement("select * from "+tableName+" where stuff.account = ? and stuff.pwd = ?");
+			stmt = conn.prepareStatement("select * from "+tableName+" where account = ? and pwd = ?");
+			
 			stmt.setString(1, account);
 			stmt.setString(2, pwd);
 			rs = stmt.executeQuery();
-			if(rs.first())
+			
+			if(rs.first()){
 				entry = fill(rs);
-			entry.setType(type);
+				entry.setType(type);				
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -36,7 +39,7 @@ public class StuffDao {
 			DBUtils.close(rs, stmt);
 		}
 		
-		return null;
+		return entry;
 	}
 	
 	public static StuffEntry getStuff(String account,String pwd){
@@ -48,17 +51,18 @@ public class StuffDao {
 			conn = DBUtils.getConnection();
 			entry = getStuff(conn, account, pwd, "stuff_0","0");
 			if(entry != null) return entry;
-			entry = getStuff(conn, account, pwd, "stuff_1","1");
+			entry = getStuff(conn, account, pwd, "Stuff_1","1");
 			if(entry != null) return entry;
 			
-			stmt = conn.prepareStatement("select * from stuff_0 where stuff.account = ? and stuff.pwd = ?");
+			stmt = conn.prepareStatement("select * from Stuff_2 where account = ? and pwd = ?");
 			stmt.setString(1, account);
 			stmt.setString(2, pwd);
 			rs = stmt.executeQuery();
-			if(rs.first())
+			if(rs.first()){
 				entry =  fill(rs);
-			entry.setType("2");
-			entry.setIsLeader(rs.getInt("type"));
+				entry.setType("2");
+				entry.setIsLeader(rs.getInt("type"));				
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -66,7 +70,28 @@ public class StuffDao {
 			DBUtils.close(rs, stmt, conn);
 		}
 		
-		return null;
+		return entry;
+	}
+	
+	public static boolean updateStuff(String account,String pwd,String name,String telNum,String type){
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = DBUtils.getConnection();
+			stmt = conn.prepareStatement("update " + getTableName(type) + " set pwd = ? ,name=?,telNum=? where account = ?");
+			stmt.setString(1, pwd);
+			stmt.setString(2, name);
+			stmt.setString(3, telNum);
+			stmt.setString(4, account);
+			result = stmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			DBUtils.close(stmt, conn);
+		}
+		return result;
 	}
 	
 	public static StuffEntry fill(ResultSet rs) throws SQLException{
@@ -77,6 +102,10 @@ public class StuffDao {
 		entry.setName(rs.getString("name"));
 		entry.setTelNum(rs.getString("telNum"));
 		return entry;
+	}
+	
+	public static String getTableName(String type) {
+		return " Stuff_" + type + " ";
 	}
 	
 }

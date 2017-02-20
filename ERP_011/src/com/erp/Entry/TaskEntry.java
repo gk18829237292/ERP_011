@@ -9,12 +9,12 @@ import com.erp.utils.TimeUtils;
  * 	task_id bigint primary key auto_increment,
     startTime long not null,
 	endTime long not null,
-    chairMan nvarchar(40) not null, -- ¸ºÔğÈË
-    type int not null, -- 0 ²»ÖØÒª 1 ÖØÒª
+    chairMan nvarchar(40) not null, -- è´Ÿè´£äºº
+    type int not null, -- 0 ä¸é‡è¦ 1 é‡è¦
     place nvarchar(40),
     financing bigint not null,
     goal nvarchar(300) not null,
-    report_type int not null, -- 0ÈÕ±¨ 1 ÖÜ±¨£¬2°ëÔÂ±¨£¬3ÔÂ±¨£¬4¼¾±¨£¬5 °ëÄê±¨£¬6Äê±¨--
+    report_type int not null, -- 0æ—¥æŠ¥ 1 å‘¨æŠ¥ï¼Œ2åŠæœˆæŠ¥ï¼Œ3æœˆæŠ¥ï¼Œ4å­£æŠ¥ï¼Œ5 åŠå¹´æŠ¥ï¼Œ6å¹´æŠ¥--
     department_id bigint not null,
  * @author pc_home
  *
@@ -31,11 +31,11 @@ public class TaskEntry {
 	private String place;
 	private String financing;
 	private String goal;
-	private String reportType; // -- 0ÈÕ±¨ 1 ÖÜ±¨£¬2°ëÔÂ±¨£¬3ÔÂ±¨£¬4¼¾±¨£¬5 °ëÄê±¨£¬6Äê±¨--
+	private String reportType; // -- 0æ—¥æŠ¥ 1 å‘¨æŠ¥ï¼Œ2åŠæœˆæŠ¥ï¼Œ3æœˆæŠ¥ï¼Œ4å­£æŠ¥ï¼Œ5 åŠå¹´æŠ¥ï¼Œ6å¹´æŠ¥--
 	
-	private int reportTimes;  // ĞèÒªµÄ±¨¸æ´ÎÊı
+	private int reportTimes;  // éœ€è¦çš„æŠ¥å‘Šæ¬¡æ•°
 	
-	private int reportNum;	// ÒÑ¾­Ìá½»µÄ±¨¸æ´ÎÊı
+	private int reportNum;	// å·²ç»æäº¤çš„æŠ¥å‘Šæ¬¡æ•°
 	private int advise1Num;
 	private int advise2Num;
 	
@@ -237,15 +237,15 @@ public class TaskEntry {
 		this.goal = goal;
 	}
 	public String getReportType() {
-		String ans = "ÈÕ±¨";
+		String ans = "æ—¥æŠ¥";
 		switch (reportType) {
-		case "0": ans = "ÈÕ±¨";break;
-		case "1": ans = "ÖÜ±¨";break;
-		case "2": ans = "°ëÔÂ±¨";break;
-		case "3": ans = "ÔÂ±¨";break;
-		case "4": ans = "¼¾±¨";break;
-		case "5": ans = "°ëÄê±¨";break;
-		case "6": ans = "Äê±¨";break;
+		case "0": ans = "æ—¥æŠ¥";break;
+		case "1": ans = "å‘¨æŠ¥";break;
+		case "2": ans = "åŠæœˆæŠ¥";break;
+		case "3": ans = "æœˆæŠ¥";break;
+		case "4": ans = "å­£æŠ¥";break;
+		case "5": ans = "åŠå¹´æŠ¥";break;
+		case "6": ans = "å¹´æŠ¥";break;
 		}
 		return ans;
 	}
@@ -273,8 +273,6 @@ public class TaskEntry {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-
 	@Override
 	public String toString() {
 		return "TaskEntry [taskId=" + taskId + ", taskName=" + taskName + ", startTime=" + startTime + ", endTime="

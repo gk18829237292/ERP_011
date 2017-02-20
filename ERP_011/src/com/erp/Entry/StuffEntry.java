@@ -70,9 +70,12 @@ public class StuffEntry {
 	@Override
 	public String toString() {
 		return "StuffEntry [account=" + account + ", pwd=" + pwd + ", depart=" + depart + ", type=" + type + ", name="
-				+ name + ", telNum=" + telNum + "]";
+				+ name + ", telNum=" + telNum + ", isLeader=" + isLeader + "]";
 	}
 
+
+
+	
 
  
 

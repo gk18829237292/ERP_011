@@ -52,8 +52,8 @@ public class TaskDao {
 
 			for(TaskEntry entry:taskEntries){
 				entry.setReportNum(ReportDao.getReportNum(conn, entry.getTaskId()));
-				entry.setAdvise1Num(AdviceDao.getAdviceNum(conn, entry.getTaskId(), 0)); //¼à¶½Õß
-				entry.setAdvise2Num(AdviceDao.getAdviceNum(conn, entry.getTaskId(), 1)); //¹ÜÀíÕß
+				entry.setAdvise1Num(AdviceDao.getAdviceNum(conn, entry.getTaskId())); //ç›‘ç£è€…
+				entry.setAdvise2Num(AdviceDao2.getAdviceNum(conn, entry.getTaskId())); //ç®¡ç†è€…
 				entry.setDepartName(DepartDao.getDepartNameById(conn,entry.getDepartId()));
 			}
 		} catch (SQLException e) {
@@ -80,8 +80,8 @@ public class TaskDao {
 			}
 			for(TaskEntry entry:taskEntries){
 				entry.setReportNum(ReportDao.getReportNum(conn, entry.getTaskId()));
-				entry.setAdvise1Num(AdviceDao.getAdviceNum(conn, entry.getTaskId(), 0)); //¼à¶½Õß
-				entry.setAdvise2Num(AdviceDao.getAdviceNum(conn, entry.getTaskId(), 1)); //¹ÜÀíÕß
+				entry.setAdvise1Num(AdviceDao.getAdviceNum(conn, entry.getTaskId())); //ç›‘ç£è€…
+				entry.setAdvise2Num(AdviceDao2.getAdviceNum(conn, entry.getTaskId())); //ç®¡ç†è€…
 				entry.setDepartName(DepartDao.getDepartNameById(conn,entry.getDepartId()));
 			}
 		} catch (SQLException e) {
@@ -108,8 +108,8 @@ public class TaskDao {
 			
 			for(TaskEntry entry:taskEntries){
 				entry.setReportNum(ReportDao.getReportNum(conn, entry.getTaskId()));
-				entry.setAdvise1Num(AdviceDao.getAdviceNum(conn, entry.getTaskId(), 0)); //¼à¶½Õß
-				entry.setAdvise2Num(AdviceDao.getAdviceNum(conn, entry.getTaskId(), 1)); //¹ÜÀíÕß
+				entry.setAdvise1Num(AdviceDao.getAdviceNum(conn, entry.getTaskId())); //ç›‘ç£è€…
+				entry.setAdvise2Num(AdviceDao2.getAdviceNum(conn, entry.getTaskId())); //ç®¡ç†è€…
 				entry.setDepartName(DepartDao.getDepartNameById(conn,entry.getDepartId()));
 			}
 		} catch (SQLException e) {
@@ -135,13 +135,13 @@ public class TaskDao {
 			taskEntry = fill(rs);
 			
 			taskEntry.setReportNum(ReportDao.getReportNum(conn, taskEntry.getTaskId()));
-			taskEntry.setAdvise1Num(AdviceDao.getAdviceNum(conn, taskEntry.getTaskId(), 0)); //¼à¶½Õß
-			taskEntry.setAdvise2Num(AdviceDao.getAdviceNum(conn, taskEntry.getTaskId(), 1)); //¹ÜÀíÕß
+			taskEntry.setAdvise1Num(AdviceDao.getAdviceNum(conn, taskEntry.getTaskId())); //ç›‘ç£è€…
+			taskEntry.setAdvise2Num(AdviceDao2.getAdviceNum(conn, taskEntry.getTaskId())); //ç®¡ç†è€…
 			taskEntry.setDepartName(DepartDao.getDepartNameById(conn,taskEntry.getDepartId()));
 			
 			taskEntry.setReports(ReportDao.getAllReportByTaskId_Map(conn,taskEntry.getTaskId()));
-			taskEntry.setAdvices1(AdviceDao.getAllAdviceByTaskId_Map(conn,taskEntry.getTaskId(),0));
-			taskEntry.setAdvices1(AdviceDao.getAllAdviceByTaskId_Map(conn,taskEntry.getTaskId(),1));
+			taskEntry.setAdvices1(AdviceDao.getAllAdviceByTaskId_Map(conn,taskEntry.getTaskId()));
+			taskEntry.setAdvices2(AdviceDao2.getAllAdviceByTaskId_Map(conn,taskEntry.getTaskId()));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
