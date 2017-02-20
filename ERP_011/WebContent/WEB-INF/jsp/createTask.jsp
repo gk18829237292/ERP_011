@@ -56,6 +56,7 @@
                                             <label>任务资金 *</label>
                                             <input id="financing" name="financing" type="number" class="form-control required" value="${task.financing}">
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </fieldset>
@@ -80,10 +81,16 @@
                                         </div>
                                         <br><br>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">任务期数</label>
-                                            <div class="col-sm-3">
-                                                <input type="number" name="num" id="num" class="form-control required" value="${task.num}">
-                                            </div>
+                                            <label class="col-sm-2 control-label">汇报频率</label>
+                                            <select id="departmentId" name="departmentId" data-placeholder="选择部门..." style="width:350px;" tabindex="2">
+                                                <option value="0" >日报</option>
+                                                <option value="1" >周报</option>
+                                                <option value="2" >半月报</option>
+                                                <option value="3" >月报</option>
+                                                <option value="4" >季报</option>
+                                                <option value="5" >半年报</option>
+                                                <option value="6" >年报</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -92,10 +99,15 @@
                             <fieldset>
                                 <h2>Step3</h2>
                                 <div class="row">
+                                <div class="form-group">
+                                            <label >文件选择（多选）</label>
+                                            <input type="file"  name="img" multiple="multiple" class="form-control">
+                                        </div>
                                     <div class="form-group">
                                         <label>任务目标</label>
-                                        <textarea name="goal" id="goal" class="form-control required" style="height: 200px ">${task.goal}</textarea>
+                                        <textarea name="goal" id="goal" class="form-control required" style="height: 100px ">${task.goal}</textarea>
                                     </div>
+                                   
                                 </div>
                             </fieldset>
                             <h1>Step4</h1>
@@ -113,10 +125,10 @@
                                                 </c:forEach>
                                             </select>
                                         </div>            
-                                    </div>
-                                    
+                                    </div> 
                                 </div>
-                            </fieldset>    
+                            </fieldset>  
+                            
                             <input type="hidden" name="taskid" value="${task.assignment_id}">
                             <input type="hidden" name="Actiontype" value="${actionType}">  
                         </form>
@@ -207,7 +219,7 @@
                     form.submit();
                 },
                 onCanceled: function(event,currentIndex){
-                	history.back(-1);
+                    history.back(-1);
                 }
             }).validate({
                 errorPlacement: function (error, element) {
@@ -216,17 +228,6 @@
             });
         });
     </script>
-
-    
-
-
-
-
-
-
-
-    
-
 </body>
 
 </html>
