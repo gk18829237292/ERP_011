@@ -286,7 +286,9 @@ public class TaskEntry {
 
 
 	
-	
+	public int getMaxNum() {
+		return Math.max(Math.max(reportNum, advise1Num),advise2Num);
+	}
 
 	
 	

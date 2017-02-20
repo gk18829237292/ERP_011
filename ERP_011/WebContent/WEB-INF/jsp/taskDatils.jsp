@@ -36,7 +36,7 @@
                                  <h5>${departName } ${departClassName}</h5> 
                                 <a href="CreateProject?taskId=${task.taskId}" class="btn btn-white btn-xs pull-right">编辑项目</a>
                                 <div class="col-sm-offset-5">
-                                  <h2>项目A<span class="label label-danger">重点</span></h2>
+                                  <h2>${task.taskName } <span class="label label-danger">${entry.type==1?"重点":"" }</span></h2>
                                 </div>
                             </div>
                         </div>
@@ -45,20 +45,21 @@
                         <div class="col-xs-12 col-sm-4">
                             <dl class="dl-horizontal">
                                 <dt>状态：</dt>
-                                <dd><span class="label label-primary">进行中</span>
+                                <dd>
+                                	<span class="label ${entry.isComplete()?"label-default":"label-primary"}">${entry.isComplete()?"已完成":"进行中"}</span>
                                 </dd>
                             </dl>
                         </div>
                         <div class="col-xs-12 col-sm-4">
                             <dl class="dl-horizontal">
                                 <dt>上报频率：</dt>
-                                <dd>周报</dd>
+                                <dd>${task.reportType }</dd>
                             </dl>
                         </div>
                         <div class="col-xs-12 col-sm-4">
                             <dl class="dl-horizontal">
                                 <dt>责任人：</dt>
-                                <dd>高科</dd>
+                                <dd>${task.chairMan }</dd>
                             </dl>
                         </div>                        
                     </div>
@@ -66,13 +67,13 @@
                         <div class="col-xs-12 col-sm-4">
                             <dl class="dl-horizontal">
                                 <dt>开始时间：</dt>
-                                <dd>2017年2月20日11:04:40</dd>
+                                <dd>${task.startTime}</dd>
                             </dl>
                         </div>
                         <div class="col-xs-12 col-sm-4">
                             <dl class="dl-horizontal">
                                 <dt>结束时间：</dt>
-                                <dd>2017年2月20日11:04:46</dd>
+                                <dd>${task.endTime}</dd>
                             </dl>
                         </div>                     
                     </div>
@@ -82,9 +83,9 @@
                                 <dt>当前进度</dt>
                                 <dd>
                                     <div class="progress progress-striped active m-b-sm">
-                                        <div style="width: 83%;" class="progress-bar"></div>
+                                        <div style="width: ${task.progress}%;" class="progress-bar"></div>
                                     </div>
-                                    <small>当前已完成项目总进度的 <strong>83%</strong></small>
+                                    <small>当前已完成项目总进度的 <strong>${task.progress}%</strong></small>
                                 </dd>
                             </dl>
                         </div>
@@ -93,7 +94,7 @@
                         <div class="col-sm-12">
                             <dl class="dl-horizontal">
                                 <dt>任务目标</dt>
-                                <dd><i>全部完成</i></dd>
+                                <dd><i>${task.goal}</i></dd>
                             </dl>
                         </div>
                     </div>
@@ -103,72 +104,76 @@
                                 <div class="panel-heading">
                                     <div class="panel-options">
                                         <ul class="nav nav-tabs" id="myTab">
-                                            <li><a id="mytab-1" href="#tab-1" data-toggle="tab">第 1 次</a></li>
-                                            <li><a id="mytab-2" href="#tab-2" data-toggle="tab">第 2 次</a></li>
+                                        	<c:forEach var="i" begin="1" end="${ task.getMaxNum()}">
+                                        		 <li><a id="mytab-${i }" href="#tab-${i }" data-toggle="tab">第 ${i }次</a></li>
+                                        	</c:forEach>
                                         </ul>
                                     </div>
                                 </div>
 
                                 <div class="panel-body">
                                     <div class="tab-content">
-                                       
-                                            <div id="tab-1" class="tab-pane active">
-                                                <div class="contact-box">
-                                                <div class="row">
-                                                    <center>
-                                                        <table class="table table-bordered table-hover" style="width:95%">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>第1次报告</td>
-                                                                    <td>提交时间：2017年2月20日11:06:18</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>文字汇报</td>
-                                                                    <td>仅仅是一个测试</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>图片汇报</td>
-                                                                    <td>
-                                                                      <a class="fancybox" href="img/gk1.jpg"><img src="img/gk1.jpg" alt="img"></a>
-                                                                      <a class="fancybox" href="img/gk2.jpg"><img src="img/gk2.jpg" alt="img"></a>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </center>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-8">
-                                                      <dl class="dl-horizontal" >
-                                                        <dt>督查意见：</dt>
-                                                        <dd>完成的还可以</dd>
-                                                        <dt>图片核实：</dt>
-                                                        <dd>
-                                                          <a class="fancybox" href="img/gk1.jpg"><img src="img/gk1.jpg" alt="img"></a>
-                                                          <a class="fancybox" href="img/gk2.jpg"><img src="img/gk2.jpg" alt="img"></a>
-                                                        </dd>
-                                                      </dl>
+                                       <c:forEach var="i" begin="1" end="${task.getMaxNum() }">
+                                       		<div id="tab-${i }" class ="tab-pane">
+                                       			<div class ="row">
+                                       				<table class="table table-bordered table-hover" style="width:95%">
+                                       					<tbody>
+                                       						<tr>
+                                                            	<td>第${i}次报告</td>
+                                                            	<td>提交时间：${reports[i].reportTime}</td>
+                                                            </tr>
+                                                            <tr>
+                                                            	<td>文字汇报</td>
+                                                            	<td>${reports[i].comment}</td>
+                                                            </tr>
+                                                            <tr>
+                                                            	<td>图片汇报</td>
+                                                            	<td>
+                                                            		<c:forEach items="${reports[i].picture}" var="pic">
+                                                            			<a class="fancybox" href="img/${pic}">
+                                                                        	<img src="img/${pic}" alt="img">
+                                                                        </a>
+                                                                    </c:forEach>
+                                                                </td>
+                                                            </tr>
+                                       					</tbody>
+                                       				</table>
+                                       			</div>
+                                       			<div class="row">
+                                       			 	<div class="col-sm-8">
+	                                       				<dl class="dl-horizontal">
+	                                       					<dt>督查意见：</dt>
+	                                       					<dd>${advices1[i].comment}</dd>
+	                                                        <dt>图片核实：</dt>
+	                                                        <dd>
+	                                                        	<c:forEach items="${advices1[i].picture}" var="pic">
+	                                                                <a class="fancybox" href="img/${pic}">
+	                                                                    <img src="img/${pic}" alt="img">
+	                                                                </a>
+	                                                            </c:forEach>
+	                                                       </dd>
+	                                                    </dl>
                                                     </div>
                                                     <div class="col-sm-2 pull-right">
-                                                        44585
+                                                    	<a href="" class="btn btn-primary btn-sm">${stuff.isType0_1()?"督查信息":"" }</a> 
                                                     </div>
-                                                </div>
+                                       			</div>
                                                 <div class="row">
-                                                  <div class="col-sm-8">
-                                                    <dl class="dl-horizontal">
-                                                        <dt>领导点评：</dt>
-                                                        <dd>测试一下吧</dd>
-                                                    </dl>
-                                                  </div>
+                                                	<div class="col-sm-8">
+                                                		<dl class="dl-horizontal">
+                                                			<dt><B>${advices2[i].name }</B> 领导点评：</dt>
+                                                			<dd>${advices2[i].comment}</dd>
+                                                    	</dl>
+                                                	</div>
                                                   <div class="col-sm-2 pull-right">
-                                                      456
+                                                  <c:if test="${stuff.isType2_leader() }">
+                                                  	<a href="" class="btn btn-primary btn-sm">添加点评</a> 
+                                                  </c:if>
                                                   </div>
                                                 </div>  
-                                                </div>
-                                            </div>
-                                            <div id="tab-2" class="tab-pane">
-                                              46
-                                            </div>
+                                       		</div>
+                                       </c:forEach>
+                                            
                                     </div>
 
                                 </div>

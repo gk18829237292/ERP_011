@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//WebContent/WEB-INF/jsp/createTask.jsp=UTF-8
 encoding//WebContent/WEB-INF/jsp/jianduzhe.jsp=UTF-8
 encoding//WebContent/WEB-INF/jsp/login.jsp=UTF-8
 encoding//WebContent/WEB-INF/jsp/taskDatils.jsp=UTF-8

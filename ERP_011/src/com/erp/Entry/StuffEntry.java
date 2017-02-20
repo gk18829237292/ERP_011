@@ -16,6 +16,16 @@ public class StuffEntry {
 	public int getIsLeader() {
 		return isLeader;
 	}
+	
+	public boolean isType0_1(){
+		return !type.equals("2");
+	}
+	
+
+	
+	public boolean isType2_leader() {
+		return type.equals("2") && isLeader == 1;
+	}
 
 	public void setIsLeader(int isLeader) {
 		this.isLeader = isLeader;

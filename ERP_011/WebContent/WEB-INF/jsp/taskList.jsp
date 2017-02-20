@@ -25,6 +25,7 @@
            	<div class="ibox">
                      <div class="ibox-title">
                                 <h5>${departName }所有项目${departClassName}</h5>
+                                <a href="CreateTaskServlet" class="btn btn-primary btn-xs">创建新项目</a>
                             </div>
                      <div class="ibox-content">
                      <div class="panel blank-panel">
@@ -64,7 +65,7 @@
                                                     <span class="label ${entry.isChecked2()?"label-warning":"label-default"}">${entry.isChecked2()?"有点评":""}</span>
                                                 </td>
                                                 <td class="project-actions">
-                                                  <a href="ProjectDetail?assignmentId=${entry.taskId}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> 查看 </a>
+                                                  <a href="TaskDetailServlet?taskId=${entry.taskId}&departName=${departName}&departClassName=${deprtClassName}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> 查看 </a>
                                                   <a href="CreateProject?assignmentId=${entry.taskId}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> 编辑 </a>
                                                   <a href="deleteTask?taskId=${entry.taskId}" 
                                                   onclick="return confirm('确认删除吗？');" class="btn btn-white btn-sm"><i class="fa fa-close"></i> 删除 </a>
@@ -103,7 +104,7 @@
                                                     <span class="label ${entry.isChecked2()?"label-warning":"label-default"}">${entry.isChecked2()?"有点评":""}</span>
                                                 </td>
                                                 <td class="project-actions">
-                                                  <a href="ProjectDetail?assignmentId=${entry.taskId}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> 查看 </a>
+                                                  <a href="TaskDetailServlet?taskId=${entry.taskId}&departName=${departName }&departClassName=${deprtClassName}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> 查看 </a>
                                                   <a href="CreateProject?assignmentId=${entry.taskId}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> 编辑 </a>
                                                   <a href="deleteTask?taskId=${entry.taskId}" 
                                                   onclick="return confirm('确认删除吗？');" class="btn btn-white btn-sm"><i class="fa fa-close"></i> 删除 </a>

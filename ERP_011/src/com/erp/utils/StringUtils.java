@@ -18,4 +18,13 @@ public class StringUtils {
 		return str;
 	}
 	
+	public static boolean isSpace(String str) {
+		boolean result = false;
+		if(str == null || str.length() == 0) {
+			result = true;
+		}
+		return result;
+
+	}
+	
 }
