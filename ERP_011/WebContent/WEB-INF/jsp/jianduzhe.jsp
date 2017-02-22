@@ -94,13 +94,13 @@
                         <span class="ng-scope">账户管理</span>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="userListServlet?type=1">
+                        <a class="J_menuItem" href="UserListServlet?type=1">
                             <i class="glyphicon glyphicon-user"></i> 
                             <span class="nav-label">管理员</span>
                         </a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="userListServlet?type=2">
+                        <a class="J_menuItem" href="UserListServlet?type=2">
                             <i class="glyphicon glyphicon-user"></i> 
                             <span class="nav-label">执行者</span>
                         </a>

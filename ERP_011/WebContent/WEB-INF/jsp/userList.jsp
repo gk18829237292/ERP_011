@@ -28,7 +28,7 @@
            <div class="ibox-title">
                       <h5>用户列表</h5>
                       <div class="ibox-tools">
-                          <a href="javascipt:void(0)" onclick="showModal(${type})" data-toggle="modal" class="btn btn-primary btn-xs">添加用户</a>
+                          <a href="javascipt:void(0)" onclick="showModal('${type}')" data-toggle="modal" class="btn btn-primary btn-xs">添加用户</a>
                       </div>
            </div>
            <div class="ibox-content">
@@ -37,7 +37,7 @@
                       <thead>
                         <tr>
                           <th>账户</th>
-                          <th>密码</th>
+                          <th>姓名</th>
                           <th>电话号码</th>
                           <th>操作</th>
                         </tr>
@@ -49,8 +49,8 @@
                             <td>${user.pwd}</td>
                             <td>${user.telNum}</td>
                             <td>
-                              <a href="javascipt:void(0)" onclick="showModal_1(${type},'${user.account}')" data-toggle="modal" class="btn btn-white btn-sm"><i class="fa fa-edit"></i> 修改 </a>
-                              <a href="deleteTask?taskId=${entry.taskId}" onclick="return confirm('确认删除吗？');" class="btn btn-white btn-sm"><i class="fa fa-close"></i> 删除 </a>
+                              <a href="javascipt:void(0)" onclick="showModal_1('${type}','${user.account}')" data-toggle="modal" class="btn btn-white btn-sm"><i class="fa fa-edit"></i> 修改 </a>
+                              <a href="UserListServlet?actionType=2&account=${user.account}" onclick="return confirm('确认删除吗？');" class="btn btn-white btn-sm"><i class="fa fa-close"></i> 删除 </a>
                             </td>
                           </tr>
                         </c:forEach>
@@ -74,7 +74,7 @@
                                 <h5>添加用户</h5>
                             </div>
                             <div class="ibox-content">
-                                <form class="form-horizontal m-t" id="signupForm" method="post" action="userList">                                  
+                                <form class="form-horizontal m-t" id="signupForm" method="post" action="UserListServlet">                                  
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">账号:</label>
                                         <div class="col-sm-8">
@@ -90,12 +90,17 @@
                                     <div class="form-group">
                                       <label class="col-sm-3 control-label">姓名</label>
                                       <div class="col-sm-8">
-                                        <input type="text" name="name" class="form-control" required>
+                                        <input type="text" name="name" class="form-control" >
                                       </div>
                                     </div>
                                     
-                                    
-                                    <input type="hidden" name="type" id="type">
+                                    <div class="form-group">
+                                      <label class="col-sm-3 control-label">电话号码</label>
+                                      <div class="col-sm-8">
+                                        <input type="text" name="telNum" class="form-control" >
+                                      </div>
+                                    </div>
+                                     <input type="hidden" name="type" id="type">
                                     <input type="hidden" name="actiontype" id="actiontype">
                                     <div class="form-group">
                                         <div class="col-sm-8 col-sm-offset-3">
@@ -140,19 +145,19 @@
                         }
                     });
         }
-        function showModal(obj){
+        function showModal(type){
           $('#account').removeAttr('readonly')
           $('#account').val('')
           $('#pwd').val('')
-          $('#type').val(obj)
+           $('#type').val(type)
           $('#actiontype').val(1)
           $('#modal-form').modal('show');
         }
-        function showModal_1(obj,account){
+        function showModal_1(type,account){
           $('#account').attr("readonly","true")
           $('#account').val(account)
           $('#pwd').val('')
-          $('#type').val(obj)
+          $('#type').val(type)
           $('#actiontype').val(2)
           $('#modal-form').modal('show');
         }

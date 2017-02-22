@@ -1,6 +1,10 @@
 package com.erp.Entry;
 
+import com.erp.utils.StringUtils;
+
 public class StuffEntry {
+	
+	public static final String EMPTY_STR = "————";
 	
 	private String account;
 	private String pwd;
@@ -86,7 +90,12 @@ public class StuffEntry {
 
 
 	
+	public void makeItFull(){
+		if(StringUtils.isSpace(pwd)) pwd = EMPTY_STR;
+		if(StringUtils.isSpace(name)) name = EMPTY_STR;
+		if(StringUtils.isSpace(telNum)) telNum = EMPTY_STR;
 
+	}
  
 
 	
