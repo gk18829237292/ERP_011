@@ -21,6 +21,8 @@ public class DepartDao {
 	private static final String TAG="DepartDao";
 	private static final String TABLE_NAME="Depart";
 	
+
+	
 	public static String getDepartNameById(Connection conn,String departId) {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -137,8 +139,6 @@ public class DepartDao {
 		}
 	}
 	
-	
-	
 	public static long getNextId(Connection conn){
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -185,5 +185,7 @@ public class DepartDao {
 			DBUtils.close(stmt,conn);
 		}
 	}
+
+	
 	
 }

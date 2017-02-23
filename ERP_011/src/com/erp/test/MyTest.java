@@ -12,8 +12,6 @@ public class MyTest {
 	@Test
 	public void testQuery(){
 		
-//		System.out.println( StuffDao.getAllStuffByType("0"));
-		StuffDao.deleteStuffByAccount("gk8","2");
-
+		DepartClassDao.update("gkTest666", "5");
 	}
 }

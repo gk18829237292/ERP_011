@@ -56,7 +56,42 @@ public class DepartClassDao {
 		return entry;
 	}
 	
-	public static void insert() {
+	public static boolean insert(String departClassName) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		boolean result = false;
+		try {
+			conn = DBUtils.getConnection();
+			stmt = conn.prepareStatement("insert into " + TABLE_NAME + " (departClass_name) values(?)");
+			stmt.setString(1, departClassName);
+			result = stmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(stmt, conn);
+		}
+		return result;
+		
+	}
+	
+	public static boolean update(String departClassName,String departClassId) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		boolean result = false;
+		try {
+			conn = DBUtils.getConnection();
+			stmt = conn.prepareStatement("update " + TABLE_NAME + " set departClass_name =? where departClass_id =?");
+			stmt.setString(1, departClassName);
+			stmt.setString(2, departClassId);
+			result = stmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(stmt, conn);
+		}
+		return result;
 		
 	}
 	

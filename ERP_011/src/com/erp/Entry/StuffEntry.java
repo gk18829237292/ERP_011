@@ -94,7 +94,6 @@ public class StuffEntry {
 		if(StringUtils.isSpace(pwd)) pwd = EMPTY_STR;
 		if(StringUtils.isSpace(name)) name = EMPTY_STR;
 		if(StringUtils.isSpace(telNum)) telNum = EMPTY_STR;
-
 	}
  
 

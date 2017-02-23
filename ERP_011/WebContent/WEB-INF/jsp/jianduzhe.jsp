@@ -74,9 +74,15 @@
                     </c:forEach>
                     <li class="line dk"></li>
                     <li>
+                    	<a class="J_menuItem" href="DepartClassListServlet">
+                    		<i class="fa fa fa-bar-chart-o"></i>
+                            <span class="nav-label">部门分类管理</span>
+                    	</a>
+                    </li>
+                    <li>
                         <a href="#">
                             <i class="fa fa fa-bar-chart-o"></i>
-                            <span class="nav-label">部门分类管理</span>
+                            <span class="nav-label">部门管理</span>
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
@@ -100,9 +106,15 @@
                         </a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="UserListServlet?type=2">
+                        <a class="J_menuItem" href="UserList2Servlet">
                             <i class="glyphicon glyphicon-user"></i> 
                             <span class="nav-label">执行者</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="J_menuItem" href="UserList3Servlet">
+                            <i class="glyphicon glyphicon-user"></i> 
+                            <span class="nav-label">领导</span>
                         </a>
                     </li>
                    

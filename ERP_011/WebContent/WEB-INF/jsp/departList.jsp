@@ -28,7 +28,7 @@
            <div class="ibox-title">
                       <h5>用户列表</h5>
                       <div class="ibox-tools">
-                          <a href="javascipt:void(0)" onclick="showModal('${type}')" data-toggle="modal" class="btn btn-primary btn-xs">添加用户</a>
+                          <a href="javascipt:void(0)" onclick="showModal()" data-toggle="modal" class="btn btn-primary btn-xs">添加部门</a>
                       </div>
            </div>
            <div class="ibox-content">
@@ -36,22 +36,21 @@
                     <table class="table table-hover">
                       <thead>
                         <tr>
-                          <th>账户</th>
-                          <th>姓名</th>
-                          <th>电话号码</th>
+                          <th>部门名称</th>
+                          <th>部门人员数量</th>
+                          <th>部门任务数量</th>
                           <th>操作</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <c:forEach items="${userList}" var="user">
+                        <c:forEach items="${departs}" var="depart">
                           <tr>
-                            <td>${user.account}</td>
-                            <td>${user.name}</td>
-                            <td>${user.telNum}</td>
+                            <td>${depart.departName}</td>
+                            <td>待开发</td>
+                            <td>待开发</td>
                             <td>
-                              <a href="javascipt:void(0)" onclick="showModal_1('${type}','${user.account}')" data-toggle="modal" class="btn btn-white btn-sm"><i class="fa fa-edit"></i> 修改 </a>
-                              <a href="DeleteUserServlet?type=${type }&account=${user.account}" onclick="return confirm('确认删除吗  ${user.account}？');" class="btn btn-white btn-sm"><i class="fa fa-close"></i> 删除 </a>
-                            </td>
+                              <a href="javascipt:void(0)" onclick="showModal_1('${depart.departId}')" data-toggle="modal" class="btn btn-white btn-sm"><i class="fa fa-edit"></i> 修改 </a>
+                             </td>
                           </tr>
                         </c:forEach>
                       </tbody>
@@ -74,33 +73,26 @@
                                 <h5>添加用户</h5>
                             </div>
                             <div class="ibox-content">
-                                <form class="form-horizontal m-t" id="signupForm" method="post" action="UserListServlet">                                  
+                                <form class="form-horizontal m-t" id="signupForm" method="post" action="DepartListServlet">                                  
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">账号:</label>
+                                        <label class="col-sm-3 control-label">部门名称:</label>
                                         <div class="col-sm-8">
-                                            <input type="text" autocomplete="off" id="account" name="account"  class="form-control" required>
+                                            <input type="text" autocomplete="off" id="departName" name="departName"  class="form-control" required>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                      <label class="col-sm-3 control-label">密码</label>
-                                      <div class="col-sm-8">
-                                        <input id="password" type="password" autocomplete="off" name="password" class="form-control" required>
-                                      </div>
-                                    </div>
-                                    <div class="form-group">
-                                      <label class="col-sm-3 control-label">姓名</label>
-                                      <div class="col-sm-8">
-                                        <input type="text" name="name" class="form-control" >
-                                      </div>
                                     </div>
                                     
                                     <div class="form-group">
-                                      <label class="col-sm-3 control-label">电话号码</label>
-                                      <div class="col-sm-8">
-                                        <input type="text" name="telNum" class="form-control" >
-                                      </div>
+                                    	<label class="col-sm-3 control-label">部门分类:</label>
+                                    	<div class="col-sm-8">
+	                                    	<select id="departClassId" name="departClassId" data-placeholder="选择部门分类..." style="width:350px;" tabindex="2">
+	                                                <c:forEach items="${departClassList}" var="departClass">
+	                                                	 <option value="${departClass.departClassId }" >${departClass.departClassName}</option>
+	                                                </c:forEach>
+											</select>
+										</div>
                                     </div>
-                                     <input type="hidden" name="type" id="type">
+                                    
+                                    <input type="hidden" name="departId" id="departId" />
                                     <input type="hidden" name="actiontype" id="actiontype">
                                     <div class="form-group">
                                         <div class="col-sm-8 col-sm-offset-3">
@@ -145,20 +137,13 @@
                         }
                     });
         }
-        function showModal(type){
-          $('#account').removeAttr('readonly')
-          $('#account').val('')
-          $('#pwd').val('')
-           $('#type').val(type)
+        function showModal(){
           $('#actiontype').val(0)
           $('#modal-form').modal('show');
         }
-        function showModal_1(type,account){
-          $('#account').attr("readonly","true")
-          $('#account').val(account)
-          $('#pwd').val('')
-          $('#type').val(type)
+        function showModal_1(id){
           $('#actiontype').val(1)
+          $('#departId').val(id)
           $('#modal-form').modal('show');
         }
     </script>
