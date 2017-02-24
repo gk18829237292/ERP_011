@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.erp.Entry.DepartEntry;
 import com.erp.Entry.TaskEntry;
+import com.erp.Log.Log;
 import com.erp.utils.DBUtils;
 import com.sun.javafx.tk.Toolkit.Task;
 
@@ -17,6 +18,8 @@ public class TaskDao {
 
 	private static final String TAG="TaskDao";
 	private static final String TABLE_NAME="Task";
+	
+	
 	
 	public static List<TaskEntry> getAllTaskByDepartId() {
 		List<TaskEntry> entries = new ArrayList<>();
@@ -189,8 +192,92 @@ public class TaskDao {
 			DBUtils.close(rs, stmt, conn);
 		}
  		
+ 		return result;
+ 	}
+ 	//task_name,startTime,endTime,updateTime,chairMan,type,place,financing,goal,report_type,department_id，picture
+ 	public static boolean insert(String taskName,long startTime,long endTime,long updateEndTime,String chairMan,String type,String place,String finan,String goal,String reportType,String departId,String picture){
+ 		boolean result = false;
+ 		Connection conn = null;
+ 		PreparedStatement stmt = null;
+ 		
+ 		try {
+			conn = DBUtils.getConnection();
+			stmt = conn.prepareStatement("insert into " + TABLE_NAME + " (task_name,startTime,endTime,updateEndTime,chairMan,type,place,financing,goal,report_type,department_id,picture) values(?,?,?,?,?,?,?,?,?,?,?,?)");
+			stmt.setString(1, taskName);
+			stmt.setLong(2, startTime);
+			stmt.setLong(3,endTime);
+			stmt.setLong(4,updateEndTime);
+			stmt.setString(5, chairMan);
+			stmt.setString(6, type);
+			stmt.setString(7, place);
+			stmt.setString(8, finan);
+			stmt.setString(9, goal);
+			stmt.setString(10,reportType);
+			stmt.setString(11, departId);
+			stmt.setString(12, picture);
+			result = stmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(stmt, conn);
+		}
+ 		
  		
  		return result;
  	}
 	
+	public static long getNextId(){
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBUtils.getConnection();
+			stmt = conn.prepareStatement("select AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_NAME = ?");
+			stmt.setString(1, TABLE_NAME);
+			rs = stmt.executeQuery();
+			rs.first();
+			return rs.getLong(1);
+		} catch (SQLException e) {
+			Log.logError(TAG, e.getMessage());
+		}finally {
+			DBUtils.close(rs, stmt,conn);
+		}
+		return -1;
+	}
+	
+	public static boolean update(String taskId,String taskName,long startTime,long endTime,long updateEndTime,String chairMan,String type,String place,String finan,String goal,String reportType,String departId,String picture){
+ 		boolean result = false;
+ 		Connection conn = null;
+ 		PreparedStatement stmt = null;
+ 		
+ 		try {
+			conn = DBUtils.getConnection();
+			stmt = conn.prepareStatement("insert into " + TABLE_NAME + " set task_name=?,startTime=?,endTime=?,updateEndTime=?,chairMan=?,type=?,place=?,financing=?,goal=?,report_type=?,department_id=?,picture=? where task_id =?");
+			stmt.setString(1, taskName);
+			stmt.setLong(2, startTime);
+			stmt.setLong(3,endTime);
+			stmt.setLong(4,updateEndTime);
+			stmt.setString(5, chairMan);
+			stmt.setString(6, type);
+			stmt.setString(7, place);
+			stmt.setString(8, finan);
+			stmt.setString(9, goal);
+			stmt.setString(10,reportType);
+			stmt.setString(11, departId);
+			stmt.setString(12, picture);
+			stmt.setString(13, taskId);
+			result = stmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(stmt, conn);
+		}
+ 		
+ 		
+ 		return result;
+ 	}
+	
+
 }

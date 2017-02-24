@@ -32,7 +32,7 @@
                     </div>
                     <div class="ibox-content">
 
-                        <form id="form" name="form" method="post" action="CreateProject" class="wizard-big">
+                        <form id="form" name="form" method="post" action="CreateProject" class="wizard-big"  enctype="multipart/form-data">
                             
                             <h1>Step1</h1>
                             <fieldset>
@@ -42,15 +42,18 @@
                                         <div class="form-group">
                                             <label>任务名称 *</label>&nbsp;
                                             <div class="checkbox checkbox-inline">
-                                                <input type="checkbox" id="tasktype" name="tasktype" value="1" <c:if test="${task.type == 1}">checked="true"</c:if>>
+                                                <input type="checkbox" id="tasktype" name="type" value="1" <c:if test="${task.type == 1}">checked="true"</c:if>>
                                                 <label for="inlineCheckbox1">是否为重点项目</label>
                                             </div>
-                                            <input id="taskname" name="taskname" type="text" class="form-control required" value="${task.assignmentName}">
-                                            
+                                            <input id="name" name="name" type="text" class="form-control required" value="${task.taskName}">
+                                        </div>
+                                         <div class="form-group">
+                                            <label>责任人</label>
+                                            <input id="chairMan" name="chairMan" type="text" class="form-control" value="${task.chairMan}">
                                         </div>
                                         <div class="form-group">
                                             <label>任务地点 *</label>
-                                            <input id="taskPlace" name="taskPlace" type="text" class="form-control required" value="${task.place}">
+                                            <input id="place" name="place" type="text" class="form-control required" value="${task.place}">
                                         </div>
                                         <div class="form-group">
                                             <label>任务资金 *</label>
@@ -82,7 +85,7 @@
                                         <br><br>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">汇报频率</label>
-                                            <select id="departmentId" name="departmentId" data-placeholder="选择部门..." style="width:350px;" tabindex="2">
+                                            <select id="reportType" name=""reportType"" data-placeholder="选择汇报周期..." style="width:350px;" tabindex="2">
                                                 <option value="0" >日报</option>
                                                 <option value="1" >周报</option>
                                                 <option value="2" >半月报</option>
@@ -99,10 +102,10 @@
                             <fieldset>
                                 <h2>Step3</h2>
                                 <div class="row">
-                                <div class="form-group">
+                               		<div class="form-group">
                                             <label >文件选择（多选）</label>
                                             <input type="file"  name="img" multiple="multiple" class="form-control">
-                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label>任务目标</label>
                                         <textarea name="goal" id="goal" class="form-control required" style="height: 100px ">${task.goal}</textarea>
@@ -117,11 +120,10 @@
                                     <div class="form-group">
                                         <label>部门选择</label><br>
                                           <div class="input-group">
-                                            <select id="departmentId" name="departmentId" data-placeholder="选择部门..." style="width:350px;" tabindex="2">
+                                            <select id=""departId"" name="departId" data-placeholder="选择部门..." style="width:350px;" tabindex="2">
                                                 <option value="">请选择部门</option>
                                                 <c:forEach items="${department}" var = "entry">
-                                                    <option value="${entry.departmentId}" <c:if test="${entry.departmentName == task.departmentName}">selected='selected'</c:if>
-                                                    >${entry.departmentName}</option>
+                                                    <option value="${entry.departId}">${entry.departName}</option>
                                                 </c:forEach>
                                             </select>
                                         </div>            
@@ -129,8 +131,8 @@
                                 </div>
                             </fieldset>  
                             
-                            <input type="hidden" name="taskid" value="${task.assignment_id}">
-                            <input type="hidden" name="Actiontype" value="${actionType}">  
+                            <input type="hidden" name="taskid" value="${task.tasdId}">
+                            <input type="hidden" name="actiontype" value="${actionType}">  
                         </form>
                     </div>
                 </div>

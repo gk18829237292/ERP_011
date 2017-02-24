@@ -143,7 +143,6 @@ public class DepartDao {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			conn = DBUtils.getConnection();
 			stmt = conn.prepareStatement("select AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_NAME = ?");
 			stmt.setString(1, TABLE_NAME);
 			rs = stmt.executeQuery();
