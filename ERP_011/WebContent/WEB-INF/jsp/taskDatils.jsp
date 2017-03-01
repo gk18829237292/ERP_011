@@ -34,7 +34,7 @@
                         <div class="col-sm-12">
                             <div class="m-b-md">
                                  <h5>${departName } ${departClassName}</h5> 
-                                <a href="CreateProject?taskId=${task.taskId}" class="btn btn-white btn-xs pull-right">编辑项目</a>
+                                <a href="CreateTaskServlet?taskId=${task.taskId}" class="btn btn-white btn-xs pull-right">编辑项目 ${task.taskId }</a>
                                 <div class="col-sm-offset-5">
                                   <h2>${task.taskName } <span class="label label-danger">${entry.type==1?"重点":"" }</span></h2>
                                 </div>
@@ -155,7 +155,7 @@
 	                                                    </dl>
                                                     </div>
                                                     <div class="col-sm-2 pull-right">
-                                                    	<a href="" class="btn btn-primary btn-sm">${stuff.isType0_1()?"督查信息":"" }</a> 
+                                                    	<a href="#" onclick="show(${i})" class="btn btn-primary btn-sm">${stuff.isType0_1()?"督查信息":"" }</a> 
                                                     </div>
                                        			</div>
                                                 <div class="row">
@@ -167,7 +167,7 @@
                                                 	</div>
                                                   <div class="col-sm-2 pull-right">
                                                   <c:if test="${stuff.isType2_leader() }">
-                                                  	<a href="" class="btn btn-primary btn-sm">添加点评</a> 
+                                                  	<a href=""  class="btn btn-primary btn-sm">添加点评</a> 
                                                   </c:if>
                                                   </div>
                                                 </div>  
@@ -187,11 +187,102 @@
 
         </div>
    </div>
-
+	
+	<div id="modal-form" class="modal fade" aria-hidden="true">
+       <div class="modal-dialog">
+           <div class="modal-content">
+               <div class="modal-body">
+                   <div class="row">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>审核</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <form class="form-horizontal m-t" id="signupForm" method="post" action="TaskDetailServlet" enctype="multipart/form-data">
+                                    <input type="hidden" name="taskId" value="${task.taskId} ">
+                                    <input type="hidden" name="index" id="index">
+                                    <input type="hidden" name="actionType" value="0">
+                                    <input type="hidden" name="departName" value="${departName }">
+                                    <input type="hidden" name="departClassName" value="${departClassName }">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">督查意见</label>
+                                        <div class="col-sm-8">
+                                            <textarea id="comment" name="comment" class="form-control valid" required="true"></textarea>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">图片核实</label>
+                                        <div class="col-sm-8">
+                                            <input type="file"  name="picture" multiple="multiple" class="form-control">
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                    <div class="form-group">
+                                        <div class="col-sm-8 col-sm-offset-3">
+                                            <button class="btn btn-primary" type="submit">提交</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+    </div>
+	
+	
     <!-- 全局js -->
     <script src="js/jquery.min.js?v=2.1.4"></script>
     <script src="js/bootstrap.min.js?v=3.3.6"></script>
 
+<div id="modal-form_leader" class="modal fade" aria-hidden="true">
+       <div class="modal-dialog">
+           <div class="modal-content">
+               <div class="modal-body">
+                   <div class="row">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>审核</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <form class="form-horizontal m-t" id="signupForm" method="post" action="TaskDetailServlet" enctype="multipart/form-data">
+                                    <input type="hidden" name="taskId" value="${task.taskId} ">
+                                    <input type="hidden" name="index" id="index">
+                                    <input type="hidden" name="actionType" value="1">
+                                        <input type="hidden" name="departName" value="${departName }">
+                                    <input type="hidden" name="departClassName" value="${departClassName }">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">评语</label>
+                                        <div class="col-sm-8">
+                                            <textarea id="comment" name="comment" class="form-control valid" required="true"></textarea>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                    
+                                    <div class="form-group">
+                                        <div class="col-sm-8 col-sm-offset-3">
+                                            <button class="btn btn-primary" type="submit">提交</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+    </div>
+	
+	
+    <!-- 全局js -->
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.6"></script>
 
 
     <!-- 自定义js -->
@@ -225,6 +316,16 @@
                     btn.contents().last().replaceWith(" Refresh");
                 }, 2000);
             }
+        }
+        
+        function show(index){
+        	$('#index').val(index);
+        	$('#modal-form').modal('show');
+        }
+        
+        function show_1(index){
+        	$('#index').val(index);
+        	$('#modal-form_leader').modal('show');
         }
     </script>
 

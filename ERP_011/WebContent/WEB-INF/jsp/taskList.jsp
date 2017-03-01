@@ -25,8 +25,10 @@
            	<div class="ibox">
                      <div class="ibox-title">
                                 <h5>${departName }所有项目${departClassName}</h5>
-                                <a href="CreateTaskServlet" class="btn btn-primary btn-xs">创建新项目</a>
-                            </div>
+                    	<div class="ibox-tools">
+                    		<a href="CreateTaskServlet" class="btn btn-primary btn-xs">创建新项目</a>
+                    	</div>    
+					</div>
                      <div class="ibox-content">
                      <div class="panel blank-panel">
                         <div class="panel-heading">
@@ -66,8 +68,8 @@
                                                 </td>
                                                 <td class="project-actions">
                                                   <a href="TaskDetailServlet?taskId=${entry.taskId}&departName=${departName}&departClassName=${deprtClassName}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> 查看 </a>
-                                                  <a href="CreateProject?assignmentId=${entry.taskId}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> 编辑 </a>
-                                                  <a href="deleteTask?taskId=${entry.taskId}" 
+                                                  <a href="CreateTaskServlet?taskId=${entry.taskId}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> 编辑 </a>
+                                                  <a href="DeleteTaskServlet?taskId=${entry.taskId}" 
                                                   onclick="return confirm('确认删除吗？');" class="btn btn-white btn-sm"><i class="fa fa-close"></i> 删除 </a>
                                                 </td>
                                               </tr>

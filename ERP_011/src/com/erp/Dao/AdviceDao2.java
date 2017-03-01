@@ -67,4 +67,46 @@ public class AdviceDao2 {
 		return entry;
 	}
 	
+	public static boolean insert_withDelete(String time,String adviceIndex,String comment,String taskId){
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		try {
+			conn = DBUtils.getConnection();
+			delete(conn, adviceIndex, taskId);
+			stmt = conn.prepareStatement("insert into " + TABLE_NAME + " values(?,?,?,?)");
+			stmt.setString(1, time);
+			stmt.setString(2, adviceIndex);
+			stmt.setString(3, comment);
+			stmt.setString(4, taskId);
+			result = stmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(stmt, conn);
+		}
+		return result;
+	}
+	
+	public static boolean delete(Connection conn,String adviceIndex,String taskId) {
+		boolean result = false;
+		PreparedStatement stmt = null;
+		
+		try {
+			stmt = conn.prepareStatement("delete from " + TABLE_NAME + " where adviceIndex = ? and task_id = ?");
+			stmt.setString(1, adviceIndex);
+			stmt.setString(2, taskId);
+			result = stmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(stmt);
+		}
+		return result;
+	}
+
+	
 }

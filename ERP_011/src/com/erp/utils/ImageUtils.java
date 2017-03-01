@@ -39,6 +39,7 @@ public class ImageUtils {
 		} catch (Exception e) {
 			Log.logError(TAG, e.getMessage());
 		}
+		map.put("picture", sb.toString());
 		return map;
 	}
 	

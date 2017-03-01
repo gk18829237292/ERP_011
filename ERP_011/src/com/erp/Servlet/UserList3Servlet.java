@@ -43,7 +43,7 @@ String actionType = request.getParameter("actiontype");
 		String departId = request.getParameter("departId");
 		switch (actionType) {
 		case "0": //添加
-			StuffDao.insert(account, password, name, telNum, type);
+			StuffDao.insert_leader(account, password, name, telNum);
 			Stuff_DepartDao.insert(account, departId);
 			break;
 		case "1": //修改

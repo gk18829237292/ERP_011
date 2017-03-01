@@ -102,7 +102,7 @@ public class TaskDao {
 		ResultSet rs = null;
 		try {
 			conn = DBUtils.getConnection();
-			stmt = conn.prepareStatement("select * from "+ TABLE_NAME +" order by updateTime desc limit ?");
+			stmt = conn.prepareStatement("select * from "+ TABLE_NAME +" order by updateEndTime desc limit ?");
 			stmt.setInt(1, num);
 			rs = stmt.executeQuery();
 			while(rs.next()){
@@ -160,7 +160,7 @@ public class TaskDao {
 		entry.setTaskName(rs.getString("task_name"));
 		entry.setStartTime(rs.getString("startTime"));
 		entry.setEndTime(rs.getString("endTime"));
-		entry.setUpdateTime(rs.getString("updateTime"));
+		entry.setUpdateTime(rs.getString("updateEndTime"));
 		entry.setChairMan(rs.getString("chairMan"));
 		entry.setType(rs.getString("type"));
 		entry.setPlace(rs.getString("place"));
@@ -253,7 +253,7 @@ public class TaskDao {
  		
  		try {
 			conn = DBUtils.getConnection();
-			stmt = conn.prepareStatement("insert into " + TABLE_NAME + " set task_name=?,startTime=?,endTime=?,updateEndTime=?,chairMan=?,type=?,place=?,financing=?,goal=?,report_type=?,department_id=?,picture=? where task_id =?");
+			stmt = conn.prepareStatement("update " + TABLE_NAME + " set task_name=?,startTime=?,endTime=?,updateEndTime=?,chairMan=?,type=?,place=?,financing=?,goal=?,report_type=?,department_id=?,picture=? where task_id =?");
 			stmt.setString(1, taskName);
 			stmt.setLong(2, startTime);
 			stmt.setLong(3,endTime);
@@ -274,10 +274,37 @@ public class TaskDao {
 		}finally {
 			DBUtils.close(stmt, conn);
 		}
- 		
- 		
+ 		System.out.println("update result : " + result);
  		return result;
  	}
 	
-
+	public static boolean delete(Connection conn,String taskId){
+		boolean result = false;
+ 		PreparedStatement stmt = null;
+ 		try {
+			stmt = conn.prepareStatement("delete from " + TABLE_NAME + " where task_id = ?");
+			stmt.setString(1, taskId);
+			result = stmt.execute();
+ 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			DBUtils.close(stmt, conn);
+		}
+ 		return result;
+	}
+	
+	public static boolean delete(String taskId) {
+		boolean result = false;
+ 		Connection conn = null;
+ 		
+ 		try {
+			conn = DBUtils.getConnection();
+			result = delete(conn,taskId);
+ 		} catch (SQLException e) {
+		}finally{
+			DBUtils.close(conn);
+		}
+ 		return result;
+	}
 }
