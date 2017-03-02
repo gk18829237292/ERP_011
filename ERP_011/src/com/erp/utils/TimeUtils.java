@@ -12,6 +12,10 @@ public class TimeUtils {
 	private static SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	private static long dayTimes = 24 * 60 * 60 * 1000;
 	
+	public static long getNowLongTime() {
+		return new Date().getTime();
+	}
+	
 	public static String getNowTime(){
 		return convert2String(new Date().getTime());
 	}

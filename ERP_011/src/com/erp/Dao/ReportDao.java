@@ -12,6 +12,9 @@ import java.util.Map;
 import com.erp.Entry.ReportEntry;
 import com.erp.utils.DBUtils;
 
+import sun.nio.cs.FastCharsetProvider;
+import sun.util.logging.resources.logging_zh_TW;
+
 public class ReportDao {
 	
 	private static final String TAG="ReportDao";
@@ -140,7 +143,6 @@ public class ReportDao {
 	
 	/**
 	 * create table Report(
-	report_id bigint primary key auto_increment,
 	time long not null,
 	reportIndex int not null, 
     comment nvarchar(1000) not null,
@@ -155,11 +157,56 @@ public class ReportDao {
 		ReportEntry entry = new ReportEntry();
 		entry.setComment(rs.getString("comment"));
 		entry.setPicture(rs.getString("picture"));
-		entry.setReportId(rs.getString("report_id"));
 		entry.setReportIndex(rs.getInt("reportIndex"));
 		entry.setReportTime(rs.getString("time"));
 		entry.setTaskId(rs.getString("task_id"));
 		return entry;
 	}
 	
+	/**
+	 * time long not null,
+	reportIndex int not null, 
+    comment nvarchar(1000) not null,
+    picture nvarchar(1000) not null,
+    task_id bigint not null,
+	 * @return
+	 */
+	public static boolean insert(String time,String reportIndex,String comment,String picture,String task_id){
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try {
+			conn = DBUtils.getConnection();
+			delete(conn, reportIndex, task_id);
+			stmt = conn.prepareStatement("insert into " + TABLE_NAME + " values(?,?,?,?,?)");
+			stmt.setString(1, time);
+			stmt.setString(2, reportIndex);
+			stmt.setString(3, comment);
+			stmt.setString(4, picture);
+			stmt.setString(5, task_id);
+			result = stmt.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(stmt, conn);
+		}
+		return result;
+	}
+	
+	public static boolean delete(Connection conn, String reportIndex,String task_id){
+		boolean result = false;
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement("delete from " + TABLE_NAME + " where reportIndex = ? and task_id = ?");
+			stmt.setString(1, reportIndex);
+			stmt.setString(2, task_id);
+			result = stmt.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(stmt);
+		}
+		return result;
+	}
 }

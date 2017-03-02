@@ -19,13 +19,6 @@ public class TaskDao {
 	private static final String TAG="TaskDao";
 	private static final String TABLE_NAME="Task";
 	
-	
-	
-	public static List<TaskEntry> getAllTaskByDepartId() {
-		List<TaskEntry> entries = new ArrayList<>();
-		return entries;
-	}
-	
 	public static List<TaskEntry> getAllTaskByDepartId(String departId,List<TaskEntry> taskEntries) {
 		Connection conn = null;
 		try {

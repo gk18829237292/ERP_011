@@ -49,7 +49,10 @@ public class UserList2Servlet extends HttpServlet {
 			break;
 		case "1": //修改
 			StuffDao.update(account, password, name, telNum, type);
-			Stuff_DepartDao.update(account, departId);
+			System.out.println("account");
+			if(!Stuff_DepartDao.update(account, departId)){
+				Stuff_DepartDao.insert(account, departId);
+			}
 			break;
 
 		}

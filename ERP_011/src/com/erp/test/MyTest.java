@@ -6,6 +6,7 @@ import com.erp.Dao.AdviceDao;
 import com.erp.Dao.DepartClassDao;
 import com.erp.Dao.DepartDao;
 import com.erp.Dao.StuffDao;
+import com.erp.Dao.Stuff_DepartDao;
 import com.erp.Dao.TaskDao;
 
 public class MyTest {
@@ -19,7 +20,10 @@ public class MyTest {
 		 *(String taskId,String taskName,long startTime,long endTime,long updateEndTime,String chairMan,String type,String place,String finan,String goal,String reportType,String departId,String picture){
  		boolean result = false;
 		 */
-		TaskDao.update("3","测试2", 1, 1, 1, "gaoike", "1", "12", "45788", "ceshi", "2", "1","");
+//		TaskDao.update("3","测试2", 1, 1, 1, "gaoike", "1", "12", "45788", "ceshi", "2", "1","");
 //		TaskDao.update("", taskName, startTime, endTime, updateEndTime, chairMan, type, place, finan, goal, reportType, departId, picture)
+		
+//		System.out.println(TaskDao.getAllTaskByDepartId("1"));
+		System.out.println(Stuff_DepartDao.update("gk5", "3"));
 	}
 }

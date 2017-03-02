@@ -12,6 +12,22 @@ public class Stuff_DepartDao {
 	private static final String TAG="Stuff_DepartDao";
 	private static final String TABLE_NAME="Stuff_Depart";
 	
+	public static DepartEntry getDepartByStuffAccount(String account) {
+		Connection conn = null;
+		DepartEntry departEntry = null;
+		try {
+			conn = DBUtils.getConnection();
+			departEntry = getDepartByStuffAccount(conn, account);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(conn);
+		}
+		
+		return departEntry;
+	}
+	
 	public static DepartEntry getDepartByStuffAccount(Connection conn, String account) {
 		DepartEntry departEntry = null;
 		PreparedStatement stmt = null;

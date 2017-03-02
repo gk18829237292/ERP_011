@@ -131,7 +131,7 @@
                                                             	<td>
                                                             		<c:forEach items="${reports[i].picture}" var="pic">
                                                             			<a class="fancybox" href="img/${pic}">
-                                                                        	<img src="img/${pic}" alt="img">
+                                                                        	<img height="200" width="150" src="img/${pic}" alt="img">
                                                                         </a>
                                                                     </c:forEach>
                                                                 </td>
@@ -148,14 +148,17 @@
 	                                                        <dd>
 	                                                        	<c:forEach items="${advices1[i].picture}" var="pic">
 	                                                                <a class="fancybox" href="img/${pic}">
-	                                                                    <img src="img/${pic}" alt="img">
+	                                                                    <img  src="img/${pic}" alt="img">
 	                                                                </a>
 	                                                            </c:forEach>
 	                                                       </dd>
 	                                                    </dl>
                                                     </div>
                                                     <div class="col-sm-2 pull-right">
-                                                    	<a href="#" onclick="show(${i})" class="btn btn-primary btn-sm">${stuff.isType0_1()?"督查信息":"" }</a> 
+                                                    <c:if test="${stuff.isType0_1() }">
+                                                    	<a href="#" onclick="show(${i})" class="btn btn-primary btn-sm">督查信息</a> 
+                                                    </c:if>
+                                                    	
                                                     </div>
                                        			</div>
                                                 <div class="row">

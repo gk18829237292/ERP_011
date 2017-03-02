@@ -14,6 +14,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.erp.Dao.DepartDao;
+import com.erp.Dao.Stuff_DepartDao;
+import com.erp.Entry.DepartEntry;
 import com.erp.Entry.StuffEntry;
 
 
@@ -67,6 +70,10 @@ public class LoginFilter implements Filter {
 		if(stuff == null){
 			((HttpServletResponse)response).sendRedirect("LoginServlet");
 		}else{
+			if(!stuff.isType0_1()){
+				DepartEntry depart = Stuff_DepartDao.getDepartByStuffAccount(stuff.getAccount());
+				req.getSession().setAttribute("depart", depart);
+			}
 			chain.doFilter(request, response);
 		}
 	}

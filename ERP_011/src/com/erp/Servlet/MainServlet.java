@@ -10,8 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.erp.Dao.DepartClassDao;
+import com.erp.Dao.DepartDao;
+import com.erp.Dao.Stuff_DepartDao;
+import com.erp.Dao.TaskDao;
 import com.erp.Entry.DepartClassEntry;
+import com.erp.Entry.DepartEntry;
 import com.erp.Entry.StuffEntry;
+import com.erp.Entry.TaskEntry;
 import com.erp.Log.Log;
 
 
@@ -33,14 +38,29 @@ public class MainServlet extends HttpServlet {
 			response.sendRedirect("LoginServlet");
 		}else{
 			switch (stuff.getType()) {
-			case "0":
+			case "0": //监督者
 				List<DepartClassEntry> departClassEntries = DepartClassDao.getAllDepartClass(true);
 				request.setAttribute("departClassEntries", departClassEntries);
 				request.getRequestDispatcher("/WEB-INF/jsp/jianduzhe.jsp").forward(request, response);
 				break;
 			case "1":
 				break;
-			case "2":
+			case "2"://执行者
+				/**
+				 * 1.所在部门
+				 * 2.部门的所有任务
+				 * 3.
+				 */
+				DepartEntry depart = (DepartEntry) request.getSession().getAttribute("depart");
+				System.out.println("depart " + depart);
+				List<TaskEntry> taskEntries = TaskDao.getAllTaskByDepartId(depart.getDepartId());
+				if(stuff.getIsLeader() == 0){
+					request.setAttribute("depart", depart);
+					request.setAttribute("taskList", taskEntries);
+					request.getRequestDispatcher("/WEB-INF/jsp/zhixingzhe.jsp").forward(request,response);
+				}else {
+					
+				}
 				break;
 			default:
 				break;

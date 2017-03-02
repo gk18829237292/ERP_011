@@ -25,9 +25,11 @@
            	<div class="ibox">
                      <div class="ibox-title">
                                 <h5>${departName }所有项目${departClassName}</h5>
-                    	<div class="ibox-tools">
+                         <c:if test="${stuff.isType0_1() }">
+                         	<div class="ibox-tools">
                     		<a href="CreateTaskServlet" class="btn btn-primary btn-xs">创建新项目</a>
-                    	</div>    
+                    	</div>   
+                         </c:if>
 					</div>
                      <div class="ibox-content">
                      <div class="panel blank-panel">
