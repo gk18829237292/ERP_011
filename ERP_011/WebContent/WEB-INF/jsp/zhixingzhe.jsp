@@ -18,6 +18,8 @@
     <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css?v=4.1.0" rel="stylesheet">
+        <!-- Sweet Alert -->
+    <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 </head>
 
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
@@ -77,18 +79,18 @@
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                     <ul class="nav navbar-top-links navbar-right">
-                        <li><span class="label label-primary">${depart.departName}</span></li>
+                        <li><span class="label label-primary">执行者</span></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                                ${stuff.name }<span class="label label-primary"></span>
+                                ${depart.departName }<span class="label label-primary"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-alerts">
                                 <li>
-                                    <a href="#">个人信息</a>
+                                    <a href="#" class="demo1">个人信息</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                	<a href="UpdateUserInfoServlet" type="link">信息修改</a>
+                                	<a class="J_menuItem" href="UpdateUserInfoServlet" type="link">信息修改</a>
                                 </li>
                                 <li>
                                     <a href="LogoutServlet" type="link">注销</a>
@@ -118,6 +120,19 @@
 
     <!-- 第三方插件 -->
     <script src="js/plugins/pace/pace.min.js"></script>
+     <!-- Sweet alert -->
+    <script src="js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('.demo1').click(function () {
+                swal({
+                    title: "个人信息",
+                    text: "电话:\t${stuff.name}\n姓名:\t${stuff.telNum}"
+                });
+            });
+        });
+    </script>
 
 </body>
 
