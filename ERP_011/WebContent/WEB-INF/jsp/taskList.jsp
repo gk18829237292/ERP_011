@@ -12,9 +12,11 @@
     <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
     <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
     <!-- Sweet Alert -->
-    <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="css/plugins/sweetalert/sweetalert_1.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css?v=4.1.0" rel="stylesheet">
+    
+
 
 </head>
 
@@ -70,10 +72,14 @@
                                                 </td>
                                                 <td class="project-actions">
                                                   <a href="TaskDetailServlet?taskId=${entry.taskId}&departName=${departName}&departClassName=${deprtClassName}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> 查看 </a>
-                                                  <a href="CreateTaskServlet?taskId=${entry.taskId}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> 编辑 </a>
-                                                  <a href="DeleteTaskServlet?taskId=${entry.taskId}" 
-                                                  onclick="return confirm('确认删除吗？');" class="btn btn-white btn-sm"><i class="fa fa-close"></i> 删除 </a>
-                                                </td>
+                                                  <c:if test="${stuff.isType0_1() }">
+                                                  	<a href="CreateTaskServlet?taskId=${entry.taskId}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> 编辑 </a>
+                                                  </c:if>
+                                                  <c:if test="${stuff.isType0() }">
+                                                  <!--deleteTask?taskId=${entry.taskId}  -->
+                                                	  <a href="#" onclick="showPwd(${entry.taskId})" class="btn btn-white btn-sm"><i class="fa fa-close"></i> 删除 </a>
+                                                  </c:if>
+                                                  </td>
                                               </tr>
                                             </c:forEach>
                                          </tbody>
@@ -109,10 +115,14 @@
                                                 </td>
                                                 <td class="project-actions">
                                                   <a href="TaskDetailServlet?taskId=${entry.taskId}&departName=${departName }&departClassName=${deprtClassName}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> 查看 </a>
-                                                  <a href="CreateProject?assignmentId=${entry.taskId}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> 编辑 </a>
-                                                  <a href="deleteTask?taskId=${entry.taskId}" 
-                                                  onclick="return confirm('确认删除吗？');" class="btn btn-white btn-sm"><i class="fa fa-close"></i> 删除 </a>
-                                                </td>
+                                                  <c:if test="${stuff.isType0_1() }">
+                                                  	<a href="CreateProject?assignmentId=${entry.taskId}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> 编辑 </a>
+                                                  </c:if>
+                                                  <c:if test="${stuff.isType0() }">
+                                                  <!--deleteTask?taskId=${entry.taskId}  -->
+                                                	  <a href="#" onclick="showPwd(${entry.taskId})" class="btn btn-white btn-sm"><i class="fa fa-close"></i> 删除 </a>
+                                                  </c:if>
+                                                  </td>
                                               </tr>
                                             </c:forEach>
                                          </tbody>
@@ -148,40 +158,75 @@
     <!-- 自定义js -->
     <script src="js/content.js"></script>
     <!-- Sweet alert -->
-    <script src="js/plugins/sweetalert/sweetalert.min.js"></script>
-    <script>
-        function foo(){
-          swal({
-                        title: "您确定要删除这条信息吗",
-                        text: "删除后将无法恢复，请谨慎操作！",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "是的，我要删除！",
-                        cancelButtonText: "让我再考虑一下…",
-                        closeOnConfirm: false,
-                        closeOnCancel: false
-                    },
-                    function () {
-                        if (isConfirm) {
-                            swal("删除成功！", "您已经永久删除了这条信息。", "success");
-                        } else {
-                            swal("已取消", "您取消了删除操作！", "error");
-                        }
-                    });
-        }
-        
-    </script>
-    
+    <script src="js/plugins/sweetalert/sweetalert.min_1.js"></script>
     <script>
         $(document).ready(function () {
-             $('.footable').footable();
+            $('.footable').footable();
             $('.fancybox').fancybox({
                 openEffect: 'none',
                 closeEffect: 'none'
             });
             $('#myTab a:first').tab('show');
         });
+        
+        function showPwd(taskId){
+        	swal({   
+        		title: "删除任务 ",   
+        		text: "请输入最高权限密码",   
+        		type: "input",   
+        		showCancelButton: true,   
+        		closeOnConfirm: false,   
+        		showLoaderOnConfirm:true,
+        		animation: "slide-from-top",   
+        		inputPlaceholder: "密码" 
+        		},
+        		function(inputValue){   
+        			if (inputValue === false) return false;      
+        			if (inputValue === "") { 
+        				swal.showInputError("You need to write something!");     
+        				return false;   
+        			}    
+
+
+					checkPwd(inputValue,taskId);
+        		
+        			
+        		}
+        	);
+        }
+        
+        function checkPwd(str,taskId){
+        	if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+        	  xmlhttp=new XMLHttpRequest();
+        	}
+        	else{// code for IE6, IE5
+        	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        	}
+
+        	xmlhttp.onreadystatechange=function(){
+        		if (xmlhttp.readyState==4 && xmlhttp.status==200){
+        		 	
+        			result = xmlhttp.responseText;
+        			if(result){
+        				swal({   
+        					title: "成功",   
+   							text: "删除成功",   
+   							type: "success",   
+   							showCancelButton: false,    
+   							confirmButtonText: "确认",   
+   							closeOnConfirm: false 
+   							}, function(){   
+   								window.location.reload(true);
+   							});
+        				
+        			}else{
+        				swal('删除失败: ');
+        			}
+        		}
+        	}
+        	xmlhttp.open("GET","QueryHighPwdServlet?password="+str+"&taskId="+taskId,true);
+        	xmlhttp.send();
+        }
     </script>
 
 </body>

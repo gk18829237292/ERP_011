@@ -21,9 +21,11 @@ public class DBUtils {
 	
 	static{
 		ResourceBundle bundle = ResourceBundle.getBundle("dbconfig");
+		
 		URL_STRING = "jdbc:mysql:///erp?useUnicode=true&characterEncoding=utf8&useSSL=false";
 		ACCOUNT_STRING = "root";
 		PWD_STRING = "7320";
+		
 	}
 	
 	public static Connection getConnection() throws SQLException{

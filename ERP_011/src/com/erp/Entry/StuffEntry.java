@@ -25,7 +25,9 @@ public class StuffEntry {
 		return !type.equals("2");
 	}
 	
-
+	public boolean isType0() {
+		return type.equals("0");
+	}
 	
 	public boolean isType2_leader() {
 		return type.equals("2") && isLeader == 1;
