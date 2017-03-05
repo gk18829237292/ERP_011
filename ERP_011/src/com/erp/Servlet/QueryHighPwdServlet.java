@@ -38,7 +38,7 @@ public class QueryHighPwdServlet extends HttpServlet {
 		response.setStatus(200);
 		boolean result = true;
 		if(pwd.equals(password)){
-//			result =  TaskDao.delete(taskId);
+			result =  TaskDao.delete(taskId);
 		}
 		response.getWriter().write(result+"");
 	}

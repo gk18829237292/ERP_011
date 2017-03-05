@@ -133,11 +133,14 @@ public class TaskDao {
 			taskEntry.setReportNum(ReportDao.getReportNum(conn, taskEntry.getTaskId()));
 			taskEntry.setAdvise1Num(AdviceDao.getAdviceNum(conn, taskEntry.getTaskId())); //监督者
 			taskEntry.setAdvise2Num(AdviceDao2.getAdviceNum(conn, taskEntry.getTaskId())); //管理者
-			taskEntry.setDepartName(DepartDao.getDepartNameById(conn,taskEntry.getDepartId()));
+
 			
 			taskEntry.setReports(ReportDao.getAllReportByTaskId_Map(conn,taskEntry.getTaskId()));
 			taskEntry.setAdvices1(AdviceDao.getAllAdviceByTaskId_Map(conn,taskEntry.getTaskId()));
 			taskEntry.setAdvices2(AdviceDao2.getAllAdviceByTaskId_Map(conn,taskEntry.getTaskId()));
+//			taskEntry.setReportNum(taskEntry.getReports().size());
+//			taskEntry.setAdvise1Num(taskEntry.getAdvices1().size());
+//			taskEntry.setAdvise2Num(taskEntry.getAdvices2().size());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

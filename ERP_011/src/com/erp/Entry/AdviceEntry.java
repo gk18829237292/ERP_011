@@ -28,8 +28,15 @@ public class AdviceEntry {
 	private String taskId;
 	private int type;
 	private String name;
+	private int star;
 	
 	
+	public int getStar() {
+		return star;
+	}
+	public void setStar(int star) {
+		this.star = star;
+	}
 	public String getName() {
 		return name;
 	}

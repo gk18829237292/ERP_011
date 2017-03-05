@@ -150,6 +150,8 @@
 	                                       				<dl class="dl-horizontal">
 	                                       					<dt>督查意见：</dt>
 	                                       					<dd>${advices1[i].comment}</dd>
+	                                       					<dt>评分：</dt>
+	                                       					<dd>${advices1[i].star }</dd>
 	                                                        <dt>图片核实：</dt>
 	                                                        <dd>
 	                                                        	<c:forEach items="${advices1[i].picture}" var="pic">
@@ -227,6 +229,13 @@
                                         </div>
                                     </div>
                                     
+                                     <div class="form-group">
+                                        <label class="col-sm-3 control-label">评分：</label>
+                                        <div class="col-sm-8">
+                                            <input name="star" type="number" class="form-control" range="1,10">
+                                             <span class="help-block m-b-none"><i class="fa fa-info-circle" ></i> 1到10内评分</span>
+                                        </div>
+                                    </div>
                                     
                                     
                                     <div class="form-group">
@@ -345,8 +354,11 @@
 
     <!-- Fancy box -->
     <script src="js/plugins/fancybox/jquery.fancybox.js"></script>
-
-
+	<!-- jQuery Validation plugin javascript-->
+    <script src="js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="js/plugins/validate/messages_zh.min.js"></script>
+  	<script src="js/demo/form-validate-demo.js"></script>
+  
     <script>
         $(document).ready(function () {
              $('.footable').footable();

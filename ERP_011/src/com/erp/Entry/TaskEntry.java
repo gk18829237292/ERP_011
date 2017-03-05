@@ -33,7 +33,7 @@ public class TaskEntry {
 	private String goal;
 	private String reportType; // -- 0日报 1 周报，2半月报，3月报，4季报，5 半年报，6年报--
 	
-	private int reportTimes;  // 需要的报告次数
+	private int reportTimes;  // 总共需要的报告次数
 	
 	private int reportNum;	// 已经提交的报告次数
 	private int advise1Num;
@@ -45,7 +45,9 @@ public class TaskEntry {
 	private Map<Integer, ReportEntry> reports;
 	private Map<Integer, AdviceEntry> advices1;
 	private Map<Integer, AdviceEntry> advices2; 
-
+	
+	//评分
+	
 	private boolean isComplete;
 	private int progress;
 	private boolean isAtTime;
@@ -97,7 +99,7 @@ public class TaskEntry {
 	}
 
 
-	
+	//是否按期限 ？
 	public boolean isAtTime() {
 		int times = TimeUtils.getDays(new Date().getTime() - Long.parseLong(startTime)) / reportTypeToDays(Integer.parseInt(reportType));
 		return times <= reportTimes;
@@ -144,7 +146,9 @@ public class TaskEntry {
 
 	public int getProgress() {
 		if(reportTimes == 0) return 100;
-		return reportNum / reportTimes;
+		int temp = reportNum / reportTimes;
+		if(temp > 100) temp = 100;
+		return temp;
 	}
 
 
@@ -161,12 +165,14 @@ public class TaskEntry {
 		this.updateTime = updateTime;
 	}
 
+	
+	//判断是否按期限
 	public boolean isChecked1(){
-		return reportNum == advise1Num;
+		return reportNum >= getNeedToReportNum();
 	}
 	
 	public boolean isChecked2() {
-		return reportNum == advise2Num;
+		return reportNum == advise2Num && reportNum != 0;
 	}
 	
 	public int getReportNum() {
@@ -287,8 +293,22 @@ public class TaskEntry {
 
 	
 	public int getMaxNum() {
-		return Math.max(Math.max(reportNum, advise1Num),advise2Num);
+		return Math.min(200,Math.max(Math.max(Math.max(reportNum, advise1Num),advise2Num),getNeedToReportNum()));
 	}
+	
+	private int needToReportNum;
+
+	public int getNeedToReportNum() {
+		return TimeUtils.getDays(TimeUtils.getNowLongTime() - Long.parseLong(startTime)) / reportTypeToDays(Integer.parseInt(reportType));
+	}
+
+	public void setNeedToReportNum(int needToReportNum) {
+		this.needToReportNum = needToReportNum;
+	}
+
+	
+	
+	
 
 	
 	

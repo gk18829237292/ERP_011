@@ -56,7 +56,7 @@ public class TaskDetailServlet extends HttpServlet {
 		switch (actionType) {
 		case "0": // 督查
 			//String time,String adviceIndex,String comment,String picture,String taskId
-			AdviceDao.insert_withDelete(TimeUtils.getNowLongTime()+"", map.get("index"), map.get("comment"), map.get("picture"), map.get("taskId"));
+			AdviceDao.insert_withDelete(TimeUtils.getNowLongTime()+"", map.get("index"), map.get("comment"), map.get("picture"), map.get("taskId"),map.get("star"));
 			break;
 		case "1"://点评
 			//TODO 后面

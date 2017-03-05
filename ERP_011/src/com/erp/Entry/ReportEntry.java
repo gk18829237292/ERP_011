@@ -29,6 +29,7 @@ public class ReportEntry {
 	int reportIndex;
 	boolean outOfTime = false;
 	
+
 	public boolean isOutOfTime() {
 		return outOfTime;
 	}

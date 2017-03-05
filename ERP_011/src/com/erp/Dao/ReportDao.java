@@ -121,6 +121,8 @@ public class ReportDao {
 				ReportEntry entry = fill(rs);
 				reportEntries.put(entry.getReportIndex(), entry);
 			}
+			
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

@@ -125,6 +125,7 @@ public class AdviceDao {
 		entry.setPicture(rs.getString("picture"));
 		entry.setTaskId(rs.getString("task_id"));
 		entry.setTime(rs.getString("time"));
+		entry.setStar(rs.getInt("star"));
 		return entry;
 	}
 	/**
@@ -137,7 +138,7 @@ public class AdviceDao {
     primary key (adviceIndex,task_id)
 	 * @return
 	 */
-	public static boolean insert_withDelete(String time,String adviceIndex,String comment,String picture,String taskId){
+	public static boolean insert_withDelete(String time,String adviceIndex,String comment,String picture,String taskId,String star){
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -145,12 +146,13 @@ public class AdviceDao {
 		try {
 			conn = DBUtils.getConnection();
 			delete(conn, adviceIndex, taskId);
-			stmt = conn.prepareStatement("insert into " + TABLE_NAME + " values(?,?,?,?,?)");
-			stmt.setString(1, time);
-			stmt.setString(2, adviceIndex);
-			stmt.setString(3, comment);
-			stmt.setString(4, picture);
-			stmt.setString(5, taskId);
+			stmt = conn.prepareStatement("insert into " + TABLE_NAME + " values(?,?,?,?,?,?)");
+			stmt.setString(1, star);
+			stmt.setString(2, time);
+			stmt.setString(3, adviceIndex);
+			stmt.setString(4, comment);
+			stmt.setString(5, picture);
+			stmt.setString(6, taskId);
 			result = stmt.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
