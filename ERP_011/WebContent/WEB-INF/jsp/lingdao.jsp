@@ -52,24 +52,20 @@
                         <a class="J_menuItem" href="taskServlet?departId=${depart.departId}&departName=${depart.departName}">
                             <i class="fa fa-home"></i>
                             <span class="nav-label">${depart.departName} 所有任务</span>
+                            <span class="fa arrow"></span>
                         </a>
-                    </li>
-                    <li class="line dk"></li>
-                    <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
-                        <span class="ng-scope">分类</span>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">提交报告</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <c:forEach items="${taskList}" var="task">
                                 <li>
-                                    <a class="J_menuItem" href="CreateReportServlet?taskId=${task.taskId}">
+                                    <a class="J_menuItem" href="TaskDetailServlet?taskId=${task.taskId}&departName=${depart.departName}&departClassName=${departClassName }">
                                         ${task.taskName}
                                     </a>
                                 </li>
                             </c:forEach>
                         </ul>
-                    </li> 
+                    </li>
+                   
+                 
                 </ul>
             </div>
         </nav>   
@@ -79,7 +75,7 @@
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                     <ul class="nav navbar-top-links navbar-right">
-                        <li><span class="label label-primary">执行者</span></li>
+                        <li><span class="label label-primary">领导</span></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                                 ${depart.departName }<span class="label label-primary"></span>

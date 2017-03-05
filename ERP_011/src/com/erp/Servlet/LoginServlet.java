@@ -7,8 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.erp.Dao.DepartClassDao;
 import com.erp.Dao.StuffDao;
+import com.erp.Dao.Stuff_DepartDao;
+import com.erp.Entry.DepartEntry;
 import com.erp.Entry.StuffEntry;
+import com.erp.utils.HttpUtils;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -32,10 +36,21 @@ public class LoginServlet extends HttpServlet {
 			String account = request.getParameter("username");
 			String password = request.getParameter("password");
 			
-			request.getSession().removeAttribute("stuff");
+			HttpUtils.clearSession(request);
+			
 			StuffEntry stuff = StuffDao.getStuff(account, password);
 			if(stuff != null){
 				request.getSession().setAttribute("stuff", stuff);
+				
+				//如果是 执行者 添加附加信息
+				if(!stuff.isType0_1() ){
+					DepartEntry depart = Stuff_DepartDao.getDepartByStuffAccount(stuff.getAccount());
+					request.getSession().setAttribute("depart", depart);
+					String departClassName = DepartClassDao.getDepartClassNameByDepartId(depart.getDepartId());
+					request.getSession().setAttribute("departClassName", departClassName);
+				}
+				
+				
 				response.sendRedirect("MainServlet");
 			}else{
 				login(request,response);

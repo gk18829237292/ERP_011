@@ -70,10 +70,6 @@ public class LoginFilter implements Filter {
 		if(stuff == null){
 			((HttpServletResponse)response).sendRedirect("LoginServlet");
 		}else{
-			if(!stuff.isType0_1()){
-				DepartEntry depart = Stuff_DepartDao.getDepartByStuffAccount(stuff.getAccount());
-				req.getSession().setAttribute("depart", depart);
-			}
 			chain.doFilter(request, response);
 		}
 	}

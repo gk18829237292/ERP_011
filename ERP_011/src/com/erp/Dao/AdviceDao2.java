@@ -59,7 +59,6 @@ public class AdviceDao2 {
 	
 	public static AdviceEntry fill(ResultSet rs) throws SQLException{
 		AdviceEntry entry = new AdviceEntry();
-		entry.setAdviceId(rs.getString("advice_id"));
 		entry.setAdviceIndex(rs.getInt("adviceIndex"));
 		entry.setCommment(rs.getString("comment"));
 		entry.setTaskId(rs.getString("task_id"));
@@ -67,7 +66,7 @@ public class AdviceDao2 {
 		return entry;
 	}
 	
-	public static boolean insert_withDelete(String time,String adviceIndex,String comment,String taskId){
+	public static boolean insert_withDelete(String time,String adviceIndex,String name, String comment,String taskId){
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -75,11 +74,12 @@ public class AdviceDao2 {
 		try {
 			conn = DBUtils.getConnection();
 			delete(conn, adviceIndex, taskId);
-			stmt = conn.prepareStatement("insert into " + TABLE_NAME + " values(?,?,?,?)");
+			stmt = conn.prepareStatement("insert into " + TABLE_NAME + " values(?,?,?,?,?)");
 			stmt.setString(1, time);
 			stmt.setString(2, adviceIndex);
-			stmt.setString(3, comment);
-			stmt.setString(4, taskId);
+			stmt.setString(3, name);
+			stmt.setString(4, comment);
+			stmt.setString(5, taskId);
 			result = stmt.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

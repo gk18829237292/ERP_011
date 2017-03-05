@@ -29,8 +29,7 @@ public class TaskServlet extends HttpServlet {
 		String departId = (String) request.getParameter("departId");
 		String departName = (String) request.getParameter("departName");
 		String departClassName = (String) request.getParameter("departClassName");
-		if(departClassName != null)
-			departClassName = "（" + departClassName +"）";
+		
 		List<TaskEntry> taskEntries = null;
 		if(departId == null){
 			taskEntries = TaskDao.getAllTask(20);

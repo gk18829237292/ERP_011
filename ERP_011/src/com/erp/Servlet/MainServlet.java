@@ -43,7 +43,10 @@ public class MainServlet extends HttpServlet {
 				request.setAttribute("departClassEntries", departClassEntries);
 				request.getRequestDispatcher("/WEB-INF/jsp/jianduzhe.jsp").forward(request, response);
 				break;
-			case "1":
+			case "1"://管理者
+				departClassEntries = DepartClassDao.getAllDepartClass(true);
+				request.setAttribute("departClassEntries", departClassEntries);
+				request.getRequestDispatcher("/WEB-INF/jsp/guanlizhe.jsp").forward(request, response);
 				break;
 			case "2"://执行者
 				/**
@@ -52,14 +55,12 @@ public class MainServlet extends HttpServlet {
 				 * 3.
 				 */
 				DepartEntry depart = (DepartEntry) request.getSession().getAttribute("depart");
-				System.out.println("depart " + depart);
 				List<TaskEntry> taskEntries = TaskDao.getAllTaskByDepartId(depart.getDepartId());
+				request.setAttribute("taskList", taskEntries);
 				if(stuff.getIsLeader() == 0){
-					request.setAttribute("depart", depart);
-					request.setAttribute("taskList", taskEntries);
 					request.getRequestDispatcher("/WEB-INF/jsp/zhixingzhe.jsp").forward(request,response);
 				}else {
-					
+					request.getRequestDispatcher("/WEB-INF/jsp/lingdao.jsp").forward(request,response);
 				}
 				break;
 			default:

@@ -33,8 +33,14 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="m-b-md">
-                                 <h5>${departName } ${departClassName}</h5> 
-                                <a href="CreateTaskServlet?taskId=${task.taskId}" class="btn btn-white btn-xs pull-right">编辑项目 ${task.taskId }</a>
+                                 <h5>${departName }   
+                                 <c:if test="${departClassName != null}">
+                                (${departClassName})
+                                </c:if>
+                                </h5> 
+                                <c:if test="${stuff.isType0_1() }">
+                                 <a href="CreateTaskServlet?taskId=${task.taskId}" class="btn btn-white btn-xs pull-right">编辑项目</a>
+                                </c:if>
                                 <div class="col-sm-offset-5">
                                   <h2>${task.taskName } <span class="label label-danger">${entry.type==1?"重点":"" }</span></h2>
                                 </div>
@@ -170,7 +176,7 @@
                                                 	</div>
                                                   <div class="col-sm-2 pull-right">
                                                   <c:if test="${stuff.isType2_leader() }">
-                                                  	<a href=""  class="btn btn-primary btn-sm">添加点评</a> 
+                                                  	<a href="#" onclick="show_1(${i})" class="btn btn-primary btn-sm">添加点评</a> 
                                                   </c:if>
                                                   </div>
                                                 </div>  
@@ -254,7 +260,7 @@
                             <div class="ibox-content">
                                 <form class="form-horizontal m-t" id="signupForm" method="post" action="TaskDetailServlet" enctype="multipart/form-data">
                                     <input type="hidden" name="taskId" value="${task.taskId} ">
-                                    <input type="hidden" name="index" id="index">
+                                    <input type="hidden" name="index_1" id="index_1">
                                     <input type="hidden" name="actionType" value="1">
                                         <input type="hidden" name="departName" value="${departName }">
                                     <input type="hidden" name="departClassName" value="${departClassName }">
@@ -327,7 +333,7 @@
         }
         
         function show_1(index){
-        	$('#index').val(index);
+        	$('#index_1').val(index);
         	$('#modal-form_leader').modal('show');
         }
     </script>
