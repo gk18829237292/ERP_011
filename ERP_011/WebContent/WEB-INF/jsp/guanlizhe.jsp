@@ -88,7 +88,7 @@
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                     <ul class="nav navbar-top-links navbar-right">
                         <li class="dropdown">
-                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">管理者
+                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">监督者
                  
                             </a>
                             <ul class="dropdown-menu dropdown-alerts">

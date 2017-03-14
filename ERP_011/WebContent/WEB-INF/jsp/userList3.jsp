@@ -39,7 +39,7 @@
                           <th>账户</th>
                           <th>姓名</th>
                           <th>电话号码</th>
-                          <th>部门</th>
+                         
                           <th>操作</th>
                         </tr>
                       </thead>
@@ -49,7 +49,6 @@
                             <td>${user.account}</td>
                             <td>${user.name}</td>
                             <td>${user.telNum}</td>
-                            <td>${user.depart.departName }</td>
                             <td>
                               <a href="javascipt:void(0)" onclick="showModal_1('${user.account}')" data-toggle="modal" class="btn btn-white btn-sm"><i class="fa fa-edit"></i> 修改 </a>
                               <a href="DeleteUserServlet?type=${type }&account=${user.account}" onclick="return confirm('确认删除吗  ${user.account}？');" class="btn btn-white btn-sm"><i class="fa fa-close"></i> 删除 </a>
@@ -99,18 +98,16 @@
                                     <div class="form-group">
                                       <label class="col-sm-3 control-label">电话号码</label>
                                       <div class="col-sm-8">
-                                        <input type="text" name="telNum" class="form-control" >
+                                        <input type="number" name="telNum" class="form-control" >
                                       </div>
                                     </div>
                                     
                                     <div class="form-group">
                                       <label class="col-sm-3 control-label">所在部门</label>
                                       <div class="col-sm-8">
-                                      	<select id="departId" name="departId" data-placeholder="选择部门分类..." style="width:350px;" tabindex="2">
-                                             <c:forEach items="${departs}" var="depart">
-                                             	 <option value="${depart.departId }" >${depart.departName} </option>
-                                             </c:forEach>
-										</select>
+                                      	<c:forEach items="${departs}" var="depart">
+                                    			<input type="checkbox" name="departId" id="departId" value="${depart.departId }"/>${depart.departName }<br/>
+	                                    </c:forEach>
                                       </div>
                                     </div>
                                     

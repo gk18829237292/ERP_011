@@ -34,26 +34,28 @@ public class UserList3Servlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-String actionType = request.getParameter("actiontype");
+		String actionType = request.getParameter("actiontype");
 		
 		String account = request.getParameter("account");
 		String password = request.getParameter("password");
 		String name = StringUtils.change2Utf8(request.getParameter("name"));
 		String telNum = request.getParameter("telNum");
-		String departId = request.getParameter("departId");
-		switch (actionType) {
-		case "0": //添加
-			StuffDao.insert_leader(account, password, name, telNum);
-			Stuff_DepartDao.insert(account, departId);
-			break;
-		case "1": //修改
-			StuffDao.update(account, password, name, telNum, type);
-			if(!Stuff_DepartDao.update(account, departId)){
-				Stuff_DepartDao.insert(account, departId);
+		String[] departIds = request.getParameterValues("departId");
+		
+		if(departIds.length > 0){
+			switch (actionType) {
+			case "0": //添加
+				StuffDao.insert_leader(account, password, name, telNum);
+				Stuff_DepartDao.insert(account, departIds);
+				break;
+			case "1": //修改
+				StuffDao.update(account, password, name, telNum, type);
+				Stuff_DepartDao.delete(account);
+				Stuff_DepartDao.insert(account, departIds);
+				break;
 			}
-			break;
-
 		}
+		
 		request.setAttribute("type", type);
 		doGet(request, response);
 	}

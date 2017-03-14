@@ -104,7 +104,7 @@
                     <li>
                         <a class="J_menuItem" href="UserListServlet?type=1">
                             <i class="glyphicon glyphicon-user"></i> 
-                            <span class="nav-label">管理员</span>
+                            <span class="nav-label">监督者</span>
                         </a>
                     </li>
                     <li>
@@ -132,7 +132,7 @@
                     <ul class="nav navbar-top-links navbar-right">
                         <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                                监督者 <span class="label label-primary"></span>
+                                管理员 <span class="label label-primary"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-alerts">
                               	<li>

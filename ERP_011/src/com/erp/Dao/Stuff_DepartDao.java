@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.erp.Entry.DepartEntry;
 import com.erp.utils.DBUtils;
+import com.sun.corba.se.spi.orb.StringPair;
 
 public class Stuff_DepartDao {
 	private static final String TAG="Stuff_DepartDao";
@@ -69,6 +70,30 @@ public class Stuff_DepartDao {
 		return result;
 	}
 	
+	public static boolean insert(String account,String[] departIds) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		boolean result = true;
+		try {
+			conn = DBUtils.getConnection();
+			for(String departId:departIds){
+				stmt = conn.prepareStatement("insert into " + TABLE_NAME + " values(?,?)");
+				stmt.setString(1, account);
+				stmt.setString(2, departId);
+				result &= stmt.execute();
+				DBUtils.close(stmt);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(conn);
+		}
+		return result;
+	}
+	
 	public static boolean update(String account,String departId){
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -78,6 +103,24 @@ public class Stuff_DepartDao {
 			stmt = conn.prepareStatement("update " + TABLE_NAME + " set department_id =? where account =? ");
 			stmt.setString(1, departId);
 			stmt.setString(2, account);
+			result = stmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(stmt, conn);
+		}
+		return result;
+	}
+	
+	public static boolean delete(String account) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		boolean result = false;
+		try {
+			conn = DBUtils.getConnection();
+			stmt = conn.prepareStatement("delete from " + TABLE_NAME + "  where account =? ");
+			stmt.setString(1, account);
 			result = stmt.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
