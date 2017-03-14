@@ -1,6 +1,7 @@
 package com.erp.Servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.erp.Dao.DepartClassDao;
 import com.erp.Dao.DepartDao;
+import com.erp.Dao.Stuff_1_DepartDao;
 import com.erp.Dao.Stuff_DepartDao;
 import com.erp.Dao.TaskDao;
 import com.erp.Entry.DepartClassEntry;
@@ -44,7 +46,8 @@ public class MainServlet extends HttpServlet {
 				request.getRequestDispatcher("/WEB-INF/jsp/jianduzhe.jsp").forward(request, response);
 				break;
 			case "1"://管理者
-				departClassEntries = DepartClassDao.getAllDepartClass(true);
+				List<String> departIDs = Stuff_1_DepartDao.getDeparts(stuff.getAccount());
+				departClassEntries = DepartClassDao.getAllDepartClass(departIDs);
 				request.setAttribute("departClassEntries", departClassEntries);
 				request.getRequestDispatcher("/WEB-INF/jsp/guanlizhe.jsp").forward(request, response);
 				break;
@@ -54,12 +57,16 @@ public class MainServlet extends HttpServlet {
 				 * 2.部门的所有任务
 				 * 3.
 				 */
-				DepartEntry depart = (DepartEntry) request.getSession().getAttribute("depart");
-				List<TaskEntry> taskEntries = TaskDao.getAllTaskByDepartId(depart.getDepartId());
-				request.setAttribute("taskList", taskEntries);
+				
 				if(stuff.getIsLeader() == 0){
+					DepartEntry depart = (DepartEntry) request.getSession().getAttribute("depart");
+					List<TaskEntry> taskEntries = TaskDao.getAllTaskByDepartId(depart.getDepartId());
+					request.setAttribute("taskList", taskEntries);
 					request.getRequestDispatcher("/WEB-INF/jsp/zhixingzhe.jsp").forward(request,response);
 				}else {
+					departIDs = Stuff_DepartDao.getDeparts(stuff.getAccount());
+					departClassEntries = DepartClassDao.getAllDepartClass(departIDs);
+					request.setAttribute("departClassEntries", departClassEntries);
 					request.getRequestDispatcher("/WEB-INF/jsp/lingdao.jsp").forward(request,response);
 				}
 				break;

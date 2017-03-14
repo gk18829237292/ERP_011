@@ -1,6 +1,7 @@
 package com.erp.Servlet;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -43,20 +44,21 @@ public class DepartListServlet extends HttpServlet {
 	
 		String actionType = request.getParameter("actiontype");
 		String departName = StringUtils.change2Utf8(request.getParameter("departName"));
-		String departClassId = request.getParameter("departClassId");
-		switch (actionType) {
-		case "0": //新增
-			long nextId =  DepartDao.getNextId();
-			DepartDao.insert(departName);
-			Depart_DepartClassDao.insert(nextId+"", departClassId);
-			break;
-		case "1": //更新
-			String departId = request.getParameter("departId");
-			DepartDao.update(departId, departName);
-			Depart_DepartClassDao.update(departId, departClassId);
-			break;
-		}
-		request.setAttribute("departClassId", departClassId);
+
+		System.out.println(Arrays.asList( request.getParameterValues("departClass")));
+//		switch (actionType) {
+//		case "0": //新增
+//			long nextId =  DepartDao.getNextId();
+//			DepartDao.insert(departName);
+//			Depart_DepartClassDao.insert(nextId+"", departClassId);
+//			break;
+//		case "1": //更新
+//			String departId = request.getParameter("departId");
+//			DepartDao.update(departId, departName);
+//			Depart_DepartClassDao.update(departId, departClassId);
+//			break;
+//		}
+//		request.setAttribute("departClassId", departClassId);
 		doGet(request, response);
 	}
 

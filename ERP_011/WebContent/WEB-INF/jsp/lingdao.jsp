@@ -18,12 +18,15 @@
     <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css?v=4.1.0" rel="stylesheet">
-        <!-- Sweet Alert -->
+           <!-- Sweet Alert -->
     <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 </head>
 
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
-
+ <%
+    HttpSession s = request.getSession(); 
+   	s.setAttribute("name","test");
+    %>
     <div id="wrapper">
         <!--左侧导航开始-->
         <nav class="navbar-default navbar-static-side" role="navigation">
@@ -42,32 +45,40 @@
                                 </span>
                             </a>
                         </div>
-                        <div class="logo-element">ERP
-                        </div>
+                        <div class="logo-element">ERP</div>
                     </li>
                     <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                         <span class="ng-scope">分类</span>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="taskServlet?departId=${depart.departId}&departName=${depart.departName}">
+                        <a class="J_menuItem" href="taskServlet">
                             <i class="fa fa-home"></i>
-                            <span class="nav-label">${depart.departName} 所有任务</span>
+                            <span class="nav-label">主页</span>
+                        </a>
+                    </li>
+                    <c:forEach items="${departClassEntries}" var ="departClass">
+                    <li>
+                        <a href="#">
+                            <i class="fa fa fa-bar-chart-o"></i>
+                            <span class="nav-label">${departClass.departClassName}</span>
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
-                            <c:forEach items="${taskList}" var="task">
+                            <c:forEach items="${departClass.departs}" var="depart">
                                 <li>
-                                    <a class="J_menuItem" href="TaskDetailServlet?taskId=${task.taskId}&departName=${depart.departName}&departClassName=${departClassName }">
-                                        ${task.taskName}
+                                    <a class="J_menuItem" href="taskServlet?departId=${depart.departId}&departName=${depart.departName}&departClassName=${departClass.departClassName}">
+                                        ${depart.departName}
                                     </a>
                                 </li>
                             </c:forEach>
                         </ul>
                     </li>
+                    </c:forEach>
+                    
                    
-                 
                 </ul>
             </div>
+            
         </nav>   
         <!--左侧导航结束-->
         <!--右侧部分开始-->
@@ -75,13 +86,12 @@
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                     <ul class="nav navbar-top-links navbar-right">
-                        <li><span class="label label-primary">领导</span></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                                ${depart.departName }<span class="label label-primary"></span>
+                                领导 <span class="label label-primary"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-alerts">
-                                <li>
+                              	<li>
                                     <a href="#" class="demo1">个人信息</a>
                                 </li>
                                 <li class="divider"></li>
@@ -97,7 +107,7 @@
                 </nav>
             </div>
             <div class="row J_mainContent" id="content-main">
-                <iframe id="J_iframe" width="100%" height="100%" src="taskServlet?departId=${depart.departId}&departName=${depart.departName}" frameborder="0" data-id="tasks" seamless></iframe>
+                <iframe id="J_iframe" width="100%" height="100%" src="taskServlet" frameborder="0" data-id="tasks" seamless></iframe>
             </div>
         </div>
         <!--右侧部分结束-->
@@ -129,7 +139,7 @@
             });
         });
     </script>
-
 </body>
 
 </html>
+

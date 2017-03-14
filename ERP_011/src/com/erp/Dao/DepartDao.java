@@ -94,6 +94,43 @@ public class DepartDao {
 		
 	}
 	
+	private static String change2String(List<String> departIDs) {
+		StringBuilder sb = new StringBuilder();
+		for(String departId:departIDs){
+			sb.append(departId);
+			sb.append(",");
+		}
+		String str = sb.toString();
+		System.out.println(str.substring(0,str.length()-1));
+		return str.substring(0, str.length()-1);
+	}
+	
+	
+	public static List<DepartEntry> getAllDepartByClassId(Connection conn,String departClassId,List<String> departIDs){
+		List<DepartEntry> departEntries = new ArrayList<>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt =  conn.prepareStatement("select * from Depart,DepartClass,Depart_DepartClass where Depart.department_id = Depart_DepartClass.department_id and Depart_DepartClass.departClass_id = DepartClass.departClass_id and DepartClass.departClass_id = ?");
+			stmt.setString(1, departClassId);
+			rs = stmt.executeQuery();
+			while(rs.next()){
+				DepartEntry entry = fill(rs);
+				if(departIDs.contains(entry.getDepartId())){
+					departEntries.add(entry);					
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, stmt);
+		}
+		
+		return departEntries;
+	}
+	
+	
 	public static List<DepartEntry> getAllDepartByClassId(Connection conn,String departClassId){
 		List<DepartEntry> departEntries = new ArrayList<>();
 		PreparedStatement stmt = null;
