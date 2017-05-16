@@ -30,6 +30,29 @@ public class Depart_DepartClassDao {
 		}
 	}
 	
+	
+	public static void insert(String departId,String[] departClassIds) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn =DBUtils.getConnection();
+			for(String departClassId:departClassIds){
+				stmt = conn.prepareStatement("insert into " + TABLE_NAME + " values(?,?)" );
+				stmt.setString(1, departId);
+				stmt.setString(2, departClassId);
+				stmt.execute();
+				DBUtils.close(stmt);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(stmt, conn);
+		}
+	}
+	
+	
 	public static void update(String departId,String departClassId) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -38,6 +61,22 @@ public class Depart_DepartClassDao {
 			stmt = conn.prepareStatement("update " + TABLE_NAME + " set departClass_id = ? where department_id= ?");
 			stmt.setString(1, departClassId);
 			stmt.setString(2, departId);
+			stmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(stmt, conn);
+		}
+	}
+	
+	public static void delete(String departId) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn =DBUtils.getConnection();
+			stmt = conn.prepareStatement("delete from " + TABLE_NAME + " where department_id= ?");
+			stmt.setString(1, departId);
 			stmt.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

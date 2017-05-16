@@ -24,9 +24,9 @@
         <div class="row">
         <div class="ibox">
            <div class="ibox-title">
-                      <h5>部门分类列表</h5>
+                      <h5>工作分类列表</h5>
                       <div class="ibox-tools">
-                          <a href="javascipt:void(0)" onclick="showModal()" data-toggle="modal" class="btn btn-primary btn-xs">添加部门</a>
+                          <a href="javascipt:void(0)" onclick="showModal()" data-toggle="modal" class="btn btn-primary btn-xs">添加工作</a>
                       </div>
            </div>
            <div class="ibox-content">
@@ -34,8 +34,8 @@
                     <table class="table table-hover">
                       <thead>
                         <tr>
-                          <th>部门名称</th>
-                          <th>部门数量</th>
+                          <th>工作名称</th>
+                          <th>工作数量</th>
                           <th>操作</th>
                         </tr>
                       </thead>
@@ -46,6 +46,8 @@
                             <td>待开发</td>
                             <td>
                               <a href="javascipt:void(0)" onclick="showModal_1('${departClass.departClassId}')" data-toggle="modal" class="btn btn-white btn-sm"><i class="fa fa-edit"></i> 修改 </a>
+                             <a href="#" onclick="showPwd(${departClass.departClassId})" class="btn btn-white btn-sm"><i class="fa fa-close"></i> 删除 </a>
+                             
                              </td>
                           </tr>
                         </c:forEach>
@@ -66,12 +68,12 @@
                    <div class="row">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h5>增加部门类别</h5>
+                                <h5>增加工作类别</h5>
                             </div>
                             <div class="ibox-content">
                                 <form class="form-horizontal m-t" id="signupForm" method="post" action="DepartClassListServlet">                                  
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">部门类别名称:</label>
+                                        <label class="col-sm-3 control-label">工作类别名称:</label>
                                         <div class="col-sm-8">
                                             <input type="text" autocomplete="off" id="departClassName" name="departClassName"  class="form-control" required>
                                         </div>
@@ -130,6 +132,66 @@
           $('#actiontype').val(1)
           $('#departClassId').val(id)
           $('#modal-form').modal('show');
+        }
+        
+        function showPwd(id){
+        	swal({   
+        		title: "删除任务 ",   
+        		text: "请输入最高权限密码",   
+        		type: "input",   
+        		showCancelButton: true,   
+        		closeOnConfirm: false,   
+        		showLoaderOnConfirm:true,
+        		animation: "slide-from-top",   
+        		inputPlaceholder: "密码" 
+        		},
+        		function(inputValue){   
+        			if (inputValue === false) return false;      
+        			if (inputValue === "") { 
+        				swal.showInputError("You need to write something!");     
+        				return false;   
+        			}    
+
+
+					checkPwd(inputValue,id);
+        		
+        			
+        		}
+        	);
+        	
+        	function checkPwd(str,id){
+            	if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+            	  xmlhttp=new XMLHttpRequest();
+            	}
+            	else{// code for IE6, IE5
+            	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            	}
+
+            	xmlhttp.onreadystatechange=function(){
+            		if (xmlhttp.readyState==4 && xmlhttp.status==200){
+            		 	
+            			result = xmlhttp.responseText;
+            			console.log("result : " + result);
+            			if(result =="true"){
+            				swal({   
+            					title: "成功",   
+       							text: "删除成功",   
+       							type: "success",   
+       							showCancelButton: false,    
+       							confirmButtonText: "确认",   
+       							closeOnConfirm: false 
+       							}, function(){   
+       								window.location.reload(true);
+       							});
+            				
+            			}else{
+            				swal('删除失败: 请检查密码。');
+            			}
+            		}
+            	}
+            	xmlhttp.open("GET","QueryHighPwdServlet?type=2&password="+str+"&id="+id,true);
+            	xmlhttp.send();
+            }
         }
     </script>
 

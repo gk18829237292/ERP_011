@@ -154,7 +154,35 @@ public class DepartClassDao {
 		return departClassName;
 	}
 
+	public static boolean delete(String deparClasstId){
+		boolean result = false;
+ 		Connection conn = null;
+ 		
+ 		try {
+			conn = DBUtils.getConnection();
+			result = delete(conn,deparClasstId);
+ 		} catch (SQLException e) {
+		}finally{
+			DBUtils.close(conn);
+		}
+ 		return result;
+	}
 	
+	public static boolean delete(Connection conn,String deparClasstId){
+		boolean result = false;
+ 		PreparedStatement stmt = null;
+ 		try {
+			stmt = conn.prepareStatement("delete from " + TABLE_NAME + " where departClass_id = ?");
+			stmt.setString(1, deparClasstId);
+			result = stmt.execute();
+ 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			DBUtils.close(stmt, conn);
+		}
+ 		return result;
+	}
 	
 	
 }

@@ -160,20 +160,22 @@ public class DepartDao {
 		return entry;
 	}
 	
-	public static void insert(String departName){
+	public static boolean insert(String departName){
+		boolean result = false;
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
 			conn = DBUtils.getConnection();
 			stmt = conn.prepareStatement("insert into " + TABLE_NAME + " (department_name) values(?)");
 			stmt.setString(1, departName);
-			stmt.execute();
+			result = stmt.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			DBUtils.close(stmt,conn);
 		}
+		return false;
 	}
 	
 	public static long getNextId(Connection conn){
@@ -206,6 +208,8 @@ public class DepartDao {
 		return -1;
 	}
 	
+
+	
 	public static void update(String departId,String departName) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -220,6 +224,36 @@ public class DepartDao {
 		}finally {
 			DBUtils.close(stmt,conn);
 		}
+	}
+	
+	public static boolean delete(String departId){
+		boolean result = false;
+ 		Connection conn = null;
+ 		
+ 		try {
+			conn = DBUtils.getConnection();
+			result = delete(conn,departId);
+ 		} catch (SQLException e) {
+		}finally{
+			DBUtils.close(conn);
+		}
+ 		return result;
+	}
+	
+	public static boolean delete(Connection conn,String departId){
+		boolean result = false;
+ 		PreparedStatement stmt = null;
+ 		try {
+			stmt = conn.prepareStatement("delete from " + TABLE_NAME + " where department_id = ?");
+			stmt.setString(1, departId);
+			result = stmt.execute();
+ 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			DBUtils.close(stmt, conn);
+		}
+ 		return result;
 	}
 	
 

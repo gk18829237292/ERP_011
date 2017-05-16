@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
 
-    <title> ERP- 主页</title>
+    <title>督查云平台（试用版）</title>
 
     <meta name="keywords" content="">
     <meta name="description" content="">
@@ -40,12 +40,12 @@
                                 <span class="clear">
                                     <span class="block m-t-xs" style="font-size:20px;">
                                         <i class="fa fa-area-chart"></i>
-                                        <strong class="font-bold">ERP</strong>
+                                        <strong class="font-bold">督查云平台（试用版）</strong>
                                     </span>
                                 </span>
                             </a>
                         </div>
-                        <div class="logo-element">ERP</div>
+                        <div class="logo-element">督查云平台（试用版）</div>
                     </li>
                     <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                         <span class="ng-scope">分类</span>

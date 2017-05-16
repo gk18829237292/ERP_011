@@ -88,6 +88,35 @@ public class TaskDao {
 		return taskEntries;
 	}
 	
+	public static List<TaskEntry> getAllTaskByDepartId_1(String departId,String departClassId){
+		List<TaskEntry> taskEntries = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBUtils.getConnection();
+			stmt = conn.prepareStatement("select * from " + TABLE_NAME + " where department_id = ? and departClassId = ?");
+			stmt.setString(1, departId);
+			stmt.setString(2, departClassId);
+			rs = stmt.executeQuery();
+			while(rs.next()){
+				taskEntries.add(fill(rs));
+			}
+			for(TaskEntry entry:taskEntries){
+				entry.setReportNum(ReportDao.getReportNum(conn, entry.getTaskId()));
+				entry.setAdvise1Num(AdviceDao.getAdviceNum(conn, entry.getTaskId())); //监督者
+				entry.setAdvise2Num(AdviceDao2.getAdviceNum(conn, entry.getTaskId())); //管理者
+				entry.setDepartName(DepartDao.getDepartNameById(conn,entry.getDepartId()));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, stmt, conn);
+		}
+		return taskEntries;
+	}
+	
+	
 	public static List<TaskEntry> getAllTask(int num){
 		List<TaskEntry> taskEntries = new ArrayList<>();
 		Connection conn = null;
@@ -164,6 +193,7 @@ public class TaskDao {
 		entry.setGoal(rs.getString("goal"));
 		entry.setReportType(rs.getString("report_type"));
 		entry.setDepartId(rs.getString("department_id"));
+		entry.setDepartClassId(rs.getString("departClassId"));
 		entry.init();
 		return entry;
 	}
@@ -191,14 +221,14 @@ public class TaskDao {
  		return result;
  	}
  	//task_name,startTime,endTime,updateTime,chairMan,type,place,financing,goal,report_type,department_id，picture
- 	public static boolean insert(String taskName,long startTime,long endTime,long updateEndTime,String chairMan,String type,String place,String finan,String goal,String reportType,String departId,String picture){
+ 	public static boolean insert(String taskName,long startTime,long endTime,long updateEndTime,String chairMan,String type,String place,String finan,String goal,String reportType,String departId,String picture,String departClassId){
  		boolean result = false;
  		Connection conn = null;
  		PreparedStatement stmt = null;
  		
  		try {
 			conn = DBUtils.getConnection();
-			stmt = conn.prepareStatement("insert into " + TABLE_NAME + " (task_name,startTime,endTime,updateEndTime,chairMan,type,place,financing,goal,report_type,department_id,picture) values(?,?,?,?,?,?,?,?,?,?,?,?)");
+			stmt = conn.prepareStatement("insert into " + TABLE_NAME + " (task_name,startTime,endTime,updateEndTime,chairMan,type,place,financing,goal,report_type,department_id,picture,departClassId) values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			stmt.setString(1, taskName);
 			stmt.setLong(2, startTime);
 			stmt.setLong(3,endTime);
@@ -211,6 +241,7 @@ public class TaskDao {
 			stmt.setString(10,reportType);
 			stmt.setString(11, departId);
 			stmt.setString(12, picture);
+			stmt.setString(13, departClassId);
 			result = stmt.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -242,14 +273,14 @@ public class TaskDao {
 		return -1;
 	}
 	
-	public static boolean update(String taskId,String taskName,long startTime,long endTime,long updateEndTime,String chairMan,String type,String place,String finan,String goal,String reportType,String departId,String picture){
+	public static boolean update(String taskId,String taskName,long startTime,long endTime,long updateEndTime,String chairMan,String type,String place,String finan,String goal,String reportType,String departId,String picture,String departClassId){
  		boolean result = false;
  		Connection conn = null;
  		PreparedStatement stmt = null;
  		
  		try {
 			conn = DBUtils.getConnection();
-			stmt = conn.prepareStatement("update " + TABLE_NAME + " set task_name=?,startTime=?,endTime=?,updateEndTime=?,chairMan=?,type=?,place=?,financing=?,goal=?,report_type=?,department_id=?,picture=? where task_id =?");
+			stmt = conn.prepareStatement("update " + TABLE_NAME + " set task_name=?,startTime=?,endTime=?,updateEndTime=?,chairMan=?,type=?,place=?,financing=?,goal=?,report_type=?,department_id=?,picture=?,departClassId=? where task_id =?");
 			stmt.setString(1, taskName);
 			stmt.setLong(2, startTime);
 			stmt.setLong(3,endTime);
@@ -263,6 +294,7 @@ public class TaskDao {
 			stmt.setString(11, departId);
 			stmt.setString(12, picture);
 			stmt.setString(13, taskId);
+			stmt.setString(14, departClassId);
 			result = stmt.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

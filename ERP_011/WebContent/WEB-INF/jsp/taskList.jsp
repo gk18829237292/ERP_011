@@ -173,7 +173,7 @@
             $('#myTab a:first').tab('show');
         });
         
-        function showPwd(taskId){
+        function showPwd(id){
         	swal({   
         		title: "删除任务 ",   
         		text: "请输入最高权限密码",   
@@ -199,7 +199,7 @@
         	);
         }
         
-        function checkPwd(str,taskId){
+        function checkPwd(str,id){
         	if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
         	  xmlhttp=new XMLHttpRequest();
         	}
@@ -228,7 +228,7 @@
         			}
         		}
         	}
-        	xmlhttp.open("GET","QueryHighPwdServlet?password="+str+"&taskId="+taskId,true);
+        	xmlhttp.open("GET","QueryHighPwdServlet?type=0&password="+str+"&id="+taskId,true);
         	xmlhttp.send();
         }
     </script>

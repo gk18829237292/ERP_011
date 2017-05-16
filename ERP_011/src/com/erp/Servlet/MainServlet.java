@@ -2,6 +2,7 @@ package com.erp.Servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -33,9 +34,7 @@ public class MainServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("MainServlet");
 		StuffEntry stuff = (StuffEntry) request.getSession().getAttribute("stuff");
-		
 		if(stuff == null){
 			response.sendRedirect("LoginServlet");
 		}else{
@@ -59,7 +58,30 @@ public class MainServlet extends HttpServlet {
 				 */
 				
 				if(stuff.getIsLeader() == 0){
+					departClassEntries = DepartClassDao.getAllDepartClass(true);
+					List<DepartClassEntry> departClassEntries2 = new ArrayList<>();
 					DepartEntry depart = (DepartEntry) request.getSession().getAttribute("depart");
+					Iterator iter =  departClassEntries.iterator();
+					System.out.println(depart);
+					while(iter.hasNext()){
+						DepartClassEntry entry = (DepartClassEntry) iter.next();
+						boolean flag = true;
+						Iterator<DepartEntry> iter2 = entry.getDeparts().iterator();
+						while(iter2.hasNext()){
+							DepartEntry departEntry = iter2.next();
+							if(!departEntry.getDepartId().equals(depart.getDepartId())){
+								iter2.remove();
+							}else{
+								flag = false;
+							}
+						}
+						
+						if(flag){
+							iter.remove();
+						}
+						
+					}
+					request.setAttribute("departClassEntries", departClassEntries);
 					List<TaskEntry> taskEntries = TaskDao.getAllTaskByDepartId(depart.getDepartId());
 					request.setAttribute("taskList", taskEntries);
 					request.getRequestDispatcher("/WEB-INF/jsp/zhixingzhe.jsp").forward(request,response);

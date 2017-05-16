@@ -26,7 +26,7 @@
         <div class="row">
         <div class="ibox">
            <div class="ibox-title">
-                      <h5>用户列表</h5>
+                      <h5>区县领导 用户列表</h5>
                       <div class="ibox-tools">
                           <a href="javascipt:void(0)" onclick="showModal()" data-toggle="modal" class="btn btn-primary btn-xs">添加用户</a>
                       </div>
@@ -39,7 +39,6 @@
                           <th>账户</th>
                           <th>姓名</th>
                           <th>电话号码</th>
-                         
                           <th>操作</th>
                         </tr>
                       </thead>
@@ -51,7 +50,7 @@
                             <td>${user.telNum}</td>
                             <td>
                               <a href="javascipt:void(0)" onclick="showModal_1('${user.account}')" data-toggle="modal" class="btn btn-white btn-sm"><i class="fa fa-edit"></i> 修改 </a>
-                              <a href="DeleteUserServlet?type=${type }&account=${user.account}" onclick="return confirm('确认删除吗  ${user.account}？');" class="btn btn-white btn-sm"><i class="fa fa-close"></i> 删除 </a>
+                              <a href="DeleteUserServlet?type2=3&type=${type }&account=${user.account}" onclick="return confirm('确认删除吗  ${user.account}？');" class="btn btn-white btn-sm"><i class="fa fa-close"></i> 删除 </a>
                             </td>
                           </tr>
                         </c:forEach>
@@ -158,14 +157,14 @@
         function showModal(){
           $('#account').removeAttr('readonly')
           $('#account').val('')
-          $('#pwd').val('')
+          $('#password').val('')
           $('#actiontype').val(0)
           $('#modal-form').modal('show');
         }
         function showModal_1(account){
           $('#account').attr("readonly","true")
           $('#account').val(account)
-          $('#pwd').val('')
+          $('#password').val('')
           $('#actiontype').val(1)
           $('#modal-form').modal('show');
         }

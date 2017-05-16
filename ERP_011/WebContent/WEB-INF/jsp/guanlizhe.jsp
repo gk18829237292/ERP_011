@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
 
-    <title> ERP- 主页</title>
+    <title>督查云平台（试用版）</title>
 
     <meta name="keywords" content="">
     <meta name="description" content="">
@@ -40,12 +40,12 @@
                                 <span class="clear">
                                     <span class="block m-t-xs" style="font-size:20px;">
                                         <i class="fa fa-area-chart"></i>
-                                        <strong class="font-bold">ERP</strong>
+                                        <strong class="font-bold">督查云平台（试用版）</strong>
                                     </span>
                                 </span>
                             </a>
                         </div>
-                        <div class="logo-element">ERP</div>
+                        <div class="logo-element">督查云平台（试用版）</div>
                     </li>
                     <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                         <span class="ng-scope">分类</span>
@@ -66,7 +66,7 @@
                         <ul class="nav nav-second-level">
                             <c:forEach items="${departClass.departs}" var="depart">
                                 <li>
-                                    <a class="J_menuItem" href="taskServlet?departId=${depart.departId}&departName=${depart.departName}&departClassName=${departClass.departClassName}">
+                                    <a class="J_menuItem" href="taskServlet?departId=${depart.departId}&departName=${depart.departName}&departClassName=${departClass.departClassName}&departClassId=${departClass.departClassId}">
                                         ${depart.departName}
                                     </a>
                                 </li>
@@ -86,6 +86,8 @@
         <div id="page-wrapper" class="gray-bg dashbard-1">
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                	<div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-info " href="#"><i class="fa fa-bars"></i> </a>
+                	</div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">监督者
@@ -132,7 +134,7 @@
     <script src="js/plugins/sweetalert/sweetalert.min.js"></script>
  	<script>
         $(document).ready(function () {
-
+			
             $('.demo1').click(function () {
                 swal({
                     title: "个人信息",
@@ -140,6 +142,8 @@
                 });
             });
         });
+        
+        
     </script>
 </body>
 

@@ -32,7 +32,17 @@ public class TaskEntry {
 	private String financing;
 	private String goal;
 	private String reportType; // -- 0日报 1 周报，2半月报，3月报，4季报，5 半年报，6年报--
+	private String departClassId;
 	
+	
+	public String getDepartClassId() {
+		return departClassId;
+	}
+
+	public void setDepartClassId(String departClassId) {
+		this.departClassId = departClassId;
+	}
+
 	private int reportTimes;  // 总共需要的报告次数
 	
 	private int reportNum;	// 已经提交的报告次数
@@ -46,7 +56,7 @@ public class TaskEntry {
 	private Map<Integer, AdviceEntry> advices1;
 	private Map<Integer, AdviceEntry> advices2; 
 	
-	//评分
+
 	
 	private boolean isComplete;
 	private int progress;
@@ -137,7 +147,8 @@ public class TaskEntry {
 	
 	public boolean isComplete() {
 		if(!isInit) init();
-		return reportNum == reportTimes;
+		setComplete(reportNum > reportTimes);
+		return isComplete;
 	}
 
 	public void setComplete(boolean isComplete) {
@@ -146,8 +157,9 @@ public class TaskEntry {
 
 	public int getProgress() {
 		if(reportTimes == 0) return 100;
-		int temp = reportNum / reportTimes;
+		int temp = (int) (reportNum *100.0 / reportTimes);
 		if(temp > 100) temp = 100;
+		setProgress(temp);
 		return temp;
 	}
 
@@ -166,7 +178,6 @@ public class TaskEntry {
 	}
 
 	
-	//判断是否按期限
 	public boolean isChecked1(){
 		return reportNum >= getNeedToReportNum();
 	}
@@ -285,15 +296,18 @@ public class TaskEntry {
 				+ endTime + ", updateTime=" + updateTime + ", chairMan=" + chairMan + ", type=" + type + ", place="
 				+ place + ", financing=" + financing + ", goal=" + goal + ", reportType=" + reportType
 				+ ", reportTimes=" + reportTimes + ", reportNum=" + reportNum + ", advise1Num=" + advise1Num
-				+ ", advise2Num=" + advise2Num + ", departId=" + departId + ", departName=" + departName
-				+ ", isComplete=" + isComplete + ", progress=" + progress + ", isAtTime=" + isAtTime + ", isInit="
-				+ isInit + "]";
+				+ ", advise2Num=" + advise2Num + ", departId=" + departId + ", departName=" + departName + ", isComplete=" + isComplete
+				+ ", progress=" + progress + ", isAtTime=" + isAtTime + ", isInit=" + isInit + ", needToReportNum="
+				+ needToReportNum + "]";
 	}
 
-
-	
 	public int getMaxNum() {
-		return Math.min(200,Math.max(Math.max(Math.max(reportNum, advise1Num),advise2Num),getNeedToReportNum()));
+		int tmp = Math.max(reportNum, advise1Num);
+		tmp = Math.max(tmp, advise2Num);
+		tmp = Math.max(tmp, getNeedToReportNum());
+	
+		tmp = Math.min(tmp, 200);
+		return tmp;
 	}
 	
 	private int needToReportNum;

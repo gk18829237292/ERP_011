@@ -22,9 +22,17 @@ public class DeleteUserServlet extends HttpServlet {
 		String account = request.getParameter("account");
 		String type = request.getParameter("type");
 		StuffDao.deleteStuffByAccount(account, type);
-
+		String type2 = request.getParameter("type2");
+		System.out.println("type is " + type);
 		request.setAttribute("type", type);
-		request.getRequestDispatcher("UserListServlet").forward(request, response);
+		if(type2.equals("0")){
+			request.getRequestDispatcher("UserListServlet").forward(request, response);
+		}else if(type2.equals("2")){
+			request.getRequestDispatcher("UserList2Servlet").forward(request, response);
+		}else if(type2.equals("3")){
+			request.getRequestDispatcher("UserList3Servlet").forward(request, response);
+		}
+		
 
     	
 	}

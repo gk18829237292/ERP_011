@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
 
-    <title> ERP- 主页</title>
+    <title>督查云平台（试用版）</title>
 
     <meta name="keywords" content="">
     <meta name="description" content="">
@@ -40,12 +40,12 @@
                                 <span class="clear">
                                     <span class="block m-t-xs" style="font-size:20px;">
                                         <i class="fa fa-area-chart"></i>
-                                        <strong class="font-bold">ERP</strong>
+                                        <strong class="font-bold">督查云平台（试用版）</strong>
                                     </span>
                                 </span>
                             </a>
                         </div>
-                        <div class="logo-element">ERP</div>
+                        <div class="logo-element">督查云平台（试用版）</div>
                     </li>
                     <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                         <span class="ng-scope">分类</span>
@@ -66,7 +66,7 @@
                         <ul class="nav nav-second-level">
                             <c:forEach items="${departClass.departs}" var="depart">
                                 <li>
-                                    <a class="J_menuItem" href="taskServlet?departId=${depart.departId}&departName=${depart.departName}&departClassName=${departClass.departClassName}">
+                                    <a class="J_menuItem" href="taskServlet?departId=${depart.departId}&departName=${depart.departName}&departClassName=${departClass.departClassName}&departClassId=${departClass.departClassId}">
                                         ${depart.departName}
                                     </a>
                                 </li>
@@ -78,16 +78,21 @@
                     <li>
                     	<a class="J_menuItem" href="DepartClassListServlet">
                     		<i class="fa fa fa-bar-chart-o"></i>
-                            <span class="nav-label">部门分类管理</span>
+                            <span class="nav-label">工作分类</span>
                     	</a>
                     </li>
                     <li>
                         <a href="#">
                             <i class="fa fa fa-bar-chart-o"></i>
-                            <span class="nav-label">部门管理</span>
+                            <span class="nav-label">任务分配</span>
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
+                        	<li>
+                        		<a class="J_menuItem" href="DepartListServlet">
+                        			全部工作
+                        		</a>
+                        	</li>
                             <c:forEach items="${departClassEntries}" var ="departClass">
                                 <li>
                                 <a class="J_menuItem" href="DepartListServlet?departClassId=${departClass.departClassId}">
@@ -104,19 +109,19 @@
                     <li>
                         <a class="J_menuItem" href="UserListServlet?type=1">
                             <i class="glyphicon glyphicon-user"></i> 
-                            <span class="nav-label">监督者</span>
+                            <span class="nav-label">督查督办</span>
                         </a>
                     </li>
                     <li>
                         <a class="J_menuItem" href="UserList2Servlet">
                             <i class="glyphicon glyphicon-user"></i> 
-                            <span class="nav-label">执行者</span>
+                            <span class="nav-label">部门镇办</span>
                         </a>
                     </li>
                     <li>
                         <a class="J_menuItem" href="UserList3Servlet">
                             <i class="glyphicon glyphicon-user"></i> 
-                            <span class="nav-label">领导</span>
+                            <span class="nav-label">区县领导</span>
                         </a>
                     </li>
                    
@@ -129,6 +134,8 @@
         <div id="page-wrapper" class="gray-bg dashbard-1">
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                	<div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-info " href="#"><i class="fa fa-bars"></i> </a>
+                	</div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">

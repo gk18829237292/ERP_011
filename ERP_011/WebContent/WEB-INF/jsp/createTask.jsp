@@ -57,7 +57,7 @@
                                         <div class="form-group">
                                             <label>任务资金 :*</label>
                                             <div class="checkbox checkbox-inline">
-                                            	<input id="financing" name="financing" type="number" class="required" value="${task.financing}">
+                                            	<input id="financing" name="financing" type="number"  value="${task.financing}">
                                             </div>
                                         </div>
                                     </div>
@@ -116,11 +116,24 @@
                             <h1>Step4</h1>
                             <fieldset>
                                 <h2>Step4</h2>
+                                 <div class="row">
+                                    <div class="form-group">
+                                        <label>部门分类选择</label><br>
+                                          <div class="input-group">
+                                            <select id="departClassId" name="departClassId" data-placeholder="选择部门分类" style="width:350px;" tabindex="2"">
+                                                <option value="">请选择部门分类</option>
+                                                <c:forEach items="${departClasses}" var = "departEntry">
+                                                    <option value="${departEntry.departClassId}">${departEntry.departClassName}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>            
+                                    </div> 
+                                </div>
                                 <div class="row">
                                     <div class="form-group">
                                         <label>部门选择</label><br>
                                           <div class="input-group">
-                                            <select id=""departId"" name="departId" data-placeholder="选择部门..." style="width:350px;" tabindex="2">
+                                            <select id="departId" name="departId" data-placeholder="选择部门..." style="width:350px;" tabindex="2">
                                                 <option value="">请选择部门</option>
                                                 <c:forEach items="${departs}" var = "entry">
                                                     <option value="${entry.departId}">${entry.departName}</option>
@@ -229,6 +242,8 @@
                 }
             });
         });
+        
+
     </script>
 </body>
 

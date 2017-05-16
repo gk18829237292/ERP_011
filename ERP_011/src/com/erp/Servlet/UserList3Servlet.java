@@ -42,7 +42,7 @@ public class UserList3Servlet extends HttpServlet {
 		String telNum = request.getParameter("telNum");
 		String[] departIds = request.getParameterValues("departId");
 		
-		if(departIds.length > 0){
+		if(departIds != null && departIds.length > 0){
 			switch (actionType) {
 			case "0": //添加
 				StuffDao.insert_leader(account, password, name, telNum);

@@ -15,6 +15,7 @@ import com.erp.Dao.AdviceDao;
 import com.erp.Dao.AdviceDao2;
 import com.erp.Dao.DepartClassDao;
 import com.erp.Dao.DepartDao;
+import com.erp.Dao.ReportDao;
 import com.erp.Dao.TaskDao;
 import com.erp.Entry.AdviceEntry;
 import com.erp.Entry.ReportEntry;
@@ -64,6 +65,13 @@ public class TaskDetailServlet extends HttpServlet {
 			System.out.println(map);
 			AdviceDao2.insert_withDelete(TimeUtils.getNowLongTime()+"", map.get("index_1"), stuff.getName(),map.get("comment"),map.get("taskId"));
 			break;
+		case "2"://修改提交
+			if(map.get("picture") == null){
+				map.put("picture", "");
+			}
+			System.out.println(map);
+			ReportDao.insert(TimeUtils.getNowLongTime()+"", map.get("index_2"),map.get("comment"), map.get("picture"), map.get("taskId"));
+			break;
 		}
 		
 		request.setAttribute("taskId", map.get("taskId"));
@@ -90,7 +98,7 @@ public class TaskDetailServlet extends HttpServlet {
 		Map<Integer, AdviceEntry> advices1 = taskEntry.getAdvices1();
 		Map<Integer, AdviceEntry> advices2 = taskEntry.getAdvices2();
 
-		
+		System.out.println(taskEntry);
 		request.setAttribute("task", taskEntry);
 		request.setAttribute("reports", reports);
 		request.setAttribute("advices1", advices1);

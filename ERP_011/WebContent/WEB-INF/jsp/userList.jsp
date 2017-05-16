@@ -26,7 +26,7 @@
         <div class="row">
         <div class="ibox">
            <div class="ibox-title">
-                      <h5>用户列表</h5>
+                      <h5>督察督办 用户列表</h5>
                       <div class="ibox-tools">
                           <a href="javascipt:void(0)" onclick="showModal('${type}')" data-toggle="modal" class="btn btn-primary btn-xs">添加用户</a>
                       </div>
@@ -50,7 +50,7 @@
                             <td>${user.telNum}</td>
                             <td>
                               <a href="javascipt:void(0)" onclick="showModal_1('${type}','${user.account}')" data-toggle="modal" class="btn btn-white btn-sm"><i class="fa fa-edit"></i> 修改 </a>
-                              <a href="DeleteUserServlet?type=${type }&account=${user.account}" onclick="return confirm('确认删除吗  ${user.account}？');" class="btn btn-white btn-sm"><i class="fa fa-close"></i> 删除 </a>
+                              <a href="DeleteUserServlet?type2=0&type=${type }&account=${user.account}" onclick="return confirm('确认删除吗  ${user.account}？');" class="btn btn-white btn-sm"><i class="fa fa-close"></i> 删除 </a>
                             </td>
                           </tr>
                         </c:forEach>
@@ -100,6 +100,16 @@
                                         <input type="text" name="telNum" class="form-control" >
                                       </div>
                                     </div>
+                                    
+                                     <div class="form-group">
+                                      <label class="col-sm-3 control-label">所在部门</label>
+                                      <div class="col-sm-8">
+                                      	<c:forEach items="${departs}" var="depart">
+                                    			<input type="checkbox" name="departId" id="departId" value="${depart.departId }"/>${depart.departName }<br/>
+	                                    </c:forEach>
+                                      </div>
+                                    </div>
+                                    
                                      <input type="hidden" name="type" id="type">
                                     <input type="hidden" name="actiontype" id="actiontype">
                                     <div class="form-group">
@@ -148,7 +158,7 @@
         function showModal(type){
           $('#account').removeAttr('readonly')
           $('#account').val('')
-          $('#pwd').val('')
+          $('#password').val('')
            $('#type').val(type)
           $('#actiontype').val(0)
           $('#modal-form').modal('show');
@@ -156,7 +166,7 @@
         function showModal_1(type,account){
           $('#account').attr("readonly","true")
           $('#account').val(account)
-          $('#pwd').val('')
+          $('#password').val('')
           $('#type').val(type)
           $('#actiontype').val(1)
           $('#modal-form').modal('show');

@@ -16,6 +16,7 @@ import com.erp.Dao.Depart_DepartClassDao;
 import com.erp.Entry.DepartClassEntry;
 import com.erp.Entry.DepartEntry;
 import com.erp.utils.StringUtils;
+import com.sun.java.swing.plaf.windows.resources.windows;
 
 /**
  * Servlet implementation class DepartListServlet
@@ -31,7 +32,13 @@ public class DepartListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String departClassId = request.getParameter("departClassId");
-		List<DepartEntry> departEntries = DepartDao.getAllDepartByClassId(departClassId);
+		List<DepartEntry> departEntries =  null;
+		if(StringUtils.isSpace(departClassId)){
+			departEntries = DepartDao.getAllDepart();
+		}else{
+			departEntries = DepartDao.getAllDepartByClassId(departClassId);
+		}
+		 
 		List<DepartClassEntry> departClassEntries = DepartClassDao.getAllDepartClass(false);
 		request.setAttribute("departClassId", departClassId);
 		request.setAttribute("departs", departEntries);
@@ -44,21 +51,26 @@ public class DepartListServlet extends HttpServlet {
 	
 		String actionType = request.getParameter("actiontype");
 		String departName = StringUtils.change2Utf8(request.getParameter("departName"));
-
-		System.out.println(Arrays.asList( request.getParameterValues("departClass")));
-//		switch (actionType) {
-//		case "0": //新增
-//			long nextId =  DepartDao.getNextId();
-//			DepartDao.insert(departName);
-//			Depart_DepartClassDao.insert(nextId+"", departClassId);
-//			break;
-//		case "1": //更新
-//			String departId = request.getParameter("departId");
-//			DepartDao.update(departId, departName);
-//			Depart_DepartClassDao.update(departId, departClassId);
-//			break;
-//		}
-//		request.setAttribute("departClassId", departClassId);
+		String[] departClassIds = request.getParameterValues("departClass");
+		if(departClassIds != null && departClassIds.length > 0){
+			switch (actionType) {
+			case "0": //新增
+				long nextId =  DepartDao.getNextId();
+				if(DepartDao.insert(departName)){
+					Depart_DepartClassDao.insert(nextId+"", departClassIds);
+				}
+				break;
+			case "1": //更新
+				String departId = request.getParameter("departId");
+				DepartDao.update(departId, departName);
+				Depart_DepartClassDao.delete(departId);
+				Depart_DepartClassDao.insert(departId, departClassIds);
+				break;
+			}
+			request.setAttribute("departClassId", departClassIds[0]);
+		}
+		//TODO 刷新操作
+//		request.getRequestDispatcher("/WEB-INF/jsp/reload.jsp").forward(request,response);
 		doGet(request, response);
 	}
 

@@ -29,12 +29,15 @@ public class TaskServlet extends HttpServlet {
 		String departId = (String) request.getParameter("departId");
 		String departName = (String) request.getParameter("departName");
 		String departClassName = (String) request.getParameter("departClassName");
-		
+		String departClassId = request.getParameter("departClassId");
+		System.out.println("departClassId is "+ departClassId);
 		List<TaskEntry> taskEntries = null;
 		if(departId == null){
 			taskEntries = TaskDao.getAllTask(20);
-		}else{
+		}else if(departClassId == null){
 			taskEntries = TaskDao.getAllTaskByDepartId(departId);
+		}else{
+			taskEntries = TaskDao.getAllTaskByDepartId_1(departId,departClassId);
 		}
 		List<TaskEntry> taskEntries_complete = new ArrayList<>();
 		List<TaskEntry> taskEntries_not_complete = new ArrayList<>();

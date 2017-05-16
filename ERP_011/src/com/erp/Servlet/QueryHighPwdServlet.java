@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.erp.Dao.DepartClassDao;
+import com.erp.Dao.DepartDao;
 import com.erp.Dao.TaskDao;
 
 /**
@@ -31,14 +33,30 @@ public class QueryHighPwdServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String password = request.getParameter("password");
-		String taskId = request.getParameter("taskId");
+		String id = request.getParameter("id");
+		int type = Integer.parseInt(request.getParameter("type"));
 		ResourceBundle bundle = ResourceBundle.getBundle("pwd");
 		String pwd = bundle.getString("password");
 		
 		response.setStatus(200);
-		boolean result = true;
+		boolean result = false;
+		
 		if(pwd.equals(password)){
-			result =  TaskDao.delete(taskId);
+			switch (type) {
+			case 0: //删除任务
+				result =  TaskDao.delete(id);
+				break;
+			case 1: //删除部门
+				result = DepartDao.delete(id);
+				break;
+			case 2:
+				result = DepartClassDao.delete(id);
+				break;
+			default:
+				result = false;
+				break;
+			}
+			
 		}
 		response.getWriter().write(result+"");
 	}

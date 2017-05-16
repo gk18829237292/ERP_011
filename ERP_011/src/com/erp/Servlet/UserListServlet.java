@@ -9,7 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.erp.Dao.DepartDao;
 import com.erp.Dao.StuffDao;
+import com.erp.Dao.Stuff_1_DepartDao;
+import com.erp.Dao.Stuff_DepartDao;
+import com.erp.Entry.DepartEntry;
 import com.erp.Entry.StuffEntry;
 import com.erp.utils.StringUtils;
 
@@ -22,12 +26,12 @@ public class UserListServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		List<DepartEntry> departEntries = DepartDao.getAllDepart();
 		String type = request.getParameter("type");
 		List<StuffEntry> stuffEntries = StuffDao.getAllStuffByType(type);
 		request.setAttribute("type", type);
 		request.setAttribute("userList", stuffEntries);
-		System.out.println(stuffEntries);
+		request.setAttribute("departs", departEntries);
 		request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp").forward(request,response);
 	}
 
@@ -39,16 +43,21 @@ public class UserListServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String name = StringUtils.change2Utf8(request.getParameter("name"));
 		String telNum = request.getParameter("telNum");
-		
-		switch (actionType) {
-		case "0": //添加
-			StuffDao.insert(account, password, name, telNum, type);
-			break;
-		case "1": //修改
-			StuffDao.update(account, password, name, telNum, type);
-			break;
-
+		String[] departIds = request.getParameterValues("departId");
+		if(departIds != null  && departIds.length > 0){
+			switch (actionType) {
+			case "0": //添加
+				StuffDao.insert(account, password, name, telNum, type);
+				Stuff_1_DepartDao.insert(account, departIds);
+				break;
+			case "1": //修改
+				StuffDao.update(account, password, name, telNum, type);
+				Stuff_1_DepartDao.delete(account);
+				Stuff_1_DepartDao.insert(account, departIds);
+				break;
+			}
 		}
+		
 		request.setAttribute("type", type);
 		doGet(request, response);
 	}
