@@ -120,7 +120,7 @@
                                     <div class="form-group">
                                         <label>部门分类选择</label><br>
                                           <div class="input-group">
-                                            <select id="departClassId" name="departClassId" data-placeholder="选择部门分类" style="width:350px;" tabindex="2"">
+                                            <select onchange="clickIt()" id="departClassId" name="departClassId" data-placeholder="选择部门分类" style="width:350px" tabindex="2">
                                                 <option value="">请选择部门分类</option>
                                                 <c:forEach items="${departClasses}" var = "departEntry">
                                                     <option value="${departEntry.departClassId}">${departEntry.departClassName}</option>
@@ -134,10 +134,7 @@
                                         <label>部门选择</label><br>
                                           <div class="input-group">
                                             <select id="departId" name="departId" data-placeholder="选择部门..." style="width:350px;" tabindex="2">
-                                                <option value="">请选择部门</option>
-                                                <c:forEach items="${departs}" var = "entry">
-                                                    <option value="${entry.departId}">${entry.departName}</option>
-                                                </c:forEach>
+                                               
                                             </select>
                                         </div>            
                                     </div> 
@@ -175,6 +172,35 @@
     <script src="js/plugins/chosen/chosen.jquery.js"></script>
     <!-- iCheck -->
     <script src="js/plugins/iCheck/icheck.min.js"></script>
+    
+    <script>
+	    function clickIt(){
+	    	
+	    	$("#departId").empty();
+	    	var id = $('#departClassId  option:selected').val();
+	    	console.log(id);
+	    	var xmlhttp;
+	    	if (window.XMLHttpRequest)
+	    	  {// code for IE7+, Firefox, Chrome, Opera, Safari
+	    	  xmlhttp=new XMLHttpRequest();
+	    	  }
+	    	else
+	    	  {// code for IE6, IE5
+	    	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	    	  }
+	    	xmlhttp.onreadystatechange=function()
+	    	  {
+	    	  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+	    	    {
+	    		  console.log(xmlhttp.responseText);
+	    		  $("#departId").append(xmlhttp.responseText);
+	    	    }
+	    	  }
+	    	xmlhttp.open("GET","/ERP_011/GetDepartServlet?departClassId=" +id ,true);
+	    	xmlhttp.send();
+   		 }
+    </script>
+    
     <script>
         $(document).ready(function () {
             $("#wizard").steps();
@@ -243,6 +269,11 @@
             });
         });
         
+        
+       
+       
+        
+       
 
     </script>
 </body>

@@ -24,9 +24,9 @@ public class MyTest {
 	@Test
 	public void testQuery(){
 		
-		System.out.println(ReportDao.update("2", "1", "2", "2", "1"));
+//		System.out.println(ReportDao.update("2", "1", "2", "2", "1"));
 //		ReportDao.insert("1", "1", "1", "", "1");
 
-		
+		System.out.println(DepartDao.getAllDepart());
 	}
 }

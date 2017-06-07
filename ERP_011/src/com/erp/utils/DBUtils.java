@@ -22,10 +22,17 @@ public class DBUtils {
 	static{
 		ResourceBundle bundle = ResourceBundle.getBundle("dbconfig");
 		
-		URL_STRING = "jdbc:mysql:///erp?useUnicode=true&characterEncoding=utf8&useSSL=false";
-		ACCOUNT_STRING = "root";
-		PWD_STRING = "7320";
+//		URL_STRING = "jdbc:mysql:///erp?useUnicode=true&characterEncoding=utf8&useSSL=false";
+//		ACCOUNT_STRING = "root";
+//		PWD_STRING = "7320";
 		
+//		URL_STRING = "jdbc:mysql://103.37.124.35:3313/kkeffu?useUnicode=true&characterEncoding=utf8&useSSL=false";
+//		ACCOUNT_STRING = "kkeffu";
+//		PWD_STRING = "082B1C4C858ed4";
+		
+		URL_STRING = "jdbc:mysql:///kkeffu?useUnicode=true&characterEncoding=utf8&useSSL=false";
+		ACCOUNT_STRING = "kkeffu";
+		PWD_STRING = "082B1C4C858ed4";
 	}
 	
 	public static Connection getConnection() throws SQLException{
