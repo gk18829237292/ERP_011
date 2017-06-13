@@ -98,6 +98,13 @@ create table Stuff_Depart(
     foreign key(department_id) references Depart(department_id) on delete cascade
 );
 
+create table Stuff_1_Depart(
+	account nvarchar(100) not null,
+    department_id bigint not null,
+	foreign key(account) references Stuff_1(account) on delete cascade,
+    foreign key(department_id) references Depart(department_id) on delete cascade
+);
+
 
 
 insert into Depart values(1,"部门A");

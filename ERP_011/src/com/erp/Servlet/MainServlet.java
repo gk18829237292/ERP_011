@@ -46,6 +46,8 @@ public class MainServlet extends HttpServlet {
 				break;
 			case "1"://管理者
 				List<String> departIDs = Stuff_1_DepartDao.getDeparts(stuff.getAccount());
+				System.out.println("stuff is haha : " + stuff);
+				System.out.println("departIds is haha : " + departIDs);
 				departClassEntries = DepartClassDao.getAllDepartClass(departIDs);
 				request.setAttribute("departClassEntries", departClassEntries);
 				request.getRequestDispatcher("/WEB-INF/jsp/guanlizhe.jsp").forward(request, response);

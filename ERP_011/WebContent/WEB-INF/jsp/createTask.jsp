@@ -118,10 +118,10 @@
                                 <h2>Step4</h2>
                                  <div class="row">
                                     <div class="form-group">
-                                        <label>部门分类选择</label><br>
+                                        <label>工作分类选择</label><br>
                                           <div class="input-group">
                                             <select onchange="clickIt()" id="departClassId" name="departClassId" data-placeholder="选择部门分类" style="width:350px" tabindex="2">
-                                                <option value="">请选择部门分类</option>
+                                                <option value="">请选择工作分类</option>
                                                 <c:forEach items="${departClasses}" var = "departEntry">
                                                     <option value="${departEntry.departClassId}">${departEntry.departClassName}</option>
                                                 </c:forEach>
@@ -131,7 +131,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group">
-                                        <label>部门选择</label><br>
+                                        <label>工作选择</label><br>
                                           <div class="input-group">
                                             <select id="departId" name="departId" data-placeholder="选择部门..." style="width:350px;" tabindex="2">
                                                

@@ -50,8 +50,8 @@
                     <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                         <span class="ng-scope">分类</span>
                     </li>
-                    <li>
-                        <a class="J_menuItem" href="taskServlet">
+                   <li>
+                        <a class="J_menuItem" href="taskServlet?type=2">
                             <i class="fa fa-home"></i>
                             <span class="nav-label">主页</span>
                         </a>
@@ -107,7 +107,7 @@
                 </nav>
             </div>
             <div class="row J_mainContent" id="content-main">
-                <iframe id="J_iframe" width="100%" height="100%" src="taskServlet" frameborder="0" data-id="tasks" seamless></iframe>
+                <iframe id="J_iframe" width="100%" height="100%" src="taskServlet?type=2" frameborder="0" data-id="tasks" seamless></iframe>
             </div>
         </div>
         <!--右侧部分结束-->

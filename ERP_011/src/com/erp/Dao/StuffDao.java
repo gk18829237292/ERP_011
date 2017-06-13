@@ -52,7 +52,7 @@ public class StuffDao {
 		ResultSet rs = null;
 		try {
 			conn = DBUtils.getConnection();
-			entry = getStuff(conn, account, pwd, "stuff_0","0");
+			entry = getStuff(conn, account, pwd, "Stuff_0","0");
 			if(entry != null) return entry;
 			//2017年3月9日20:02:52 修改
 			entry = getStuff(conn, account, pwd, "Stuff_1","1");

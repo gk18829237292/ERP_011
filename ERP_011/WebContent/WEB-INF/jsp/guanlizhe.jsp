@@ -51,12 +51,12 @@
                         <span class="ng-scope">分类</span>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="taskServlet">
+                        <a class="J_menuItem" href="taskServlet?type=1">
                             <i class="fa fa-home"></i>
                             <span class="nav-label">主页</span>
                         </a>
                     </li>
-                    <c:forEach items="${departClassEntries}" var ="departClass">
+                   <c:forEach items="${departClassEntries}" var ="departClass">
                     <li>
                         <a href="#">
                             <i class="fa fa fa-bar-chart-o"></i>
@@ -66,7 +66,7 @@
                         <ul class="nav nav-second-level">
                             <c:forEach items="${departClass.departs}" var="depart">
                                 <li>
-                                    <a class="J_menuItem" href="taskServlet?departId=${depart.departId}&departName=${depart.departName}&departClassName=${departClass.departClassName}&departClassId=${departClass.departClassId}">
+                                    <a class="J_menuItem" href="taskServlet?departId=${depart.departId}&departName=${depart.departName}&departClassName=${departClass.departClassName}">
                                         ${depart.departName}
                                     </a>
                                 </li>
@@ -74,6 +74,7 @@
                         </ul>
                     </li>
                     </c:forEach>
+                   
                   
 
                    
@@ -111,7 +112,7 @@
                 </nav>
             </div>
             <div class="row J_mainContent" id="content-main">
-                <iframe id="J_iframe" width="100%" height="100%" src="taskServlet" frameborder="0" data-id="tasks" seamless></iframe>
+                <iframe id="J_iframe" width="100%" height="100%" src="taskServlet?type=1" frameborder="0" data-id="tasks" seamless></iframe>
             </div>
         </div>
         <!--右侧部分结束-->

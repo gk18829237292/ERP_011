@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.erp.Dao.DepartClassDao;
 import com.erp.Dao.DepartDao;
+import com.erp.Dao.Stuff_1_DepartDao;
+import com.erp.Dao.Stuff_DepartDao;
 import com.erp.Dao.TaskDao;
+import com.erp.Entry.StuffEntry;
 import com.erp.Entry.TaskEntry;
 
 @WebServlet("/taskServlet")
@@ -26,13 +29,33 @@ public class TaskServlet extends HttpServlet {
      * 最多显示20条信息
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		StuffEntry stuff = (StuffEntry) request.getSession().getAttribute("stuff");
+		if(stuff == null){
+			response.sendRedirect("LoginServlet");
+		}
+		System.out.println("stuff is : " + stuff);
 		String departId = (String) request.getParameter("departId");
 		String departName = (String) request.getParameter("departName");
 		String departClassName = (String) request.getParameter("departClassName");
 		String departClassId = request.getParameter("departClassId");
-		System.out.println("departClassId is "+ departClassId);
+		String type = request.getParameter("type");
+		System.out.println("type is :" + type);
 		List<TaskEntry> taskEntries = null;
-		if(departId == null){
+		if(type != null){
+			List<String> departIDs = null;
+			if(type.equals("1")){ //管理者
+				departIDs =  Stuff_1_DepartDao.getDeparts(stuff.getAccount());
+				System.out.println("departIds is 1 : " + departIDs);
+			}else{ //领导
+				departIDs =  Stuff_DepartDao.getDeparts(stuff.getAccount());
+				System.out.println("departIds is 2 : " + departIDs);
+			}
+			System.out.println("departIds is " + departIDs);
+			taskEntries = new ArrayList<>();
+			for(String departIdtemp: departIDs){
+				taskEntries.addAll(TaskDao.getAllTaskByDepartId(departIdtemp));
+			}
+		}else if(departId == null){
 			taskEntries = TaskDao.getAllTask(20);
 		}else if(departClassId == null){
 			taskEntries = TaskDao.getAllTaskByDepartId(departId);

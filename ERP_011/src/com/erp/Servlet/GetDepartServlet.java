@@ -30,7 +30,7 @@ public class GetDepartServlet extends HttpServlet {
 		String departClassId = request.getParameter("departClassId");
 		List<DepartEntry> departEntries = DepartDao.getAllDepartByClassId(departClassId);
 		System.out.println("get get get");
-		StringBuilder sb = new StringBuilder(" <option >请选择部门</option>");
+		StringBuilder sb = new StringBuilder(" <option >请选择工作</option>");
 		for(DepartEntry entry:departEntries){
 			sb.append(" <option value=\"");
 			sb.append(entry.getDepartId() + "\">" + entry.getDepartName() + "</option>\n");
