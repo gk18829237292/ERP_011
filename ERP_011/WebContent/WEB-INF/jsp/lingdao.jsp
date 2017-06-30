@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
 
-    <title>督查云平台（试用版）</title>
+    <title>督查云平台 </title>
 
     <meta name="keywords" content="">
     <meta name="description" content="">
@@ -40,7 +40,7 @@
                                 <span class="clear">
                                     <span class="block m-t-xs" style="font-size:20px;">
                                         <i class="fa fa-area-chart"></i>
-                                        <strong class="font-bold">督查云平台（试用版）</strong>
+                                        <strong class="font-bold">督查云平台 <br><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（试用版）</font></strong>
                                     </span>
                                 </span>
                             </a>

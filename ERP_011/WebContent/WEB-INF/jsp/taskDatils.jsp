@@ -157,9 +157,14 @@
                                        					<tbody>
                                        						<tr>
                                        							<th width="10%">督查意见：
-                                       							<c:if test="${stuff.isType0_1() }">
-                                                    	<a href="#" onclick="show(${i})" ><br/>(点击添加)</a> 
-                                                    </c:if>
+                                       							<c:choose>
+                                       								<c:when test="${stuff.isType0_1() && !(advices1[i].comment.length() > 0) }">
+                                       									<a href="#" onclick="show(${i})" ><br/>(点击添加)</a> 
+                                       								</c:when>
+                                       								<c:when test="${stuff.isType0_1() && advices1[i].comment.length() > 0 }">
+                                       									<a href="#" onclick="show(${i})" ><br/>(点击修改)</a> 
+                                       								</c:when>
+                                       							</c:choose>
                                        							</th>
                                        							<td>${advices1[i].comment}</td>
                                        						</tr>

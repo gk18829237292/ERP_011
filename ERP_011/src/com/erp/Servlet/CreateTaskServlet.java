@@ -15,6 +15,7 @@ import com.erp.Dao.DepartDao;
 import com.erp.Dao.TaskDao;
 import com.erp.Entry.DepartClassEntry;
 import com.erp.Entry.DepartEntry;
+import com.erp.Entry.StuffEntry;
 import com.erp.Entry.TaskEntry;
 import com.erp.utils.ImageUtils;
 import com.erp.utils.TimeUtils;
@@ -30,7 +31,8 @@ public class CreateTaskServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String taskId = request.getParameter("taskId");
-		List<DepartClassEntry> departClassEntries =  DepartClassDao.getAllDepartClass(true);
+		StuffEntry stuff = (StuffEntry) request.getSession().getAttribute("stuff");
+		List<DepartClassEntry> departClassEntries = DepartClassDao.getAllDepartClass(stuff);
 		List<DepartEntry> departEntries = DepartDao.getAllDepart();
 		if(taskId == null){
 			request.setAttribute("actionType", "0"); //insert

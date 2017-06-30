@@ -5,10 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import com.erp.Entry.DepartClassEntry;
+import com.erp.Entry.DepartEntry;
+import com.erp.Entry.StuffEntry;
 import com.erp.utils.DBUtils;
 import com.sun.corba.se.impl.encoding.OSFCodeSetRegistry.Entry;
 
@@ -85,6 +89,20 @@ public class DepartClassDao {
 		return departClassEntries;
 	}
 	
+	public static List<DepartClassEntry> getAllDepartClass(StuffEntry stuff) {
+		List<DepartClassEntry> departClassEntries = getAllDepartClass(true);
+		if(stuff.getType().equals("1")){
+			List<String> departIds = Stuff_1_DepartDao.getDeparts(stuff.getAccount());
+			List<String> departClassIds = Depart_DepartClassDao.getdepartClassIds(departIds);
+			Iterator<DepartClassEntry> iterator = departClassEntries.iterator();
+			while(iterator.hasNext()){
+				if(!departClassIds.contains(iterator.next().getDepartClassId())){
+					iterator.remove();
+				}
+			}
+		}
+		return departClassEntries;
+	}
 	
 	public static DepartClassEntry fill(ResultSet rs) throws SQLException{
 		DepartClassEntry entry = new DepartClassEntry();

@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import com.erp.utils.DBUtils;
 
@@ -86,4 +90,32 @@ public class Depart_DepartClassDao {
 		}
 	}
 	
+	public static List<String> getdepartClassIds(List<String> departIds) {
+		Set<String> departClassIds = new HashSet<>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn =DBUtils.getConnection();
+			for(String departId : departIds){
+				stmt = conn.prepareStatement("select departClass_id from " + TABLE_NAME + " where department_id= ?");
+				stmt.setString(1, departId);
+				rs = stmt.executeQuery();
+				while(rs.next()){
+					departClassIds.add(rs.getString("departClass_id"));
+				}
+				DBUtils.close(rs, stmt);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(stmt, conn);
+		}
+		List<String> departClassIdList = new ArrayList<>();
+		for(String departClassId : departClassIds){
+			departClassIdList.add(departClassId);
+		}
+		return departClassIdList;
+	}
 }
