@@ -11,8 +11,6 @@ public class JsonManager {
 	
 	public static String createJson(Map<String,String> map) throws JSONException{
 		JSONObject json = new JSONObject(map);
-		
-
 		return json.toString();
 	}
 	
