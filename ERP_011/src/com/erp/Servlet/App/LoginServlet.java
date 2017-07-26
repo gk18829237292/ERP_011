@@ -38,7 +38,6 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("is me");
 		String account = request.getParameter("account");
 		String password = request.getParameter("password");
 		Log.logInfo(TAG, account);
@@ -49,10 +48,11 @@ public class LoginServlet extends HttpServlet {
 		}else{
 			StuffEntry stuff = StuffDao.getStuff(account, password);
 			if( stuff != null){
-				map.put("account", stuff.getName());
-				map.put("password", stuff.getPwd());
+				map.put("account", account);
+				map.put("password", password);
 				map.put("telNum", stuff.getTelNum());
 				map.put("name", stuff.getName());
+				Log.logInfo("stuff is ", stuff.toString());
 				if(stuff.isType2_leader()){
 					map.put("type", "3");
 				}else{

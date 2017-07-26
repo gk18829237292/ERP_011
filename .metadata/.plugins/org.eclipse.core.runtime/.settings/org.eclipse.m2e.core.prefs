@@ -1,0 +1,10 @@
+eclipse.m2.WorkspacelifecycleMappingsLocation=F\:/my_JAVA1/.metadata/.plugins/org.eclipse.m2e.core/lifecycle-mapping-metadata.xml
+eclipse.m2.defaultRuntime=mvn
+eclipse.m2.globalSettingsFile=D\:\\my_eclipse\\mvn\\apache-maven-3.3.9\\conf\\settings.xml
+eclipse.m2.runtimes=mvn
+eclipse.m2.runtimesNodes/apache-maven-3.3.9/location=F\:\\javaweb\\apache-maven-3.3.9
+eclipse.m2.runtimesNodes/apache-maven-3.3.9/type=EXTERNAL
+eclipse.m2.runtimesNodes/mvn/location=D\:\\my_eclipse\\mvn\\apache-maven-3.3.9
+eclipse.m2.runtimesNodes/mvn/type=EXTERNAL
+eclipse.m2.updateIndexes=true
+eclipse.preferences.version=1

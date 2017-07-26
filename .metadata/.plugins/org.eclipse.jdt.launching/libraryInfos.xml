@@ -19,4 +19,23 @@
 <entry path="C:\Program Files\Java\jre1.8.0_111\lib\endorsed"/>
 </endorsedDirs>
 </libraryInfo>
+<libraryInfo home="E:\my_eclipse\jdk1.8.0_25" version="1.8.0_25">
+<bootpath>
+<entry path="E:\my_eclipse\jdk1.8.0_25\jre\lib\resources.jar"/>
+<entry path="E:\my_eclipse\jdk1.8.0_25\jre\lib\rt.jar"/>
+<entry path="E:\my_eclipse\jdk1.8.0_25\jre\lib\sunrsasign.jar"/>
+<entry path="E:\my_eclipse\jdk1.8.0_25\jre\lib\jsse.jar"/>
+<entry path="E:\my_eclipse\jdk1.8.0_25\jre\lib\jce.jar"/>
+<entry path="E:\my_eclipse\jdk1.8.0_25\jre\lib\charsets.jar"/>
+<entry path="E:\my_eclipse\jdk1.8.0_25\jre\lib\jfr.jar"/>
+<entry path="E:\my_eclipse\jdk1.8.0_25\jre\classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="E:\my_eclipse\jdk1.8.0_25\jre\lib\ext"/>
+<entry path="C:\Windows\Sun\Java\lib\ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="E:\my_eclipse\jdk1.8.0_25\jre\lib\endorsed"/>
+</endorsedDirs>
+</libraryInfo>
 </libraryInfos>

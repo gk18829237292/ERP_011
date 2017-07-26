@@ -1,0 +1,71 @@
+package com.erp.Servlet.App;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONException;
+
+import com.erp.Dao.StuffDao;
+import com.erp.Entry.StuffEntry;
+import com.erp.Log.Log;
+import com.erp.utils.JsonManager;
+
+/**
+ * Servlet implementation class LoginServlet
+ */
+@WebServlet("/api/LoginServlet")
+public class LoginServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	private static final String TAG ="LoginServlet";
+	
+    public LoginServlet() {
+        super();
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String account = request.getParameter("account");
+		String password = request.getParameter("password");
+		Log.logInfo(TAG, account);
+		Log.logInfo(TAG, password);
+		Map<String,String> map = new HashMap<String,String>();
+		if(account.length() == 0 || password.length() == 0){
+			map.put("error", "");
+		}else{
+			StuffEntry entry =  StuffDao.getStuff(account, password);
+			StuffEntry stuff = StuffDao.getStuff(account, password);
+			if( stuff != null){
+				map.put("name", stuff.getName());
+				map.put("type", stuff.getType()+"");
+				if(stuff.getType() == 2){
+					map.put("departId", stuff.getDepartment().getDepartmentId());
+					map.put("departName", stuff.getDepartment().getDepartmentName());
+				}
+			}else{
+				map.put("error", "");
+			}
+		}
+		try {
+			Log.logInfo(TAG, map.toString());
+			response.setCharacterEncoding("utf-8");
+			response.getWriter().append(JsonManager.createJson(map));
+		} catch (JSONException e) {
+			Log.logError(TAG, e.getMessage());
+		}
+	}
+
+}
