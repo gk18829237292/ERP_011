@@ -3,6 +3,10 @@ package com.erp.Entry;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class DepartEntry {
 	private String departId;
@@ -36,7 +40,22 @@ public class DepartEntry {
 		return "DepartEntry [departId=" + departId + ", departName=" + departName + ", tasks=" + tasks + "]\n";
 	}
 	
-	
+	public JSONObject write2Json() throws JSONException {
+		JSONObject json = new JSONObject();
+		/**
+		 * 	private String departId;
+	private String departName;
+	private List<TaskEntry> tasks = new ArrayList<>();
+		 */
+		json.put("id", departId);
+		json.put("name", departName);
+		JSONArray jsonArray  = new JSONArray();
+		for(TaskEntry entry:tasks){
+			jsonArray.put(entry.write2Json());
+		}
+		json.put("array", jsonArray);
+		return json;
+	}
 
 
 	

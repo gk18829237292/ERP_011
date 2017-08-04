@@ -3,7 +3,12 @@ package com.erp.Entry;
 import java.util.Date;
 import java.util.Map;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.erp.utils.JsonManager;
 import com.erp.utils.TimeUtils;
+import com.sun.org.apache.xml.internal.security.keys.content.RetrievalMethod;
 
 /**
  * 	task_id bigint primary key auto_increment,
@@ -320,7 +325,36 @@ public class TaskEntry {
 		this.needToReportNum = needToReportNum;
 	}
 
-	
+	public JSONObject write2Json() throws JSONException {
+		JSONObject json = new JSONObject();
+		/**
+		 * 	private String taskId;
+	private String taskName;
+	private String startTime;
+	private String endTime;
+	private String updateTime;
+	private String chairMan;
+	private String type;
+	private String place;
+	private String financing;
+	private String goal;
+	private String reportType; // -- 0日报 1 周报，2半月报，3月报，4季报，5 半年报，6年报--
+	private String departClassId;
+		 */
+		json.put("id", taskId);
+		json.put("name", taskName);
+		json.put("startTime", startTime);
+		json.put("endTime", endTime);
+		json.put("updateTime", updateTime);
+		json.put("chairMan", chairMan);
+//		json.put("type", type);
+		json.put("place", place);
+		json.put("financing", financing);
+		json.put("goal", goal);
+		json.put("reportType", reportType);
+		json.put("departClassId", departClassId);
+		return json;
+	}
 	
 	
 

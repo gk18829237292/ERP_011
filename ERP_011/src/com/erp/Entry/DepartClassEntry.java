@@ -3,6 +3,10 @@ package com.erp.Entry;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class DepartClassEntry {
 	
 	private String departClassId;
@@ -38,7 +42,17 @@ public class DepartClassEntry {
 	
 	
 	
-	
+	public JSONObject write2Json() throws JSONException {
+		JSONObject json = new JSONObject();
+		json.put("id", departClassId);
+		json.put("name", departClassName);
+		JSONArray jsonArray  = new JSONArray();
+		for(DepartEntry entry:departs){
+			jsonArray.put(entry.write2Json());
+		}
+		json.put("array", jsonArray);
+		return json;
+	}
 	
 	
 	

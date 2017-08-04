@@ -58,7 +58,6 @@ public class MainServlet extends HttpServlet {
 				 * 2.部门的所有任务
 				 * 3.
 				 */
-				
 				if(stuff.getIsLeader() == 0){
 					departClassEntries = DepartClassDao.getAllDepartClass(true);
 					List<DepartClassEntry> departClassEntries2 = new ArrayList<>();

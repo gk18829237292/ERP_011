@@ -59,6 +59,39 @@ public class DepartClassDao {
 		return departClassEntries;
 	}
 	
+	public static List<DepartClassEntry> getAllDepartClass_edt(List<String> departIDs){
+		List<DepartClassEntry> departClassEntries = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBUtils.getConnection();
+			stmt = conn.prepareStatement("select * from " + TABLE_NAME );
+			rs = stmt.executeQuery();
+			while(rs.next()){
+				departClassEntries.add(fill(rs));
+			}
+		
+			for(DepartClassEntry entry: departClassEntries){
+				entry.getDeparts().addAll(DepartDao.getAllDepartByClassId(conn, entry.getDepartClassId(),departIDs));
+			}
+			Iterator<DepartClassEntry> it = departClassEntries.iterator();
+
+			while(it.hasNext()){
+				if(it.next().getDeparts().size() == 0){
+					it.remove();
+				}
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, stmt, conn);
+		}
+		
+		return departClassEntries;
+	}
 	
 	public static List<DepartClassEntry> getAllDepartClass(boolean deep){
 		List<DepartClassEntry> departClassEntries = new ArrayList<>();
@@ -88,6 +121,34 @@ public class DepartClassDao {
 		
 		return departClassEntries;
 	}
+	
+	public static List<DepartClassEntry> getAllDepartClass_edt(){
+		List<DepartClassEntry> departClassEntries = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBUtils.getConnection();
+			stmt = conn.prepareStatement("select * from " + TABLE_NAME );
+			rs = stmt.executeQuery();
+			while(rs.next()){
+				departClassEntries.add(fill(rs));
+			}
+			for(DepartClassEntry entry: departClassEntries){
+				//TODO 后期要修改的话 ， 改成以 部门为主
+				entry.getDeparts().addAll(DepartDao.getAllDepartByClassId(conn, entry.getDepartClassId()));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, stmt, conn);
+		}
+		
+		return departClassEntries;
+	}
+	
 	
 	public static List<DepartClassEntry> getAllDepartClass(StuffEntry stuff) {
 		List<DepartClassEntry> departClassEntries = getAllDepartClass(true);

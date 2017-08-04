@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.erp.Entry.DepartClassEntry;
 import com.erp.Entry.DepartEntry;
+import com.erp.Entry.TaskEntry;
 import com.erp.Log.Log;
 import com.erp.utils.DBUtils;
 import com.mysql.jdbc.Statement;
@@ -130,6 +131,34 @@ public class DepartDao {
 		return departEntries;
 	}
 	
+	public static List<DepartEntry> getAllDepartByClassId_edt(Connection conn,String departClassId,List<String> departIDs){
+		List<DepartEntry> departEntries = new ArrayList<>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt =  conn.prepareStatement("select * from Depart,DepartClass,Depart_DepartClass where Depart.department_id = Depart_DepartClass.department_id and Depart_DepartClass.departClass_id = DepartClass.departClass_id and DepartClass.departClass_id = ?");
+			stmt.setString(1, departClassId);
+			rs = stmt.executeQuery();
+			while(rs.next()){
+				DepartEntry entry = fill(rs);
+				if(departIDs.contains(entry.getDepartId())){
+					departEntries.add(entry);					
+				}
+			}
+			
+			for(DepartEntry entry:departEntries){
+				entry.getTasks().addAll(TaskDao.getAllTaskByDepartId_1(entry.getDepartId(), departClassId));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, stmt);
+		}
+		
+		return departEntries;
+	}
+	
 	
 	public static List<DepartEntry> getAllDepartByClassId(Connection conn,String departClassId){
 		List<DepartEntry> departEntries = new ArrayList<>();
@@ -152,6 +181,32 @@ public class DepartDao {
 		
 		return departEntries;
 	}
+	
+	public static List<DepartEntry> getAllDepartByClassId_edt(Connection conn,String departClassId){
+		List<DepartEntry> departEntries = new ArrayList<>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt =  conn.prepareStatement("select * from Depart,DepartClass,Depart_DepartClass where Depart.department_id = Depart_DepartClass.department_id and Depart_DepartClass.departClass_id = DepartClass.departClass_id and DepartClass.departClass_id = ?");
+			stmt.setString(1, departClassId);
+			rs = stmt.executeQuery();
+			while(rs.next()){
+				DepartEntry entry = fill(rs);
+				departEntries.add(entry);
+			}
+			for(DepartEntry entry:departEntries){
+				entry.getTasks().addAll(TaskDao.getAllTaskByDepartId_1(entry.getDepartId(), departClassId));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, stmt);
+		}
+		
+		return departEntries;
+	}
+	
 	
 	public static DepartEntry fill(ResultSet rs) throws SQLException{
 		DepartEntry entry = new DepartEntry();
