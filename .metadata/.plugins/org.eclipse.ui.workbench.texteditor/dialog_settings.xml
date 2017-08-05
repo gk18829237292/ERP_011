@@ -2,12 +2,16 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="departClass" key="selection"/>
+		<item value="departIDs" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="departIDs"/>
+			<item value="type"/>
+			<item value="startTime"/>
+			<item value="json"/>
 			<item value="departClass"/>
 			<item value="addAll"/>
 			<item value="all"/>

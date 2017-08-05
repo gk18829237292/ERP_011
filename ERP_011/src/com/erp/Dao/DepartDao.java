@@ -145,7 +145,6 @@ public class DepartDao {
 					departEntries.add(entry);					
 				}
 			}
-			
 			for(DepartEntry entry:departEntries){
 				entry.getTasks().addAll(TaskDao.getAllTaskByDepartId_1(entry.getDepartId(), departClassId));
 			}
