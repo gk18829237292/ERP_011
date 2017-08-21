@@ -50,7 +50,7 @@ public class DepartClassEntry {
 		for(DepartEntry entry:departs){
 			jsonArray.put(entry.write2Json());
 		}
-		json.put("array", jsonArray);
+		json.put("departs", jsonArray);
 		return json;
 	}
 	

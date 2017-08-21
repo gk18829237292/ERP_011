@@ -53,7 +53,7 @@ public class DepartEntry {
 		for(TaskEntry entry:tasks){
 			jsonArray.put(entry.write2Json());
 		}
-		json.put("array", jsonArray);
+		json.put("tasks", jsonArray);
 		return json;
 	}
 

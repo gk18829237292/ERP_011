@@ -76,11 +76,9 @@ public class MainServlet extends HttpServlet {
 								flag = false;
 							}
 						}
-						
 						if(flag){
 							iter.remove();
-						}
-						
+						}	
 					}
 					request.setAttribute("departClassEntries", departClassEntries);
 					List<TaskEntry> taskEntries = TaskDao.getAllTaskByDepartId(depart.getDepartId());

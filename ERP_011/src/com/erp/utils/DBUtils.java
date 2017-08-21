@@ -24,7 +24,7 @@ public class DBUtils {
 		
 		URL_STRING = "jdbc:mysql:///erp?useUnicode=true&characterEncoding=utf8&useSSL=false";
 		ACCOUNT_STRING = "root";
-		PWD_STRING = "";
+		PWD_STRING = "7320";
 		
 //		URL_STRING = "jdbc:mysql://103.37.124.35:3313/kkeffu?useUnicode=true&characterEncoding=utf8&useSSL=false";
 //		ACCOUNT_STRING = "kkeffu";

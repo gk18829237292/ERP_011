@@ -136,7 +136,7 @@ public class DepartClassDao {
 			}
 			for(DepartClassEntry entry: departClassEntries){
 				//TODO 后期要修改的话 ， 改成以 部门为主
-				entry.getDeparts().addAll(DepartDao.getAllDepartByClassId(conn, entry.getDepartClassId()));
+				entry.getDeparts().addAll(DepartDao.getAllDepartByClassId_edt(conn, entry.getDepartClassId()));
 			}
 			
 		} catch (SQLException e) {
