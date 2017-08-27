@@ -310,7 +310,7 @@ public class TaskEntry {
 		int tmp = Math.max(reportNum, advise1Num);
 		tmp = Math.max(tmp, advise2Num);
 		tmp = Math.max(tmp, getNeedToReportNum());
-	
+		tmp = Math.min(tmp, reportTimes);
 		tmp = Math.min(tmp, 200);
 		return tmp;
 	}
@@ -319,6 +319,10 @@ public class TaskEntry {
 
 	public int getNeedToReportNum() {
 		return TimeUtils.getDays(TimeUtils.getNowLongTime() - Long.parseLong(startTime)) / reportTypeToDays(Integer.parseInt(reportType));
+	}
+	
+	public int getAllReportNum() {
+		return TimeUtils.getDays(Long.parseLong(endTime) - Long.parseLong(startTime)) / reportTypeToDays(Integer.parseInt(reportType));
 	}
 
 	public void setNeedToReportNum(int needToReportNum) {

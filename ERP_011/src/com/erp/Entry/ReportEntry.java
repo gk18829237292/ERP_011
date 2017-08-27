@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.erp.utils.TimeUtils;
 
 /**
@@ -117,7 +121,21 @@ public class ReportEntry {
 		return "ReportEntry [reportId=" + reportId + ", taskId=" + taskId + ", comment=" + comment + ", picture="
 				+ picture + ", reportTime=" + reportTime + ", reportIndex=" + reportIndex + "]";
 	}
-
+	
+	public JSONObject write2Json() throws JSONException {
+		JSONObject json = new JSONObject();
+		json.put("id", reportId);
+		json.put("reportIndex", reportIndex);
+		json.put("comment", comment);
+		json.put("time", reportTime);
+		JSONArray jsonArray = new JSONArray();
+		for(String str:picture){
+			jsonArray.put(str);
+		}
+		json.put("pics", jsonArray);
+		json.put("taskId", taskId);
+		return json;
+	}
 	
 	
 }

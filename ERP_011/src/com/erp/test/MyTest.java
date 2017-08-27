@@ -3,8 +3,9 @@ package com.erp.test;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -19,12 +20,18 @@ import com.erp.Dao.TaskDao;
 import com.erp.utils.DBUtils;
 import com.erp.utils.TimeUtils;
 
+
 public class MyTest {
 	
 	@Test
 	public void testQuery(){
 		
 
-		System.out.println(DepartDao.getAllDepart());
+		Map<Integer, Object> map = new HashMap();
+		map.put(1, "2");
+		map.put(2, new Object());
+		System.out.println("MyTest.testQuery()");
+		System.out.println(map.get(2));
+		System.out.println(map.get(3));
 	}
 }

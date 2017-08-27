@@ -3,6 +3,10 @@ package com.erp.Entry;
 import java.util.Arrays;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * 
 create table Advice(
@@ -91,6 +95,24 @@ public class AdviceEntry {
 				+ comment + ", picture=" + picture + ", taskId=" + taskId + ", type=" + type + "]";
 	}
 	
-	
+	public JSONObject write2Json() throws JSONException {
+		JSONObject json = new JSONObject();
+		json.put("id", adviceId);
+		json.put("adviceIndex", adviceIndex);
+		json.put("comment", comment);
+		json.put("time", time);
+		JSONArray jsonArray = new JSONArray();
+		if(picture != null){
+			for(String str:picture){
+				jsonArray.put(str);
+			}
+		}
+		json.put("pics", jsonArray);
+		json.put("taskId", taskId);
+		json.put("type", type);
+		json.put("star", star);
+		json.put("name", name);
+		return json;
+	}
 	
 }

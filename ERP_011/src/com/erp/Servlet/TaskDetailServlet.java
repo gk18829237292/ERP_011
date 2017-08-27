@@ -92,7 +92,7 @@ public class TaskDetailServlet extends HttpServlet {
 		if(!StringUtils.isSpace(departClassName)){
 			request.setAttribute("departClassName", "（"+departClassName +"）");
 		}
-
+		//TODO 从这里开始学习
 		TaskEntry taskEntry = TaskDao.getTaskById(taskId);
 		Map<Integer, ReportEntry> reports = taskEntry.getReports();
 		Map<Integer, AdviceEntry> advices1 = taskEntry.getAdvices1();
