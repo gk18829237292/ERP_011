@@ -43,6 +43,32 @@ public class ImageUtils {
 		return map;
 	}
 	
+	public static HashMap<String, String> getMap2(HttpServletRequest request, String tempFilePath,String filePath){
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		factory.setSizeThreshold(4 * 1024);
+		factory.setRepository(new File(tempFilePath));
+		
+		ServletFileUpload upload = new ServletFileUpload(factory);
+		upload.setFileSizeMax(40 * 1024 * 1024);
+		StringBuilder sb= new StringBuilder();
+		HashMap<String,String> map = new HashMap<String,String>();
+		try{
+			List<FileItem> list = upload.parseRequest(request);
+			for(FileItem item:list){
+				if(!item.isFormField()){
+					sb.append(processUploadFiles(filePath,item));
+					sb.append(";");
+				}else{
+					map.put(item.getFieldName(), item.getString());
+				}
+			}
+		} catch (Exception e) {
+			Log.logError(TAG, e.getMessage());
+		}
+		map.put("picture", sb.toString());
+		return map;
+	}
+	
 	
 	public static String processUploadFiles(String path ,FileItem item) throws Exception {
 

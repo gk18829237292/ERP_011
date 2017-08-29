@@ -293,8 +293,8 @@ public class TaskDao {
 			stmt.setString(10,reportType);
 			stmt.setString(11, departId);
 			stmt.setString(12, picture);
-			stmt.setString(13, taskId);
-			stmt.setString(14, departClassId);
+			stmt.setString(13, departClassId);
+			stmt.setString(14, taskId);
 			result = stmt.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -9,9 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.erp.Dao.TaskDao;
 import com.erp.utils.ImageUtils;
 import com.erp.utils.TimeUtils;
+
+import sun.java2d.cmm.kcms.KcmsServiceProvider;
 
 /**
  * Servlet implementation class CreateTaskServlet
@@ -32,12 +37,13 @@ public class CreateTaskServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("CreateTaskServlet.doPost()");
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		String filePath = getServletContext().getRealPath("/img");
 		String tempFilePath = getServletContext().getRealPath("/tmp");
 		
-		HashMap<String, String> map = ImageUtils.getMap(request, tempFilePath, filePath);
+		HashMap<String, String> map = ImageUtils.getMap2(request, tempFilePath, filePath);
 		if(map.get("type") == null){
 			map.put("type", "0");
 		}
@@ -49,15 +55,23 @@ public class CreateTaskServlet extends HttpServlet {
 		switch (actionType) {
 		case "0": //insert
 			TaskDao.insert(map.get("name"), TimeUtils.convert2Long(map.get("startTime")), TimeUtils.convert2Long(map.get("endTime")), 12, 
-					map.get("chairMan"), map.get("type"), map.get("place"), map.get("financing"), map.get("goal"), map.get("reportType"), map.get("departId"), map.get("picture"),map.get("departClassId"));
+					map.get("chairMan"), map.get("type"), map.get("place"), map.get("financing"), map.get("goal"), map.get("type"), map.get("departId"), map.get("picture"),map.get("departClassId"));
 			break;
 		case "1"://update
 			TaskDao.update(map.get("taskId"),map.get("name"), TimeUtils.convert2Long(map.get("startTime")), TimeUtils.convert2Long(map.get("endTime")), 12, 
-					map.get("chairMan"), map.get("type"), map.get("place"), map.get("financing"), map.get("goal"), map.get("reportType"), map.get("departId"), map.get("picture"),map.get("departClassId"));
+					map.get("chairMan"), map.get("type"), map.get("place"), map.get("financing"), map.get("goal"), map.get("type"), map.get("departId"), map.get("picture"),map.get("departClassId"));
 			break;
 		}
 		
-		response.sendRedirect("taskServlet");
+		response.setCharacterEncoding("utf-8");
+		JSONObject jsonObject = new JSONObject();
+		try {
+			jsonObject.put("data", "success");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		response.getWriter().append(jsonObject.toString());
 	}
 
 }

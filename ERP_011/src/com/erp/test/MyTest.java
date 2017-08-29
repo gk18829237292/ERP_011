@@ -27,11 +27,8 @@ public class MyTest {
 	public void testQuery(){
 		
 
-		Map<Integer, Object> map = new HashMap();
-		map.put(1, "2");
-		map.put(2, new Object());
-		System.out.println("MyTest.testQuery()");
-		System.out.println(map.get(2));
-		System.out.println(map.get(3));
+		TaskDao.update("2", "测试2017年8月30日01:29:57", 0, 0, 0, "asd", "2", "1212", "12", "ceshi", "12", "4", "", "1");
+		
+		
 	}
 }
