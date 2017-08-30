@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 
 import com.erp.Dao.StuffDao;
+import com.erp.Dao.Stuff_DepartDao;
+import com.erp.Entry.DepartEntry;
 import com.erp.Entry.StuffEntry;
 import com.erp.Log.Log;
 import com.erp.utils.JsonManager;
@@ -60,6 +62,15 @@ public class LoginServlet extends HttpServlet {
 				}
 			}else{
 				map.put("error", "");
+			}
+			map.put("departId", "");
+			map.put("departName","");
+			try{
+				DepartEntry depart = Stuff_DepartDao.getDepartByStuffAccount(account);
+				map.put("departId", depart.getDepartId());
+				map.put("departName", depart.getDepartName());
+			}catch (Exception e) {
+				// TODO: handle exception
 			}
 		}
 		try {

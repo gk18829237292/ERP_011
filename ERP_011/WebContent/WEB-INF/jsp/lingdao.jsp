@@ -66,7 +66,7 @@
                         <ul class="nav nav-second-level">
                             <c:forEach items="${departClass.departs}" var="depart">
                                 <li>
-                                    <a class="J_menuItem" href="taskServlet?departId=${depart.departId}&departName=${depart.departName}&departClassName=${departClass.departClassName}">
+                                    <a class="J_menuItem" href="taskServlet?departId=${depart.departId}&departName=${depart.departName}&departClassName=${departClass.departClassName}&departClassId=${departClass.departClassId}">
                                         ${depart.departName}
                                     </a>
                                 </li>

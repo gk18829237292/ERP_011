@@ -73,7 +73,7 @@ public class DepartClassDao {
 			}
 		
 			for(DepartClassEntry entry: departClassEntries){
-				entry.getDeparts().addAll(DepartDao.getAllDepartByClassId(conn, entry.getDepartClassId(),departIDs));
+				entry.getDeparts().addAll(DepartDao.getAllDepartByClassId_edt(conn, entry.getDepartClassId(),departIDs));
 			}
 			Iterator<DepartClassEntry> it = departClassEntries.iterator();
 

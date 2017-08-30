@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.erp.Dao.DepartClassDao;
+import com.erp.Dao.DepartDao;
 import com.erp.Dao.Stuff_1_DepartDao;
 import com.erp.Dao.Stuff_DepartDao;
 import com.erp.Dao.TaskDao;
@@ -51,8 +52,8 @@ public class GetAllTaskServlet extends HttpServlet {
 			entryList = DepartClassDao.getAllDepartClass_edt(departIDs);
 			break;
 		case "2":
-			List<DepartClassEntry> departClassEntries = DepartClassDao.getAllDepartClass(true);
-			DepartEntry depart = (DepartEntry) request.getSession().getAttribute("depart");
+			List<DepartClassEntry> departClassEntries = DepartClassDao.getAllDepartClass_edt();
+			DepartEntry depart = Stuff_DepartDao.getDepartByStuffAccount(account);
 			Iterator iter =  departClassEntries.iterator();
 			System.out.println(depart);
 			while(iter.hasNext()){
