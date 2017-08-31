@@ -29,7 +29,7 @@ import com.erp.utils.JsonManager;
 /**
  * Servlet implementation class GetAllTaskServlet
  */
-@WebServlet("/api/getAllTask")
+@WebServlet("/api/getAllDepart")
 public class GetAllDepartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -39,45 +39,12 @@ public class GetAllDepartServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("GetAllDepartServlet.doGet()");
 		String account = request.getParameter("account");
 		String type = request.getParameter("type");
 		System.out.println("account : " + account +"  type: " + type);
-		List<DepartClassEntry> entryList = null;
-		switch (type) {
-		case "0":
-			entryList = DepartClassDao.getAllDepartClass_edt();
-			break;
-		case "1":
-			List<String> departIDs = Stuff_1_DepartDao.getDeparts(account);
-			entryList = DepartClassDao.getAllDepartClass_edt(departIDs);
-			break;
-		case "2":
-			List<DepartClassEntry> departClassEntries = DepartClassDao.getAllDepartClass_edt();
-			DepartEntry depart = Stuff_DepartDao.getDepartByStuffAccount(account);
-			Iterator iter =  departClassEntries.iterator();
-			System.out.println(depart);
-			while(iter.hasNext()){
-				DepartClassEntry entry = (DepartClassEntry) iter.next();
-				boolean flag = true;
-				Iterator<DepartEntry> iter2 = entry.getDeparts().iterator();
-				while(iter2.hasNext()){
-					DepartEntry departEntry = iter2.next();
-					if(!departEntry.getDepartId().equals(depart.getDepartId())){
-						iter2.remove();
-					}else{
-						flag = false;
-					}
-				}
-				if(flag){
-					iter.remove();
-				}	
-			}
-			entryList = departClassEntries;
-		case "3":
-			departIDs = Stuff_DepartDao.getDeparts(account);
-			entryList = DepartClassDao.getAllDepartClass_edt(departIDs);
-			break;
-		}
+		if(!type.equals("0"))return;
+		List<DepartClassEntry>  entryList = DepartClassDao.getAllDepartClass(true);
 		
 		JSONArray jsonArray = new JSONArray();
 		for(DepartClassEntry entry:entryList){
