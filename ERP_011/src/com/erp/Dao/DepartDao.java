@@ -229,7 +229,7 @@ public class DepartDao {
 		}finally {
 			DBUtils.close(stmt,conn);
 		}
-		return false;
+		return result;
 	}
 	
 	public static long getNextId(Connection conn){

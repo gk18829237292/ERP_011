@@ -1,5 +1,11 @@
 package com.erp.Entry;
 
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.erp.utils.StringUtils;
 
 public class StuffEntry {
@@ -98,7 +104,43 @@ public class StuffEntry {
 		if(StringUtils.isSpace(telNum)) telNum = EMPTY_STR;
 	}
  
-
+	public JSONObject write2Json() throws JSONException {
+		JSONObject jsonObject = new JSONObject();
+		/**
+		 * 	private String account;
+	private String pwd;
+	private DepartEntry depart;
+	private String type;
+	private String name;
+	private String telNum;
+	private int isLeader;
+		 */
+		
+		jsonObject.put("account", account);
+		jsonObject.put("type",isType2_leader()?"3":type);
+		jsonObject.put("name", name);
+		jsonObject.put("telNum", telNum);
+		jsonObject.put("password", pwd);
+		if(depart != null){
+			jsonObject.put("departId",depart.getDepartId());
+			jsonObject.put("departName", depart.getDepartName());
+		}else{
+			jsonObject.put("departId", "");
+			jsonObject.put("departName", "");
+		}
+		
+		return jsonObject;
+	}
+	
+	public static JSONObject convertList2Json(List<StuffEntry> stuffEntries) throws JSONException {
+		JSONObject jsonObject = new JSONObject();
+		JSONArray array = new JSONArray();
+		for(StuffEntry entry:stuffEntries){
+			array.put(entry.write2Json());
+		}
+		jsonObject.put("users", array);
+		return jsonObject;
+	}
 	
 	
 	

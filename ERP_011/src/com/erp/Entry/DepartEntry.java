@@ -57,7 +57,15 @@ public class DepartEntry {
 		return json;
 	}
 
-
+	public static JSONObject convert2ListJson(List<DepartEntry> departEntries) throws JSONException {
+		JSONObject jsonObject = new JSONObject();
+		JSONArray array = new JSONArray();
+		for(DepartEntry entry:departEntries){
+			array.put(entry.write2Json());
+		}
+		jsonObject.put("departs", array);
+		return jsonObject;
+	}
 	
 	
 }

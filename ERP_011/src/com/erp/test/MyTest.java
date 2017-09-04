@@ -27,8 +27,7 @@ public class MyTest {
 	public void testQuery(){
 		
 
-		TaskDao.update("2", "测试2017年8月30日01:29:57", 0, 0, 0, "asd", "2", "1212", "12", "ceshi", "12", "4", "", "1");
-		
+		System.out.println("result "  + DepartDao.insert("mytest"));		
 		
 	}
 }

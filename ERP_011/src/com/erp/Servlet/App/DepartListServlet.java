@@ -1,4 +1,4 @@
-package com.erp.Servlet;
+package com.erp.Servlet.App;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -21,7 +21,7 @@ import com.sun.java.swing.plaf.windows.resources.windows;
 /**
  * Servlet implementation class DepartListServlet
  */
-@WebServlet("/DepartListServlet")
+@WebServlet("/api/createDepart")
 public class DepartListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,28 +31,14 @@ public class DepartListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String departClassId = request.getParameter("departClassId");
-		List<DepartEntry> departEntries =  null;
-		if(StringUtils.isSpace(departClassId)){
-			departEntries = DepartDao.getAllDepart();
-		}else{
-			departEntries = DepartDao.getAllDepartByClassId(departClassId);
-		}
-		 
-		List<DepartClassEntry> departClassEntries = DepartClassDao.getAllDepartClass(false);
-		request.setAttribute("departClassId", departClassId);
-		request.setAttribute("departs", departEntries);
-		request.setAttribute("departClassList", departClassEntries);
-		
-		request.getRequestDispatcher("/WEB-INF/jsp/departList.jsp").forward(request,response);
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		String actionType = request.getParameter("actiontype");
-		String departName = StringUtils.change2Utf8(request.getParameter("departName"));
-		String[] departClassIds = request.getParameterValues("departClass");
-		System.out.println(departClassIds);
+		System.out.println("DepartListServlet.doPost()");
+		String actionType = request.getParameter("actionType");
+		String departName = request.getParameter("departName");
+		String[] departClassIds = request.getParameter("departClass").split(";");
 		if(departClassIds != null && departClassIds.length > 0){
 			switch (actionType) {
 			case "0": //新增
@@ -68,9 +54,7 @@ public class DepartListServlet extends HttpServlet {
 				break;
 			}
 		}
-		//TODO 刷新操作
-//		request.getRequestDispatcher("/WEB-INF/jsp/reload.jsp").forward(request,response);
-		doGet(request, response);
+		AppUtils.sendSuccess(response);
 	}
 
 }
