@@ -21,10 +21,12 @@ public class DBUtils {
 	
 	static{
 		ResourceBundle bundle = ResourceBundle.getBundle("dbconfig");
-		
-		URL_STRING = "jdbc:mysql:///erp?useUnicode=true&characterEncoding=utf8&useSSL=false";
-		ACCOUNT_STRING = "root";
-		PWD_STRING = "7320";
+		URL_STRING = bundle.getString("URL");
+		ACCOUNT_STRING = bundle.getString("ACCOUNT");
+		PWD_STRING = bundle.getString("PWD");
+//		URL_STRING = "jdbc:mysql:///erp?useUnicode=true&characterEncoding=utf8&useSSL=false";
+//		ACCOUNT_STRING = "root";
+//		PWD_STRING = "7320";
 		
 //		URL_STRING = "jdbc:mysql://103.37.124.35:3313/kkeffu?useUnicode=true&characterEncoding=utf8&useSSL=false";
 //		ACCOUNT_STRING = "kkeffu";
