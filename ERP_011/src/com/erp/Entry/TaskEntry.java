@@ -357,7 +357,7 @@ public class TaskEntry {
 		json.put("goal", goal);
 		json.put("reportType", reportType);
 		json.put("departClassId", departClassId);
-		json.put("isAtTime", isAtTime());
+		json.put("isAtTime", isChecked1());
 		return json;
 	}
 	

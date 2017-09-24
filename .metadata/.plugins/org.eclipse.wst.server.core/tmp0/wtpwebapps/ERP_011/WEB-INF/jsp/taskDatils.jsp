@@ -100,7 +100,7 @@
                         <div class="col-sm-12">
                             <dl class="dl-horizontal">
                                 <dt>任务目标</dt>
-                                <dd><i>${task.goal}</i></dd>
+                                <dd>${task.goal}</dd>
                             </dl>
                         </div>
                     </div>
