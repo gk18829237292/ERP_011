@@ -190,11 +190,7 @@
         				swal.showInputError("You need to write something!");     
         				return false;   
         			}    
-
-
-					checkPwd(inputValue,taskId);
-        		
-        			
+					checkPwd(inputValue,id);
         		}
         	);
         }
@@ -228,7 +224,7 @@
         			}
         		}
         	}
-        	xmlhttp.open("GET","QueryHighPwdServlet?type=0&password="+str+"&id="+taskId,true);
+        	xmlhttp.open("GET","QueryHighPwdServlet?type=0&password="+str+"&id="+id,true);
         	xmlhttp.send();
         }
     </script>

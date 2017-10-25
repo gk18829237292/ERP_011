@@ -31,7 +31,7 @@
                 <h1 class="logo-name">h</h1>
 
             </div>
-            <h3>督查云平台（试用版）</h3>
+            <h3>执行力管理云平台（试用版）</h3>
 
             <form class="m-t" role="form" action="LoginServlet" method="post">
                 <div class="form-group">
