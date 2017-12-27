@@ -50,7 +50,7 @@ public class CreateLeaderServlet extends HttpServlet {
 		String taskId = request.getParameter("taskId");
 
 		//String time,String reportIndex,String comment,String picture,String task_id
-		AdviceDao2.insert_withDelete(TimeUtils.getNowLongTime()+"",index, name,comment,taskId);
+		AdviceDao2.insert_update(TimeUtils.getNowLongTime()+"",index, name,comment,taskId);
 		
 		AppUtils.sendSuccess(response);}
 

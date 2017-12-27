@@ -212,6 +212,8 @@ public class ReportDao {
 		return result;
 	}
 	
+	
+	
 	public static boolean update(String time,String reportIndex,String comment,String picture,String task_id) {
 		boolean result = false;
 		Connection conn = null;
@@ -219,7 +221,6 @@ public class ReportDao {
 
 		try {
 			conn = DBUtils.getConnection();
-			delete(conn, reportIndex, task_id);
 			stmt = conn.prepareStatement("update " + TABLE_NAME + " set time = ?,comment =?,picture= ? where reportIndex = ? and task_id = ?");
 			stmt.setString(1, time);
 			stmt.setString(2, comment);

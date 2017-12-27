@@ -138,14 +138,13 @@ public class AdviceDao {
     primary key (adviceIndex,task_id)
 	 * @return
 	 */
-	public static boolean insert_withDelete(String time,String adviceIndex,String comment,String picture,String taskId,String star){
+	public static boolean insert(Connection conn, String time,String adviceIndex,String comment,String picture,String taskId,String star){
 		boolean result = false;
-		Connection conn = null;
 		PreparedStatement stmt = null;
 		
 		try {
 			conn = DBUtils.getConnection();
-			delete(conn, adviceIndex, taskId);
+//			delete(conn, adviceIndex, taskId);
 			stmt = conn.prepareStatement("insert into " + TABLE_NAME + " values(?,?,?,?,?,?)");
 			stmt.setString(1, star);
 			stmt.setString(2, time);
@@ -158,7 +157,70 @@ public class AdviceDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			DBUtils.close(stmt, conn);
+			DBUtils.close(stmt);
+		}
+		return result;
+	}
+	
+	public static boolean update(	Connection conn,String time,String adviceIndex,String comment,String picture,String taskId,String star){
+		boolean result = false;
+		PreparedStatement stmt = null;
+		
+		try {
+			conn = DBUtils.getConnection();
+			stmt = conn.prepareStatement("update " + TABLE_NAME + " set star=?,time=?,comment=?,picture=? where task_id=? and adviceIndex=?");
+			stmt.setString(1, star);
+			stmt.setString(2, time);
+			stmt.setString(3, comment);
+			stmt.setString(4, picture);
+			stmt.setString(5, taskId);
+			stmt.setString(6, adviceIndex);
+			System.out.println(stmt);
+			result = stmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(stmt);
+		}
+		return result;
+	}
+	
+	public static boolean judge(Connection conn,String adviceIndex,String taskId) {
+		boolean result = false;
+		PreparedStatement stmt = null;
+		
+		try {
+			stmt = conn.prepareStatement("select * from " + TABLE_NAME + " where adviceIndex = ? and task_id = ?");
+			stmt.setString(1, adviceIndex);
+			stmt.setString(2, taskId);
+			result = stmt.executeQuery().next();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(stmt);
+		}
+		return result;
+	}
+	
+	
+	public static boolean insert_update(String time,String adviceIndex,String comment,String picture,String taskId,String star){
+		boolean result = false;
+		Connection conn = null;
+		
+		try {
+			conn = DBUtils.getConnection();
+			if(judge(conn,adviceIndex,taskId)){
+				update(conn,time, adviceIndex, comment, picture, taskId, star);
+			}else{
+				insert(conn,time, adviceIndex, comment, picture, taskId, star);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(conn);
 		}
 		return result;
 	}

@@ -66,9 +66,8 @@ public class AdviceDao2 {
 		return entry;
 	}
 	
-	public static boolean insert_withDelete(String time,String adviceIndex,String name, String comment,String taskId){
+	public static boolean insert(Connection conn,String time,String adviceIndex,String name, String comment,String taskId){
 		boolean result = false;
-		Connection conn = null;
 		PreparedStatement stmt = null;
 		
 		try {
@@ -86,6 +85,65 @@ public class AdviceDao2 {
 			e.printStackTrace();
 		}finally {
 			DBUtils.close(stmt, conn);
+		}
+		return result;
+	}
+	
+	public static boolean update(Connection conn,String time,String adviceIndex,String name, String comment,String taskId){
+		boolean result = false;
+		PreparedStatement stmt = null;
+		try {
+			conn = DBUtils.getConnection();
+			stmt = conn.prepareStatement("update " + TABLE_NAME + "set time=?,name=?,comment=? where task_id =? and adviceIndex=?");
+			stmt.setString(1, time);
+			stmt.setString(2, name);
+			stmt.setString(3, comment);
+			stmt.setString(4, taskId);
+			stmt.setString(5, adviceIndex);
+			result = stmt.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(stmt, conn);
+		}
+		return result;
+	}
+	
+	public static boolean insert_update(String time,String adviceIndex,String name, String comment,String taskId){
+		boolean result = false;
+		Connection conn = null;
+		
+		try {
+			conn = DBUtils.getConnection();
+			if(judge(conn,adviceIndex,taskId)){
+				update(conn,time, adviceIndex, name,comment, taskId);
+			}else{
+				insert(conn,time, adviceIndex, name,comment, taskId);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(conn);
+		}
+		return result;
+	}
+	
+	public static boolean judge(Connection conn,String adviceIndex,String taskId) {
+		boolean result = false;
+		PreparedStatement stmt = null;
+		
+		try {
+			stmt = conn.prepareStatement("select * from " + TABLE_NAME + " where adviceIndex = ? and task_id = ?");
+			stmt.setString(1, adviceIndex);
+			stmt.setString(2, taskId);
+			result = stmt.executeQuery().next();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(stmt);
 		}
 		return result;
 	}

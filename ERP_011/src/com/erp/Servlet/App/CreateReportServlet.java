@@ -48,7 +48,7 @@ public class CreateReportServlet extends HttpServlet {
 		HashMap<String, String> map = ImageUtils.getMap2(request, tempFilePath, filePath);
 		System.out.println(map);
 		//String time,String reportIndex,String comment,String picture,String task_id
-		ReportDao.insert(TimeUtils.getNowLongTime()+"", map.get("reportIndex"), map.get("comment"), map.get("picture"), map.get("taskId"));
+		ReportDao.update(TimeUtils.getNowLongTime()+"", map.get("reportIndex"), map.get("comment"), map.get("picture"), map.get("taskId"));
 		
 		AppUtils.sendSuccess(response);}
 

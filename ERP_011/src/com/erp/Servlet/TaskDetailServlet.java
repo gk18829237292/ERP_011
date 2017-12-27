@@ -57,20 +57,20 @@ public class TaskDetailServlet extends HttpServlet {
 		switch (actionType) {
 		case "0": // 督查
 			//String time,String adviceIndex,String comment,String picture,String taskId
-			AdviceDao.insert_withDelete(TimeUtils.getNowLongTime()+"", map.get("index"), map.get("comment"), map.get("picture"), map.get("taskId"),map.get("star"));
+			AdviceDao.insert_update(TimeUtils.getNowLongTime()+"", map.get("index"), map.get("comment"), map.get("picture"), map.get("taskId"),map.get("star"));
 			break;
 		case "1"://点评
 			//TODO 后面
 			StuffEntry stuff = (StuffEntry) request.getSession().getAttribute("stuff");
 			System.out.println(map);
-			AdviceDao2.insert_withDelete(TimeUtils.getNowLongTime()+"", map.get("index_1"), stuff.getName(),map.get("comment"),map.get("taskId"));
+			AdviceDao2.insert_update(TimeUtils.getNowLongTime()+"", map.get("index_1"), stuff.getName(),map.get("comment"),map.get("taskId"));
 			break;
 		case "2"://修改提交
 			if(map.get("picture") == null){
 				map.put("picture", "");
 			}
 			System.out.println(map);
-			ReportDao.insert(TimeUtils.getNowLongTime()+"", map.get("index_2"),map.get("comment"), map.get("picture"), map.get("taskId"));
+			ReportDao.update(TimeUtils.getNowLongTime()+"", map.get("index_2"),map.get("comment"), map.get("picture"), map.get("taskId"));
 			break;
 		}
 		

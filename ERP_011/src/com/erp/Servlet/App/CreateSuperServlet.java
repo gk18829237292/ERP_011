@@ -44,7 +44,7 @@ public class CreateSuperServlet extends HttpServlet {
 		String filePath = getServletContext().getRealPath("/img");
 		String tempFilePath = getServletContext().getRealPath("/tmp");
 		HashMap<String, String> map = ImageUtils.getMap2(request, tempFilePath, filePath);
-		AdviceDao.insert_withDelete(TimeUtils.getNowLongTime()+"", map.get("index"), map.get("comment"), map.get("picture"), map.get("taskId"),map.get("star"));
+		AdviceDao.insert_update(TimeUtils.getNowLongTime()+"", map.get("index"), map.get("comment"), map.get("picture"), map.get("taskId"),map.get("star"));
 		AppUtils.sendSuccess(response);
 	}
 

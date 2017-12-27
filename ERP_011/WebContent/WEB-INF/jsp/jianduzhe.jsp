@@ -33,16 +33,24 @@
             <div class="nav-close"><i class="fa fa-times-circle"></i>
             </div>
             <div class="sidebar-collapse">
-                <ul class="nav" id="side-menu">
-                    <li class="nav-header">
-                        <div class="dropdown profile-element">
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <span class="clear">
-                                    <span class="block m-t-xs" style="font-size:20px;">
+                <ul class="nav" id="side-menu" style="width:230px">
+                    <li class="nav-header" class="width:200px">
+                        <div class="dropdown profile-element" >
+                            <a data-toggle="dropdown" class="dropdown-toggle"  href="#">
+                            	<p>
+                                <span class="clear" >
+                                    <span class="block m-t-xs" style="font-size:18px;width:200px">
                                         <i class="fa fa-area-chart"></i>
-                                         <strong class="font-bold">执行力管理云平台<font size="3">（试用版）</font></strong>
+                                         <strong class="font-bold">执行力管理云平台</strong>
                                     </span>
                                 </span>
+                                
+                                </p>
+                                <p>
+                                <span style="font-size:15px;text-align:center;width:180px;display:block">
+                                	(试用版）
+                                </span>
+                                </p>
                             </a>
                         </div>
                         <div class="logo-element">执行力管理云平台（试用版）</div>
