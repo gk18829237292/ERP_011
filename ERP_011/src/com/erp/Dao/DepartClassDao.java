@@ -251,9 +251,11 @@ public class DepartClassDao {
 		boolean result = false;
  		PreparedStatement stmt = null;
  		try {
+ 			System.out.println("delete from " + TABLE_NAME + " where departClass_id = " + deparClasstId);
 			stmt = conn.prepareStatement("delete from " + TABLE_NAME + " where departClass_id = ?");
 			stmt.setString(1, deparClasstId);
-			result = stmt.execute();
+			stmt.execute();
+			result = true;
  		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -300,7 +300,8 @@ public class DepartDao {
  		try {
 			stmt = conn.prepareStatement("delete from " + TABLE_NAME + " where department_id = ?");
 			stmt.setString(1, departId);
-			result = stmt.execute();
+			stmt.execute();
+			result = true;
  		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

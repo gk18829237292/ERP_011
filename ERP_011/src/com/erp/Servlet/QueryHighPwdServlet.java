@@ -47,9 +47,11 @@ public class QueryHighPwdServlet extends HttpServlet {
 				result =  TaskDao.delete(id);
 				break;
 			case 1: //删除部门
+				System.out.println("delete depart");
 				result = DepartDao.delete(id);
 				break;
 			case 2:
+				System.out.println("delete departclass ");
 				result = DepartClassDao.delete(id);
 				break;
 			default:

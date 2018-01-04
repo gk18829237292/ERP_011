@@ -26,11 +26,10 @@ public class DepartClassListServlet extends HttpServlet {
 		List<DepartClassEntry> departClassEntries = DepartClassDao.getAllDepartClass(false);
 		request.setAttribute("departClassList", departClassEntries);
 		request.getRequestDispatcher("/WEB-INF/jsp/departClassList.jsp").forward(request, response);
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		System.out.println("received add ");
 		String actionType = request.getParameter("actiontype");
 		String departClassName = StringUtils.change2Utf8(request.getParameter("departClassName"));
 		switch (actionType) {
